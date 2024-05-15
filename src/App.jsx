@@ -1,32 +1,45 @@
 import React from "react";
-import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Login from "./pages/Login"
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
 // import Header from "./features/Header";
 // import Problem from "./pages/Problem/Problem";
 // import Courses from "./pages/Courses/Courses";
+import Content from "./pages/Content/Content";
 import "./App.css";
 
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const handleLogin = () => {
-  //   setIsLoggedIn(true);
-  // };
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
 
-  // const handleLogout = () => {
-  //   setIsLoggedIn(false);
-  // };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
 
-
-  
-  function App() {
-
+  React.useEffect(() => {
+    // Check for token in local storage
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
   return (
-    <>
-      <Routes>
-        <Route path={'/'} element={<Login />} />
-      </Routes>
-    </>
-  )
+    <Routes>
+      <Route
+        path="/"
+        element={
+          isLoggedIn ? (
+            <Content onLogout={handleLogout} />
+          ) : (
+            <Login onLogin={handleLogin} />
+          )
+        }
+      />
+    </Routes>
+  );
 }
 
 export default App;
