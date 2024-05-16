@@ -3,8 +3,9 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import { Header } from "./features/Header";
+import CoursePage from "./features/CoursePage";
 // import Problem from "./pages/Problem/Problem";
-// import Courses from "./pages/Courses/Courses";
+import Course from "./pages/Courses/Course";
 import Content from "./pages/Content/Content";
 import "./App.css";
 
@@ -26,21 +27,17 @@ function App() {
       setIsLoggedIn(true);
     }
   }, []);
-  return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          isLoggedIn ? (
-            <>
-            <Header onLogout={handleLogout}/>
-            <Content />
-            </>) : (
-            <Login onLogin={handleLogin} />
-          )
-        }
-      />
-    </Routes>
+  return isLoggedIn ? (
+    <>
+      <Header onLogout={handleLogout} />
+      <Routes>
+        <Route path="/" element={<Content />} />
+        <Route path="/course" element={<Course />} />
+        <Route path="/course/:courseId" element={<CoursePage />} />
+      </Routes>
+    </>
+  ) : (
+    <Login onLogin={handleLogin} />
   );
 }
 
