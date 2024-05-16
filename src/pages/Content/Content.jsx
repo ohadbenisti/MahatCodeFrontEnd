@@ -4,7 +4,7 @@ import CoursesComponent from "../../features/Courses";
 const Content = () => {
   return (
     <div>
-      <h1>Courses available:</h1>
+      <h2>Courses available:</h2>
       <CoursesComponent />
     </div>
   );
