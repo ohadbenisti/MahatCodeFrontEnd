@@ -13,7 +13,7 @@ const Login = ({ onLogin }) => {
       headers: { "Access-Control-Allow-Origin": "*" },
     };
     const { data } = await axios.post(
-      "http://localhost:3000/users/login",
+      `${import.meta.env.VITE_SERVER}/users/login`,
       { email: email, password },
       config
     );
