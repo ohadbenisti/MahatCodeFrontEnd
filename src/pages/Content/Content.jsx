@@ -1,12 +1,11 @@
 import React from "react";
 
-const Content = ({ onLogout }) => {
+
+const Content = () => {
   return (
-    <div>
-      <h1>Hello</h1>
-      <button onClick={onLogout}>Logout</button>
-    </div>
-  );
+    
+<h1>content</h1>    
+  )
 };
 
 export default Content;
