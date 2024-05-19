@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 export const Header = ({ onLogout }) => {
   let data = localStorage.getItem("userInfo");
   data = JSON.parse(data);
@@ -12,11 +12,9 @@ export const Header = ({ onLogout }) => {
         fontSize: "30px",
         borderBottom: "1px solid black",
         width: "100vw",
+        backgroundColor: "green"
       }}
     >
-      <Link to={"/"}>Home</Link>
-      <Link to={"/problem"}>Problem</Link>
-      <Link to={"/course"}>Courses</Link>
       <h2>Hello {name}😊</h2>
       <button onClick={onLogout}>Logout</button>
     </div>
