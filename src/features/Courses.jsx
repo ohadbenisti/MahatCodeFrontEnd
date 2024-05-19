@@ -11,6 +11,9 @@ const CoursesComponent = () => {
   //   const user = dataObject.data.user;
   //   const { userId } = user;
   // }, []);
+  let data = localStorage.getItem("userInfo");
+  data = JSON.parse(data);
+  const userId = data.data.user._id;
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_SERVER}/course`)
@@ -26,7 +29,7 @@ const CoursesComponent = () => {
       {availableCourses ? (
         availableCourses.map((course) => (
           <div key={course._id} className="card" style={{ width: "18rem" }}>
-            <Link to={`${import.meta.env.VITE_SERVER}/course/${course._id}`}>
+            <Link to={`/course/${course._id}?userId=${userId}`}>
               <img
                 className="card-img-top"
                 src={course.image}
