@@ -11,7 +11,7 @@ const Question = ({ currentQuestion }) => {
     } else {
       fetchData(questionId);
     }
-  }, []);
+  }, [currentQuestion]);
 
   const fetchData = async (questionId) => {
     try {
@@ -26,8 +26,6 @@ const Question = ({ currentQuestion }) => {
     }
     console.log(questionToDisplay);
   };
-
-  return <div className="col-md-5 pre-wrap" style={{ whiteSpace: 'pre-wrap' }}>{question.description}</div>;
-
+  return <div className="col-md-5" style={{ whiteSpace: 'pre-wrap' }}>{questionToDisplay.description}</div>;
 };
 export default Question;
