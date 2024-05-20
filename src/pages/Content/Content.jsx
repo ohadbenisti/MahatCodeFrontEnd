@@ -6,10 +6,11 @@ import Filter from "../../features/Filter";
 const Content = () => {
   const [filter, setFilter] = useState("");
   return (
-    <div>
-      <h2>Courses available:</h2>
+    <div className="container ">
+      <h2>קורסים</h2>
       <CoursesComponent />
-      <div className="container my-4">
+      <h2>שאלות</h2>
+      <div className="my-4">
         <Filter setFilter={setFilter} />
         <QuestionTable filter={filter} />
       </div>
