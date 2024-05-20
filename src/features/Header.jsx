@@ -12,12 +12,12 @@ export const Header = ({ onLogout }) => {
         fontSize: "30px",
         borderBottom: "1px solid black",
         width: "100vw",
-        backgroundColor: "green"
+        backgroundColor: "lightblue"
       }}
     >
       <h2>Hello {name}😊</h2>
       <Link to={'/'}>Home</Link>
-      <button onClick={onLogout}>Logout</button>
+      <button style={{ backgroundColor: 'lightblue', color: 'blue', border: 'none', padding: '5px 10px', borderRadius: '3px', cursor: 'pointer' }} onClick={onLogout}>Logout</button>
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp/SignUp";
 import { Header } from "./features/Header";
 import CoursePage from "./features/CoursePage";
 // import Problem from "./pages/Problem/Problem";
@@ -21,6 +22,7 @@ function App() {
     setIsLoggedIn(false);
   };
 
+
   React.useEffect(() => {
     // Check for token in local storage
     const token = localStorage.getItem("token");
@@ -39,7 +41,18 @@ function App() {
       </Routes>
     </>
   ) : (
-    <Login onLogin={handleLogin} />
+    <>
+      <Routes>
+        <Route path="/signup" element={<SignUp onSubmit={handleLogin} />} />
+      </Routes>
+      <nav>
+        <Link to="/signup">
+          <button style={{ backgroundColor: 'lightblue', color: 'white', border: 'none', padding: '10px 100px', borderRadius: '5px', cursor: 'pointer' }}>Sign Up</button>
+        </Link>
+      </nav>
+      <Login onLogin={handleLogin} />
+    </>
+
   );
 }
 
