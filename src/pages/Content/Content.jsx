@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import CoursesComponent from "../../features/Courses";
 import QuestionTable from "../../features/QuestionTable";
+import Filter from "../../features/Filter";
 
 const Content = () => {
   const [filter, setFilter] = useState("");
   return (
-    <div>
-      <h2>Courses available:</h2>
+    <div className="container ">
+      <h2>קורסים</h2>
       <CoursesComponent />
-      {/* <Filter setFilter={setFilter} /> */}
-      <QuestionTable filter={filter} />
+      <h2>שאלות</h2>
+      <div className="my-4">
+        <Filter setFilter={setFilter} />
+        <QuestionTable filter={filter} />
+      </div>
     </div>
   );
 };

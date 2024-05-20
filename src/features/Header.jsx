@@ -12,12 +12,24 @@ export const Header = ({ onLogout }) => {
         fontSize: "30px",
         borderBottom: "1px solid black",
         width: "100vw",
-        backgroundColor: "lightblue"
+        backgroundColor: "lightblue",
       }}
     >
-      <h2>Hello {name}😊</h2>
-      <Link to={'/'}>Home</Link>
-      <button style={{ backgroundColor: 'lightblue', color: 'blue', border: 'none', padding: '5px 10px', borderRadius: '3px', cursor: 'pointer' }} onClick={onLogout}>Logout</button>
+      <h2>שלום {name}😊</h2>
+      <Link to={"/"}>דף הבית</Link>
+      <button
+        style={{
+          backgroundColor: "lightblue",
+          color: "blue",
+          border: "none",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          cursor: "pointer",
+        }}
+        onClick={onLogout}
+      >
+        התנתקות
+      </button>
     </div>
   );
 };
