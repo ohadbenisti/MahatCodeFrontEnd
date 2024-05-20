@@ -22,9 +22,6 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  const handleSubmit = (formData) => {
-    console.log('Form submitted:', formData);
-  };
 
   React.useEffect(() => {
     // Check for token in local storage
@@ -46,7 +43,7 @@ function App() {
   ) : (
     <>
       <Routes>
-        <Route path="/signup" element={<SignUp onSubmit={handleSubmit} />} />
+        <Route path="/signup" element={<SignUp onSubmit={handleLogin} />} />
       </Routes>
       <nav>
         <Link to="/signup">

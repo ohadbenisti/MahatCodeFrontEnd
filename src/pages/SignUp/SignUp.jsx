@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './SignUp.css';  
+import './SignUp.css';
+import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const SignUp = ({ onSubmit }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,22 +20,31 @@ const SignUp = () => {
         setError('');
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_SERVER}/users/signup`, {
+            const url = `${import.meta.env.VITE_SERVER}/users/signup`;
+            console.log('Sending request to:', url);
+
+            const response = await axios.post(url, {
                 name,
                 email,
                 password
             });
+
             console.log('Sign up successful', response.data);
-            // מאפשר לאתחל את השדות לאחר ההצלחה
-            setName('');
-            setEmail('');
-            setPassword('');
-            setConfirmPassword('');
+
+            localStorage.setItem("userInfo", JSON.stringify(response.data));
+            localStorage.setItem("token", response.data.token);
+            
+            if (onSubmit) {
+                onSubmit();
+            }
+
+            navigate("/");
+
         } catch (err) {
             console.error('Error during sign up', err);
             setError('An error occurred during registration');
         }
-    };
+    }
 
     return (
         <div className="signup-container">
@@ -80,7 +91,7 @@ const SignUp = () => {
                         required
                     />
                 </div>
-                <button id='but' type="submit">Sign Up</button>
+                <button id='but' type="submit" className="btn btn-primary" style={{ width: '200px', margin: '0 auto', display: 'block' }}>Sign Up</button>
             </form>
         </div>
     );
