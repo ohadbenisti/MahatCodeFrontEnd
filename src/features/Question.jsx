@@ -24,6 +24,6 @@ const Question = ({ currentQuestion }) => {
       console.error("Error fetching question data:", error);
     }
   };
-  return <div className="col-md-5">{question.description}</div>;
+  return <div className="col-md-5 pre-wrap" style={{ whiteSpace: 'pre-wrap' }}>{question.description}</div>;
 };
 export default Question;
