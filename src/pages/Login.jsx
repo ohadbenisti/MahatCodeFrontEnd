@@ -14,8 +14,8 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     const config = {
       headers: {
-        "Access-Control-Allow-Origin": "*"
-      }
+        "Access-Control-Allow-Origin": "*",
+      },
     };
 
     try {
@@ -34,7 +34,11 @@ const Login = ({ onLogin }) => {
         navigate("/");
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         alert(error.response.data.message);
       } else {
         alert("An error occurred during login");
@@ -46,11 +50,9 @@ const Login = ({ onLogin }) => {
     setShowPassword(!showPassword);
   };
 
-
-
   return (
     <form onSubmit={handleLogin}>
-      <label htmlFor="">Email:  </label>
+      <label htmlFor="">Email: </label>
       <br />
       <input
         onChange={(e) => setEmail(e.target.value)}
@@ -64,7 +66,6 @@ const Login = ({ onLogin }) => {
           onChange={(e) => setPassword(e.target.value)}
           value={password || localStorage.getItem("password") || ""}
         />
-
 
         <button type="button" onClick={toggleShowPassword}>
           {showPassword ? <FaEyeSlash /> : <FaEye />}
