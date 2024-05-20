@@ -8,6 +8,7 @@ import CoursePage from "./features/CoursePage";
 import Course from "./pages/Courses/Course";
 import Content from "./pages/Content/Content";
 import "./App.css";
+import Problem from "./pages/Problem/Problem";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,6 +35,7 @@ function App() {
         <Route path="/" element={<Content />} />
         <Route path="/course" element={<Course />} />
         <Route path="/course/:courseId" element={<CoursePage />} />
+        <Route path="/problem/:questionId" element={<Problem />} />
       </Routes>
     </>
   ) : (
