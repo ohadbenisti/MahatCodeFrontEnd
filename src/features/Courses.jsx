@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import useLogin from "../hooks/useLogin";
 
 const CoursesComponent = () => {
   const [availableCourses, setAvailableCourses] = useState([]);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
-  const userInfo = useLogin()
-  const userId = (userInfo.data.user._id);
 
   // useEffect(() => {
   //   const data = localStorage.getItem("userInfo");
@@ -14,9 +11,9 @@ const CoursesComponent = () => {
   //   const user = dataObject.data.user;
   //   const { userId } = user;
   // }, []);
-  // let data = localStorage.getItem("userInfo");
-  // data = JSON.parse(data);
-  // const userId = data.data.user._id;
+  let data = localStorage.getItem("userInfo");
+  data = JSON.parse(data);
+  const userId = data.data.user._id;
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_SERVER}/course`)
