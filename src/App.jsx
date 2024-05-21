@@ -1,6 +1,6 @@
-import React, { createContext } from "react";
+import React from "react";
 import { useState } from "react";
-import { Route, Routes, Link, useNavigate } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import { Header } from "./features/Header";
@@ -11,54 +11,47 @@ import Content from "./pages/Content/Content";
 import "./App.css";
 import Problem from "./pages/Problem/Problem";
 
-export const UserContext = createContext()
-
 function App() {
-  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')))
-  // const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('userInfo'))?.token ? true : false);
-  const navigate = useNavigate()
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogin = () => {
-    setUserInfo(JSON.parse(localStorage.getItem('userInfo')))
+    setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userInfo");
-    setUserInfo(undefined)
-    navigate('/login')
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
   };
 
 
-  // React.useEffect(() => {
-  //   // Check for token in local storage
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     setIsLoggedIn(true);
-  //   }
-  // }, []);
-  return (
-    // isLoggedIn ? (
-    <UserContext.Provider value={{ userInfo }}>
-      {userInfo && <Header onLogout={handleLogout} />}
+  React.useEffect(() => {
+    // Check for token in local storage
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+  return isLoggedIn ? (
+    <>
+      <Header onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Content />} />
-        <Route path="/signup" element={<SignUp onSubmit={handleLogin} />} />
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/course" element={<Course />} />
         <Route path="/course/:courseId" element={<CoursePage />} />
         <Route path="/problem/:questionId" element={<Problem />} />
       </Routes>
-    </UserContext.Provider>
-    // ) : (
-    //   <>
-    //     <Routes>
-    //     </Routes>
-    //     <nav>
-    //       <Link to="/signup">
-    //         <button style={{ backgroundColor: 'lightblue', color: 'white', border: 'none', padding: '10px 100px', borderRadius: '5px', cursor: 'pointer' }}>Sign Up</button>
-    //       </Link>
-    //     </nav>
-    // </>
+    </>
+  ) : (
+    <>
+      <Routes>
+        <Route path="/signup" element={<SignUp onSubmit={handleLogin} />} />
+      </Routes>
+      <nav>
+        <Link to="/signup">
+          <button style={{ backgroundColor: 'lightblue', color: 'white', border: 'none', padding: '10px 100px', borderRadius: '5px', cursor: 'pointer' }}>Sign Up</button>
+        </Link>
+      </nav>
+      <Login onLogin={handleLogin} />
+    </>
 
   );
 }
