@@ -1,8 +1,11 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useLogin from "../hooks/useLogin";
+import Login from "../pages/Login";
+
 export const Header = ({ onLogout }) => {
-  let data = localStorage.getItem("userInfo");
-  data = JSON.parse(data);
-  const { name } = data.data.user;
+  const userInfo = useLogin()
+  console.log(userInfo);
 
   return (
     <div
@@ -16,11 +19,12 @@ export const Header = ({ onLogout }) => {
         padding: "10px", // הוספת ריווח פנימי
         background: "linear-gradient(to right, #ADD8E6, #0000FF)",
       }}
-    >
+
       <h2 style={{ margin: 0 }}>שלום {name} 😊</h2> {/* הסרת מרווח מלמעלה וממטה */}
       <Link to="/" style={{ color: "#8B0000", textDecoration: "none" }}>
         דף הבית
       </Link>
+
       <button
         style={{
           backgroundColor: "lightblue",
