@@ -11,28 +11,33 @@ export const Header = ({ onLogout }) => {
     <div
       style={{
         display: "flex",
+        alignItems: "center", // יישור האלמנטים במרכז הגובה
         gap: "20px",
         fontSize: "30px",
         borderBottom: "1px solid black",
         width: "100vw",
-        backgroundColor: "lightblue",
+        padding: "10px", // הוספת ריווח פנימי
+        background: "linear-gradient(to right, #ADD8E6, #0000FF)",
       }}
-    > 
-      <h2>שלום {userInfo.data.user.name}😊</h2>
-      <Link to={"/"}>דף הבית</Link>
+
+      <h2 style={{ margin: 0 }}>שלום {name} 😊</h2> {/* הסרת מרווח מלמעלה וממטה */}
+      <Link to="/" style={{ color: "#8B0000", textDecoration: "none" }}>
+        דף הבית
+      </Link>
+
       <button
         style={{
           backgroundColor: "lightblue",
-          color: "blue",
+          color: "#8B0000",
           border: "none",
-          padding: "5px 10px",
-          borderRadius: "3px",
+          padding: "8px 16px", // הגדלת הריווח הפנימי של הכפתור
+          borderRadius: "5px", // הגדלת הרדיוס של הכפתור
           cursor: "pointer",
+          fontWeight: "bold", // הדגשת הטקסט של הכפתור
         }}
         onClick={onLogout}
       >
         התנתקות
       </button>
     </div>
-  );
-};
+  )}
