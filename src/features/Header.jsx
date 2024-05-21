@@ -1,8 +1,11 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useLogin from "../hooks/useLogin";
+import Login from "../pages/Login";
+
 export const Header = ({ onLogout }) => {
-  let data = localStorage.getItem("userInfo");
-  data = JSON.parse(data);
-  const { name } = data.data.user;
+  const userInfo = useLogin()
+  console.log(userInfo);
 
   return (
     <div
@@ -14,8 +17,8 @@ export const Header = ({ onLogout }) => {
         width: "100vw",
         backgroundColor: "lightblue",
       }}
-    >
-      <h2>שלום {name}😊</h2>
+    > 
+      <h2>שלום {userInfo.data.user.name}😊</h2>
       <Link to={"/"}>דף הבית</Link>
       <button
         style={{
