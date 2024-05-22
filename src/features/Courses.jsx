@@ -6,7 +6,7 @@ const CoursesComponent = () => {
   const [availableCourses, setAvailableCourses] = useState([]);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const userInfo = useLogin()
-  const userId = (userInfo.data.user._id);
+  const userId = (userInfo?.data.user._id);
 
   // useEffect(() => {
   //   const data = localStorage.getItem("userInfo");

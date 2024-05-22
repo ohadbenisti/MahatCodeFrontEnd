@@ -17,7 +17,7 @@ function App() {
   const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')))
   // const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('userInfo'))?.token ? true : false);
   const navigate = useNavigate()
-  
+
   const handleLogin = () => {
     setUserInfo(JSON.parse(localStorage.getItem('userInfo')))
   };
@@ -39,7 +39,7 @@ function App() {
   return (
     // isLoggedIn ? (
     <UserContext.Provider value={{ userInfo }}>
-      {userInfo && <Header onLogout={handleLogout} />}
+      <Header onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Content />} />
         <Route path="/signup" element={<SignUp onSubmit={handleLogin} />} />
