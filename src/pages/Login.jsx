@@ -46,13 +46,9 @@ const Login = ({ onLogin }) => {
 
   ;
   return (
-    <div className="d-flex justify-content-center w-100 p-4">
-      <nav>
-        <Link to="/signup">
-          <button style={{ backgroundColor: 'lightblue', color: 'white', border: 'none', padding: '10px 72px', borderRadius: '5px', cursor: 'pointer' }}>Sign Up</button>
-        </Link>
-      </nav>
-      <div className="d-flex justify-content-center flex-grow-1" style={{marginLeft: '150px'}}>
+    <>
+      
+      <div className="d-flex justify-content-center flex-grow-1 mt-4" >
         <form className="col-4" onSubmit={handleLogin}>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
@@ -70,7 +66,7 @@ const Login = ({ onLogin }) => {
           <button type="submit" className="btn btn-primary btn-md d-block mx-auto">Submit</button>
         </form>
       </div>
-    </div>
+      </>
   );
 };
 

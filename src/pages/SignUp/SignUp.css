@@ -3,10 +3,11 @@
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #c5b1b1;
+    /* border: 1px solid #e8e1e1;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: lightblue;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    background-color: #e3e7eb;
+    margin-top: 15px;
 }
 
 #h {

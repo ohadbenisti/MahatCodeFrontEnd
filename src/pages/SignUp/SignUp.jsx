@@ -47,13 +47,10 @@ const SignUp = ({ onSubmit }) => {
 
     return (
         <div className="d-flex flex-column min-vh-100">
-            <div className="d-flex justify-content-start align-items-start w-100 p-4">
-                <nav>
-                    <Link to="/login">
-                        <button style={{ backgroundColor: 'lightblue', color: 'white', border: 'none', padding: '10px 80px', borderRadius: '5px', cursor: 'pointer' }}>Login</button>
-                    </Link>
-                </nav>
-            </div>
+            
+                
+                   
+            
             <div className="d-flex justify-content-center align-items-start flex-grow-1 w-100">
                 <div id="signup-container">
                     <h2 id="h">הרשמה</h2>
