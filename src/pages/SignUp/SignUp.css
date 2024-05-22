@@ -1,12 +1,12 @@
-/* styles.css */
-.signup-container {
+#signup-container {
+    width: 370px;
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #c5b1b1;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color:lightblue;
+    background-color: lightblue;
 }
 
 #h {
@@ -48,3 +48,5 @@
 #but:hover {
     background-color: #8b96a1;
 }
+
+
