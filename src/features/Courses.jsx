@@ -5,8 +5,8 @@ import useLogin from "../hooks/useLogin";
 const CoursesComponent = () => {
   const [availableCourses, setAvailableCourses] = useState([]);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
-  const userInfo = useLogin()
-  const userId = (userInfo?.data.user._id);
+  const userInfo = useLogin();
+  const userId = userInfo?.data.user._id;
 
   // useEffect(() => {
   //   const data = localStorage.getItem("userInfo");
