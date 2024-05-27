@@ -73,18 +73,7 @@ const Login = ({ onLogin }) => {
               value={password}
             />
           </div>
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-            {/* <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label> */}
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary btn-md d-block mx-auto"
-          >
+          <button id="but" type="submit" className="btn btn-primary">
             התחברות
           </button>
         </form>
