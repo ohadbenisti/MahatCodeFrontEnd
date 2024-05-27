@@ -9,7 +9,8 @@ const CourseSideBar = ({ courseDetails, setCurrentQuestion }) => {
           <li
             key={question._id}
             className="list-group-item"
-            onClick={() =>{ setCurrentQuestion(question)
+            onClick={() => {
+              setCurrentQuestion(question);
             }}
             style={{ cursor: "pointer" }}
           >
