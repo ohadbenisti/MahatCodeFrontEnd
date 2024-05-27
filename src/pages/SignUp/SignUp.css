@@ -37,10 +37,11 @@
 }
 
 #but {
-    width: 100%;
+    width: 30%;
     padding: 10px;
-    background-color: #82a5cd;
-    color: rgb(109, 94, 94);
+    margin-right:37%;
+    margin-top: 35px;
+    background-color: #17293e;
     border: none;
     border-radius: 5px;
     cursor: pointer;

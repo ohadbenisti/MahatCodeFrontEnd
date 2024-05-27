@@ -12,10 +12,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root{
-min-width: 100vw;
+/* #root{
+max-width: 100vw;
 
-}
+} */
 
 a {
   font-weight: 500;
@@ -29,9 +29,7 @@ a:hover {
 body {
   direction: rtl;
   margin: 0;
-  display: flex;
-  min-width: 100vw;
-  min-height: 100vh;
+  max-width: 100vw;
 }
 
 h1 {

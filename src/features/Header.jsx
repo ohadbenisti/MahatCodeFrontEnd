@@ -22,13 +22,15 @@ export const Header = ({ onLogout }) => {
         padding: "10px", // כדי לתת מרווח מסביב לתכנים
       }}
     >
-      <img src={logo} style={{ width: "20vw" }} alt="logo" />
-
       {/* השימוש ב-Margin Left Auto יניב תוצאה דומה להגדרת Float Right */}
       {userInfo ? (
+        <>
+            <Link to={"/"}>
+              <img src={logo} style={{ width: "20vw" }} alt="logo" />
+            </Link>
         <div
           className="d-flex justify-content-between"
-          style={{ width: "100%", gap: "35px", marginLeft: "auto" }}
+          style={{ width: "100%", gap: "35px" }}
         >
           <div className="d-flex">
             <p style={{ color: "#f8f8f8" }}>שלום {userInfo.data.user.name}😊</p>
@@ -50,9 +52,10 @@ export const Header = ({ onLogout }) => {
           >
             התנתקות
           </button>
-        </div>
+        </div></>
       ) : (
         <>
+          <img src={logo} style={{ width: "20vw" }} alt="logo" />
           {location.pathname === "/login" && (
             <Link to="/signup" style={{ color: "#f8f8f8" }}>
               הרשמה
