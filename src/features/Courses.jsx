@@ -28,10 +28,10 @@ const CoursesComponent = () => {
   }, []);
   //Need to change to course path, and add user to the req.body
   return (
-    <div>
+    <div className="d-flex">
       {availableCourses ? (
         availableCourses.map((course) => (
-          <div key={course._id} className="card" style={{ width: "18rem" }}>
+          <div key={course._id} className="card mx-1" style={{ width: "18rem" }}>
             <Link to={`/course/${course._id}?userId=${userId}`}>
               <img
                 className="card-img-top"
@@ -40,7 +40,7 @@ const CoursesComponent = () => {
               />
             </Link>
             <div className="card-body">
-              <p className="card-text">{course.name}</p>
+              <p className="card-text text-center">{course.name}</p>
             </div>
           </div>
         ))
