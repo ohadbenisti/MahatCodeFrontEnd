@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./css/Codebox.css";
+import CodeEditor from "./Codebox2";
 
 const Codebox = () => {
-  const [code, setCode] = useState("# Write your Python code here");
+  const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
 
   const runCode = async () => {
@@ -41,15 +43,19 @@ const Codebox = () => {
   };
 
   return (
-    <div className="d-flex flex-column">
+    <div className="d-flex flex-column ">
       {/* <code-runner language="python">print('hello world')</code-runner> */}
-      <textarea
-        style={{ direction: "ltr" }}
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        rows={10}
-        cols={50}
-      />
+      {/* <div className="editor-container">
+        <textarea
+          className="code-editor"
+          style={{ direction: "ltr" }}
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          rows={10}
+          cols={50}
+        />
+      </div> */}
+      <CodeEditor code={code} setCode={setCode} />
       <button onClick={runCode} style={{ alignSelf: "flex-start" }}>
         הרץ קוד
       </button>

@@ -13,7 +13,7 @@ const AnswerSection = ({ currentQuestion }) => {
   };
 
   return (
-    <div>
+    <div className="col-md-5">
       <button onClick={() => setActiveComponent("Codebox")}>קוד</button>
       <button onClick={() => setActiveComponent("Answer")}>פתרון</button>
       <button onClick={() => setActiveComponent("Forum")}>פורום</button>

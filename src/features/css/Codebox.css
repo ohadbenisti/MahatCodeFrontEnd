@@ -1,0 +1,55 @@
+.editor-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1e1e1e;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.code-editor {
+  width: 100%;
+  max-width: 800px;
+  height: 90%;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  font-family: "Source Code Pro", monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  border: 1px solid #3c3c3c;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  overflow: auto;
+  outline: none;
+  resize: none;
+}
+
+.code-editor::placeholder {
+  color: #6a6a6a;
+}
+
+.code-editor:focus {
+  border-color: #007acc;
+  box-shadow: 0 0 10px rgba(0, 122, 204, 0.5);
+}
+
+/* Custom Scrollbar */
+.code-editor::-webkit-scrollbar {
+  width: 12px;
+}
+
+.code-editor::-webkit-scrollbar-track {
+  background: #2a2a2a;
+  border-radius: 4px;
+}
+
+.code-editor::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+.code-editor::-webkit-scrollbar-thumb:hover {
+  background: #007acc;
+}
