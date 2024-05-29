@@ -10,6 +10,7 @@ import Course from "./pages/Courses/Course";
 import Content from "./pages/Content/Content";
 import "./App.css";
 import Problem from "./pages/Problem/Problem";
+import AdminPage from "./pages/Admin/AdminPage";
 
 export const UserContext = createContext();
 
@@ -48,6 +49,7 @@ function App() {
         <Route path="/course" element={<Course />} />
         <Route path="/course/:courseId" element={<CoursePage />} />
         <Route path="/problem/:questionId" element={<Problem />} />
+        <Route path="/admin" element={<AdminPage/>} />
       </Routes>
     </UserContext.Provider>
     // ) : (
