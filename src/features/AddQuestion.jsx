@@ -13,6 +13,7 @@ function AddQuestion() {
   const [difficulty, setDifficulty] = useState('easy');
   const [tags, setTags] = useState([]);
   const [error, setError] = useState('');
+  const [showForm, setShowForm] = useState(false); // State to manage form visibility
   const navigate = useNavigate();
 
   // Handle changes in tag selection
@@ -60,117 +61,123 @@ function AddQuestion() {
   ];
 
   return (
-    <div className="add-question-container">
-      <h2 className="add-question-title">טופס הוספת שאלה</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="add-question-form-group">
-          <label htmlFor="title">כותרת</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required // Title is required
-          />
-        </div>
-        <div className="add-question-form-group">
-          <label htmlFor="description">תיאור</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required // Description is required
-          />
-        </div>
-        <div className="add-question-form-group">
-          <label htmlFor="testInput">טסט קלט</label>
-          <input
-            type="text"
-            id="testInput"
-            value={testInput}
-            onChange={(e) => setTestInput(e.target.value)}
-            required // Test input is required
-          />
-        </div>
-        <div className="add-question-form-group">
-          <label htmlFor="testOutput">טסט פלט</label>
-          <input
-            type="text"
-            id="testOutput"
-            value={testOutput}
-            onChange={(e) => setTestOutput(e.target.value)}
-            required // Test output is required
-          />
-        </div>
-        <div className="add-question-form-group">
-          <label htmlFor="solution">פתרון</label>
-          <textarea
-            id="solution"
-            value={solution}
-            onChange={(e) => setSolution(e.target.value)}
-            required // Solution is required
-          />
-        </div>
-        <div className="add-question-form-group">
-          <label>רמת קושי</label>
-          <div className="radio-container">
-            <div className="inline">
+    <>
+      <button id="but" type="button" className="btn btn-primary m-3 w-5" onClick={() => setShowForm(true)}>
+        הוספת שאלה
+      </button>
+      {showForm && (
+        <div className="add-question-container">
+          <h2 className="add-question-title">טופס הוספת שאלה</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="add-question-form-group">
+              <label htmlFor="title">כותרת</label>
               <input
-                type="radio"
-                id="easy"
-                name="difficulty"
-                value="easy"
-                checked={difficulty === 'easy'}
-                onChange={(e) => setDifficulty(e.target.value)}
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required // Title is required
               />
-              <label htmlFor="easy">קל</label>
             </div>
-            <div className="inline">
+            <div className="add-question-form-group">
+              <label htmlFor="description">תיאור</label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required // Description is required
+              />
+            </div>
+            <div className="add-question-form-group">
+              <label htmlFor="testInput">טסט קלט</label>
               <input
-                type="radio"
-                id="medium"
-                name="difficulty"
-                value="medium"
-                checked={difficulty === 'medium'}
-                onChange={(e) => setDifficulty(e.target.value)}
+                type="text"
+                id="testInput"
+                value={testInput}
+                onChange={(e) => setTestInput(e.target.value)}
+                required // Test input is required
               />
-              <label htmlFor="medium">בינוני</label>
             </div>
-            <div className="inline">
+            <div className="add-question-form-group">
+              <label htmlFor="testOutput">טסט פלט</label>
               <input
-                type="radio"
-                id="hard"
-                name="difficulty"
-                value="hard"
-                checked={difficulty === 'hard'}
-                onChange={(e) => setDifficulty(e.target.value)}
+                type="text"
+                id="testOutput"
+                value={testOutput}
+                onChange={(e) => setTestOutput(e.target.value)}
+                required // Test output is required
               />
-              <label htmlFor="hard">קשה</label>
             </div>
-          </div>
-        </div>
-        <div className="add-question-form-group">
-          <label>תגיות:</label>
-          <div className="checkbox-container">
-            {tagOptions.map(tag => (
-              <div key={tag.id} className="inline">
-                <input
-                  type="checkbox"
-                  id={tag.id}
-                  value={tag.id}
-                  checked={tags.includes(tag.id)}
-                  onChange={handleTagChange} // Handle tag selection
-                />
-                <label htmlFor={tag.id}>{tag.label}</label>
+            <div className="add-question-form-group">
+              <label htmlFor="solution">פתרון</label>
+              <textarea
+                id="solution"
+                value={solution}
+                onChange={(e) => setSolution(e.target.value)}
+                required // Solution is required
+              />
+            </div>
+            <div className="add-question-form-group">
+              <label>רמת קושי</label>
+              <div className="radio-container">
+                <div className="inline">
+                  <input
+                    type="radio"
+                    id="easy"
+                    name="difficulty"
+                    value="easy"
+                    checked={difficulty === 'easy'}
+                    onChange={(e) => setDifficulty(e.target.value)}
+                  />
+                  <label htmlFor="easy">קל</label>
+                </div>
+                <div className="inline">
+                  <input
+                    type="radio"
+                    id="medium"
+                    name="difficulty"
+                    value="medium"
+                    checked={difficulty === 'medium'}
+                    onChange={(e) => setDifficulty(e.target.value)}
+                  />
+                  <label htmlFor="medium">בינוני</label>
+                </div>
+                <div className="inline">
+                  <input
+                    type="radio"
+                    id="hard"
+                    name="difficulty"
+                    value="hard"
+                    checked={difficulty === 'hard'}
+                    onChange={(e) => setDifficulty(e.target.value)}
+                  />
+                  <label htmlFor="hard">קשה</label>
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+            <div className="add-question-form-group">
+              <label>תגיות:</label>
+              <div className="checkbox-container">
+                {tagOptions.map(tag => (
+                  <div key={tag.id} className="inline">
+                    <input
+                      type="checkbox"
+                      id={tag.id}
+                      value={tag.id}
+                      checked={tags.includes(tag.id)}
+                      onChange={handleTagChange} // Handle tag selection
+                    />
+                    <label htmlFor={tag.id}>{tag.label}</label>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <button className="add-question-submit-btn" type="submit">הוספת שאלה</button>
+            {error && <p className="add-question-error">{error}</p>} {/* Display error message if any */}
+          </form>
         </div>
-        <button className="add-question-submit-btn" type="submit">הוספת שאלה</button>
-        {/* {error && <p className="add-question-error">{error}</p>} // Display error message if any */}
-      </form>
-    </div>
-    
+      )}
+    </>
   );
 }
 
