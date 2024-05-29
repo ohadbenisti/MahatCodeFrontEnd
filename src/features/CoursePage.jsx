@@ -3,6 +3,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import CourseSideBar from "./CourseSideBar";
 import useLogin from "../hooks/useLogin";
 import Problem from "../pages/Problem/Problem";
+import EnrollmentComponent from "./Enrolment";
 // import Question from "./Question";
 // import AnswerSection from "./AnswerSection";
 
@@ -14,6 +15,8 @@ const CoursePage = () => {
   const [searchParams] = useSearchParams();
   const userId = searchParams.get("userId");
   const userInfo = useLogin();
+  const [isEnrolled, setIsEnrolled] = useState(false);
+
 
   useEffect(() => {
     // Fetch course data
@@ -27,6 +30,7 @@ const CoursePage = () => {
         if (data && data.course) {
           setCourse(data.course); // Set course data to state
           if (data.course.Enrolled) {
+            setIsEnrolled(true)
             setCurrentQuestion(data.course.progress);
           } else if (
             data.course.courseQuestions &&
@@ -55,26 +59,32 @@ const CoursePage = () => {
   console.log("current question:" + currentQuestion);
 
   return (
-    <div>
-      {course ? (
-        <div className="d-flex">
-          <div className="col-md-2 min-vh-100 bg-light">
-            <CourseSideBar
-              courseDetails={course}
-              setCurrentQuestion={setCurrentQuestion}
-            />
-          </div>
-          <div className="col-md-10">
-            <Problem courseQuestion={currentQuestion} />
-            {/* <Question courseQuestion={currentQuestion} />
-            <AnswerSection courseQuestion={currentQuestion} /> */}
-          </div>
+    <>
+      <EnrollmentComponent isEnrolled={isEnrolled} setIsEnrolled={setIsEnrolled} courseId={courseId}/>
+      {isEnrolled && (
+        <div>
+          {course ? (
+            <div className="d-flex">
+              <div className="col-md-2 min-vh-100 bg-light">
+                <CourseSideBar
+                  courseDetails={course}
+                  setCurrentQuestion={setCurrentQuestion}
+                />
+              </div>
+              <div className="col-md-10">
+                <Problem courseQuestion={currentQuestion} />
+                {/* <Question courseQuestion={currentQuestion} />
+                <AnswerSection courseQuestion={currentQuestion} /> */}
+              </div>
+            </div>
+          ) : (
+            <div>Course not found</div>
+          )}
         </div>
-      ) : (
-        <div>Course not found</div>
       )}
-    </div>
+    </>
   );
-};
+}  
+  
 
 export default CoursePage;
