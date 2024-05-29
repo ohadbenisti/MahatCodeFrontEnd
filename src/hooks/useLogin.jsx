@@ -17,4 +17,4 @@ const useLogin = (path) => {
     return userInfo
 }
 
-export default useLogin
+export default useLogin;
