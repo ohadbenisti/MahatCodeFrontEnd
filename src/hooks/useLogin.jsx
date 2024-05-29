@@ -1,17 +1,18 @@
-import { useContext, useEffect, useState } from "react"
-import { UserContext } from "../App"
-import { useNavigate } from "react-router-dom"
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const useLogin = (path) => {
-    const { userInfo } = useContext(UserContext)
-    const navigate = useNavigate()
+  const { userInfo } = useContext(UserContext);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!userInfo) {
-            navigate(path || '/login')
-        }
-    }, [])
-    return userInfo
-}
+  useEffect(() => {
+    if (!userInfo) {
+      navigate(path || "/login");
+    }
+  }, []);
+  console.log(userInfo);
+  return userInfo;
+};
 
-export default useLogin
+export default useLogin;
