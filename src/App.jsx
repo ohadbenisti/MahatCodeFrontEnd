@@ -11,23 +11,24 @@ import Content from "./pages/Content/Content";
 import "./App.css";
 import Problem from "./pages/Problem/Problem";
 
-export const UserContext = createContext()
+export const UserContext = createContext();
 
 function App() {
-  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')))
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("userInfo"))
+  );
   // const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('userInfo'))?.token ? true : false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogin = () => {
-    setUserInfo(JSON.parse(localStorage.getItem('userInfo')))
+    setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
   };
 
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
-    setUserInfo(undefined)
-    navigate('/login')
+    setUserInfo(undefined);
+    navigate("/login");
   };
-
 
   // React.useEffect(() => {
   //   // Check for token in local storage
@@ -59,7 +60,6 @@ function App() {
     //       </Link>
     //     </nav>
     // </>
-
   );
 }
 
