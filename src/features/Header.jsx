@@ -9,50 +9,71 @@ export const Header = ({ onLogout }) => {
   const userInfo = useLogin();
   console.log(userInfo);
   const location = useLocation();
+
+
   return (
     <div
       style={{
         display: "flex",
-        alignItems: "center", // כדי ליישר את האלמנטים לאמצע
+        alignItems: "center",
         backgroundColor: "#577B8D",
         gap: "20px",
         fontSize: "30px",
         borderBottom: "1px solid black",
         width: "100vw",
-        padding: "10px", // כדי לתת מרווח מסביב לתכנים
+        padding: "6px",
       }}
     >
-      {/* השימוש ב-Margin Left Auto יניב תוצאה דומה להגדרת Float Right */}
       {userInfo ? (
         <>
-            <Link to={"/"}>
-              <img src={logo} style={{ width: "20vw" }} alt="logo" />
-            </Link>
-        <div
-          className="d-flex justify-content-between"
-          style={{ width: "100%", gap: "35px" }}
-        >
-          <div className="d-flex">
-            <p style={{ color: "#f8f8f8" }}>שלום {userInfo.data.user.name}😊</p>
-            <Link to={"/"} style={{ color: "#f8f8f8", marginRight: "1rem" }}>
-              דף הבית
-            </Link>
-          </div>
-          <button
-            style={{
-              backgroundColor: "lightblue",
-              color: "#f8f8f8", // צבע הטקסט,
-              border: "none",
-              padding: "5px 5px",
-              borderRadius: "3px",
-              cursor: "pointer",
-              marginLeft: "20px",
-            }}
-            onClick={onLogout}
+          <Link to="/">
+            <img src={logo} style={{ width: "20vw" }} alt="logo" />
+          </Link>
+          <div
+            className="d-flex justify-content-between"
+            style={{ width: "100%", gap: "35px" }}
           >
-            התנתקות
-          </button>
-        </div></>
+            <div className="d-flex">
+              <p style={{ color: "#f8f8f8" }}>שלום {userInfo.data.user.name} 😊</p>
+              <Link to="/" style={{ color: "#f8f8f8", marginRight: "1rem" }}>
+                דף הבית
+              </Link>
+            </div>
+            <div>
+              {userInfo.data.user.role === "admin" && (
+                <Link to="/admin" >
+                  <button
+                    style={{
+                      backgroundColor: "lightblue",
+                      color: "#f8f8f8",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      marginLeft: "20px",
+                      marginTop:"6px"
+                    }}
+                  >
+                    דף ניהול
+                  </button>
+                </Link>
+              )}
+              <button
+                style={{
+                  backgroundColor: "lightblue",
+                  color: "#f8f8f8",
+                  border: "none",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  marginLeft: "20px",
+                  marginTop:"6px"
+                }}
+                onClick={onLogout}
+              >
+                התנתקות
+              </button>
+            </div>
+          </div>
+        </>
       ) : (
         <>
           <img src={logo} style={{ width: "20vw" }} alt="logo" />
@@ -69,5 +90,7 @@ export const Header = ({ onLogout }) => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
+
+export default Header

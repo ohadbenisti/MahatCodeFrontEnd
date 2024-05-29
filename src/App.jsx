@@ -10,24 +10,26 @@ import Course from "./pages/Courses/Course";
 import Content from "./pages/Content/Content";
 import "./App.css";
 import Problem from "./pages/Problem/Problem";
+import AdminPage from "./pages/Admin/AdminPage";
 
-export const UserContext = createContext()
+export const UserContext = createContext();
 
 function App() {
-  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')))
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("userInfo"))
+  );
   // const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('userInfo'))?.token ? true : false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogin = () => {
-    setUserInfo(JSON.parse(localStorage.getItem('userInfo')))
+    setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
   };
 
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
-    setUserInfo(undefined)
-    navigate('/login')
+    setUserInfo(undefined);
+    navigate("/login");
   };
-
 
   // React.useEffect(() => {
   //   // Check for token in local storage
@@ -47,6 +49,7 @@ function App() {
         <Route path="/course" element={<Course />} />
         <Route path="/course/:courseId" element={<CoursePage />} />
         <Route path="/problem/:questionId" element={<Problem />} />
+        <Route path="/admin" element={<AdminPage/>} />
       </Routes>
     </UserContext.Provider>
     // ) : (
@@ -59,7 +62,6 @@ function App() {
     //       </Link>
     //     </nav>
     // </>
-
   );
 }
 
