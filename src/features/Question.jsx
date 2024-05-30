@@ -28,6 +28,7 @@ const Question = ({ currentQuestion }) => {
   // };
   return (
     <div className="col-md-5" style={{ whiteSpace: "pre-wrap" }}>
+      <h5> {currentQuestion.title}</h5>
       {currentQuestion.description}
     </div>
   );
