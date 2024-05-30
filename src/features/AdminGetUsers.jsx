@@ -37,7 +37,7 @@ const AdminGetUsers = ({ showUsers }) => {
         <div>
             {loading && <div>Loading...</div>}
             {error && <div>{error}</div>}
-            {!loading && !error && users.length > 0 && (
+            {!loading && !error && (
                 <table className="table table-striped table-hover">
                     <thead>
                         <tr>
