@@ -21,7 +21,7 @@ export const Header = ({ onLogout }) => {
         fontSize: "30px",
         borderBottom: "1px solid black",
         width: "100vw",
-        padding: "6px",
+        padding: "8px",
       }}
     >
       {userInfo ? (
