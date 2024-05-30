@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 const Problem = ({ courseQuestion }) => {
   const [currentQuestion, setCurrentQuestion] = useState("");
   const { questionId } = useParams();
-  console.log(courseQuestion);
   useEffect(() => {
     if (courseQuestion) {
       setCurrentQuestion(courseQuestion);

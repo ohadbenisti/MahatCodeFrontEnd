@@ -15,7 +15,9 @@ const Codebox = () => {
     //   },
     // };
     try {
-      const response = await axios.post(
+        const myInput = Question.test.input??null
+      
+        const response = await axios.post(
         "https://emkc.org/api/v2/piston/execute",
 
         {
