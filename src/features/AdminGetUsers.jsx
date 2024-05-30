@@ -5,6 +5,7 @@ const AdminGetUsers = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [showUsers, setShowUsers] = useState(false); // State to manage the visibility of the user list
 
     const fetchUsers = async () => {
         setLoading(true);
@@ -23,20 +24,29 @@ const AdminGetUsers = () => {
         }
     };
 
+    const handleToggleUsers = () => {
+        if (!showUsers) {
+            fetchUsers();
+        }
+        setShowUsers(!showUsers);
+    };
+
     return (
         <div>
-            <button id="but" type="submit" className="btn btn-primary m-3 w-5" onClick={fetchUsers}>
-                הצג משתמשים
+            <button id="but" type="button" className="btn btn-primary m-3 w-5" onClick={handleToggleUsers}>
+                {showUsers ? 'הסתר משתמשים' : 'הצג משתמשים'}
             </button>
             {loading && <div>Loading...</div>}
             {error && <div>{error}</div>}
-            <ul>
-                {users.map(user => (
-                    <li key={user.id}>
-                        {user.name} - {user.email}
-                    </li>
-                ))}
-            </ul>
+            {showUsers && (
+                <ul>
+                    {users.map(user => (
+                        <li key={user.id}>
+                            {user.name} - {user.email}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }
