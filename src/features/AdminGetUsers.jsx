@@ -13,10 +13,11 @@ const AdminGetUsers = ({ showUsers }) => {
                 setError(null);
                 try {
                     const url = `${import.meta.env.VITE_SERVER}/admin/users`;
-                    console.log(`Fetching users from: ${url}`);
-                    const response = await axios.get(url, { withCredentials: true });
-                    console.log('Users fetched successfully:', response.data.users);
-                    setUsers(response.data.users);
+                    const response = await axios.get(url, { withCredentials: true })
+                    .then(response =>{
+                        console.log(response);
+                        setUsers(response.data.users);
+                    })
                 } catch (error) {
                     console.error('Error fetching users:', error.response ? error.response.data : error.message);
                     setError('Failed to fetch users');
@@ -37,7 +38,7 @@ const AdminGetUsers = ({ showUsers }) => {
         <div>
             {loading && <div>Loading...</div>}
             {error && <div>{error}</div>}
-            {!loading && !error && (
+            {!loading && !error && users.length>0 && (
                 <table className="table table-striped table-hover">
                     <thead>
                         <tr>
