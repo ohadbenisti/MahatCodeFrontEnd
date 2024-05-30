@@ -8,8 +8,16 @@ function AddQuestion() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [testInput, setTestInput] = useState('');
+
+  const [testYear, setTestYear] = useState('');
+  const [testSeason, setTestSeason] = useState('');
+  const [testSeasonNum, setTestSeasonNum] = useState('');
+
   const [testOutput, setTestOutput] = useState('');
   const [solution, setSolution] = useState('');
+
+  const [solutionSource, setSolutionSource] = useState('');
+
   const [difficulty, setDifficulty] = useState('easy');
   const [tags, setTags] = useState([]);
   const [error, setError] = useState('');
@@ -26,7 +34,7 @@ function AddQuestion() {
     );
   };
   const handleToggleForm = () => {
-  setShowForm(prevShowForum => !prevShowForum)
+    setShowForm(prevShowForum => !prevShowForum)
   }
 
   // Handle form submission
@@ -39,10 +47,16 @@ function AddQuestion() {
       const response = await axios.post(url, {
         title,
         description,
+        // "questionSource": {
+        //   "testYear": testYear,
+        //   "testSeason": testSeason,
+        //   "testSeasonNum": testSeasonNum
+        // },
         test: { input: testInput, output: testOutput }, // Send test input and output as an object
         difficulty,
         tags,
-        solution
+        solution,
+        solutionSource
       });
       console.log("added successfully", response.data);
 
@@ -66,12 +80,12 @@ function AddQuestion() {
   return (
     <>
       <button
-      id="but"
-      type="button"
-      className="btn btn-primary m-3 w-5"
-      onClick={handleToggleForm}
+        id="but"
+        type="button"
+        className="btn btn-primary m-3 w-5"
+        onClick={handleToggleForm}
       >
-      הוספת שאלה
+        הוספת שאלה
       </button>
       {showForm && (
         <div className="add-question-container">
@@ -95,6 +109,38 @@ function AddQuestion() {
                 onChange={(e) => setDescription(e.target.value)}
                 required // Description is required
               />
+            </div>
+            <div>
+              <div>מקור השאלה:</div>
+              <label htmlFor="year" className="mx-1">שנה </label>
+              <select name="Year" id="testYearSelect"
+                onChange={(e) => setTestYear(e.target.value)} >
+                <option value=""></option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+              </select>
+
+              <label htmlFor="season" className="mx-1">עונה </label>
+              <select name="Season" id="seasonSelect"
+                onChange={(e) => setTestSeason(e.target.value)} >
+                <option value=""></option>
+                <option value="spring">אביב</option>
+                <option value="summer">קיץ</option>
+              </select>
+
+              <label htmlFor="seasonNum" className="mx-1">מועד </label>
+              <select name="SeasonNum" id="seasonNumSelect"
+                onChange={(e) => setTestSeasonNum(e.target.value)} >
+                <option value=""></option>
+                <option value="a">א</option>
+                <option value="b">ב</option>
+              </select>
+
+
             </div>
             <div className="add-question-form-group">
               <label htmlFor="testInput">טסט קלט</label>
@@ -125,6 +171,17 @@ function AddQuestion() {
                 required // Solution is required
               />
             </div>
+
+            <div>
+              <label htmlFor="add-question-form-group">מקור הפתרון</label>
+              <input
+                type="text"
+                id="solutionSource"
+                value={solutionSource}
+                onChange={(e) => setSolutionSource(e.target.value)}
+              />
+            </div>
+
             <div className="add-question-form-group">
               <label>רמת קושי</label>
               <div className="radio-container">
