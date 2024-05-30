@@ -25,6 +25,9 @@ function AddQuestion() {
         : [...prevTags, value] // Add tag if not selected
     );
   };
+  const handleToggleForm = () => {
+  setShowForm(prevShowForum => !prevShowForum)
+  }
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -62,8 +65,13 @@ function AddQuestion() {
 
   return (
     <>
-      <button id="but" type="button" className="btn btn-primary m-3 w-5" onClick={() => setShowForm(true)}>
-        הוספת שאלה
+      <button
+      id="but"
+      type="button"
+      className="btn btn-primary m-3 w-5"
+      onClick={handleToggleForm}
+      >
+      הוספת שאלה
       </button>
       {showForm && (
         <div className="add-question-container">
