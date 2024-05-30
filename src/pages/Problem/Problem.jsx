@@ -30,7 +30,7 @@ const Problem = ({ courseQuestion }) => {
   };
 
   return (
-    <div className="d-flex">
+    <div className="d-flex justify-content-around my-4">
       <Question currentQuestion={currentQuestion} />
       <AnswerSection currentQuestion={currentQuestion} />
     </div>
