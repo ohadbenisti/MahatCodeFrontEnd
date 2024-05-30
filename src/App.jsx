@@ -10,6 +10,7 @@ import Course from "./pages/Courses/Course";
 import Content from "./pages/Content/Content";
 import "./App.css";
 import Problem from "./pages/Problem/Problem";
+import MessageInForum from './features/MessageInForum';
 
 export const UserContext = createContext()
 
