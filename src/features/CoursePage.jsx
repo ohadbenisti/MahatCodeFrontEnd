@@ -17,7 +17,6 @@ const CoursePage = () => {
   const userInfo = useLogin();
   const [isEnrolled, setIsEnrolled] = useState(false);
 
-
   useEffect(() => {
     // Fetch course data
     fetch(
@@ -28,18 +27,17 @@ const CoursePage = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data && data.course) {
-          setCourse(data.course); // Set course data to state
+          setCourse(data.course);
+          const [usersCurrentQuestion] =
+            data.course.courseQuestions.questions.filter(
+              (question) =>
+                question._id === data.course.progress.currentQuestion
+            );
+          setCurrentQuestion(usersCurrentQuestion);
+
+          // Set course data to state
           if (data.course.Enrolled) {
-            setIsEnrolled(true)
-            setCurrentQuestion(data.course.progress);
-          } else if (
-            data.course.courseQuestions &&
-            data.course.courseQuestions.questions.length > 0
-          ) {
-            setCurrentQuestion(data.course.courseQuestions.questions[0]);
-            console.log(currentQuestion);
-          } else {
-            setCurrentQuestion(null);
+            setIsEnrolled(true);
           }
         } else {
           setCourse(null);
@@ -51,16 +49,35 @@ const CoursePage = () => {
         setCourse(null);
         setLoading(false); // Update loading state to false in case of error
       });
-  }, [courseId, userId]);
+  }, [courseId, userId, isEnrolled]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ marginTop: "100px" }}
+      >
+        <div style={{ minHeight: "200px" }}>
+          <l-infinity
+            size="150"
+            stroke="4"
+            stroke-length="0.15"
+            bg-opacity="0.1"
+            speed="1.3"
+            color="black"
+          ></l-infinity>
+        </div>
+      </div>
+    );
   }
-  console.log("current question:" + currentQuestion);
 
   return (
     <>
-      <EnrollmentComponent isEnrolled={isEnrolled} setIsEnrolled={setIsEnrolled} courseId={courseId}/>
+      <EnrollmentComponent
+        isEnrolled={isEnrolled}
+        setIsEnrolled={setIsEnrolled}
+        courseId={courseId}
+      />
       {isEnrolled && (
         <div>
           {course ? (
@@ -84,7 +101,6 @@ const CoursePage = () => {
       )}
     </>
   );
-}  
-  
+};
 
 export default CoursePage;
