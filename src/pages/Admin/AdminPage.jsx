@@ -7,11 +7,11 @@ const AdminPage = () => {
     useLogin();
 
     return (
-        <div>
+        <nav>
             <h1 className="m-3">דף ניהול</h1>
             <AdminGetUsers />
             <AddQuestion />
-        </div>
+        </nav>
     );
 }
 
