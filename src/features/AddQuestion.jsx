@@ -12,6 +12,9 @@ function AddQuestion() {
   const [testYear, setTestYear] = useState('');
   const [testSeason, setTestSeason] = useState('');
   const [testSeasonNum, setTestSeasonNum] = useState('');
+  const [partOfTheTest, setPartOfTheTest] = useState('');
+  const [numberOfQuestion, setNumberOfQuestion] = useState('');
+
 
   const [testOutput, setTestOutput] = useState('');
   const [solution, setSolution] = useState('');
@@ -47,20 +50,22 @@ function AddQuestion() {
       const response = await axios.post(url, {
         title,
         description,
-        // "questionSource": {
-        //   "testYear": testYear,
-        //   "testSeason": testSeason,
-        //   "testSeasonNum": testSeasonNum
-        // },
+        "questionSource": {
+          "testYear": testYear,
+          "testSeason": testSeason,
+          "testSeasonNum": testSeasonNum,
+          "partOfTheTest":partOfTheTest,
+          "numberOfQuestion":numberOfQuestion
+        },
         test: { input: testInput, output: testOutput }, // Send test input and output as an object
         difficulty,
         tags,
         solution,
         solutionSource
-      });
+      }, { withCredentials: true });
       console.log("added successfully", response.data);
 
-      navigate("/AdminPage"); // Redirect to admin page after successful submission
+      navigate("/admin"); // Redirect to admin page after successful submission
     } catch (err) {
       console.error("Error adding data", err);
       setError("An error occurred during adding the question"); // Set error message
@@ -70,11 +75,13 @@ function AddQuestion() {
   // Tag options for the checkbox inputs
   const tagOptions = [
     { id: "string", label: "מחרוזת" },
+    { id: "class", label: "מחלקה" },
     { id: "array", label: "מערך" },
-    { id: "oop", label: "OOP" },
     { id: "complexity", label: "סיבוכיות" },
     { id: "recursion", label: "רקורסיה" },
     { id: "table-tracking", label: "טבלת מעקב" },
+    { id: "decoding", label: "פיענוח קוד" },
+
   ];
 
   return (
@@ -112,37 +119,67 @@ function AddQuestion() {
             </div>
             <div>
               <div>מקור השאלה:</div>
-              <label htmlFor="year" className="mx-1">שנה </label>
+              <label htmlFor="year" className="add-question-form-group mx-1 pt-2">שנה </label>
               <select name="Year" id="testYearSelect"
                 onChange={(e) => setTestYear(e.target.value)} >
                 <option value=""></option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
+                <option value="2020 (תש''פ)">2020</option>
+                <option value="2021 (תשפ''א)">2021</option>
+                <option value="2022 (תשפ''ב)">2022</option>
+                <option value="2023 (תשפ''ג)">2023</option>
+                <option value="2024 (תשפ''ד)">2024</option>
+                <option value="2025 (תשפ''ה)">2025</option>
               </select>
 
-              <label htmlFor="season" className="mx-1">עונה </label>
+              <label htmlFor="season" className="add-question-form-group mx-1">עונה </label>
               <select name="Season" id="seasonSelect"
                 onChange={(e) => setTestSeason(e.target.value)} >
                 <option value=""></option>
-                <option value="spring">אביב</option>
-                <option value="summer">קיץ</option>
+                <option value="אביב">אביב</option>
+                <option value="קיץ">קיץ</option>
               </select>
 
-              <label htmlFor="seasonNum" className="mx-1">מועד </label>
+              <label htmlFor="seasonNum" className="add-question-form-group mx-1">מועד </label>
               <select name="SeasonNum" id="seasonNumSelect"
                 onChange={(e) => setTestSeasonNum(e.target.value)} >
                 <option value=""></option>
-                <option value="a">א</option>
-                <option value="b">ב</option>
+                <option value="א">א</option>
+                <option value="ב">ב</option>
+              </select>
+              <br />
+              <label htmlFor="partOfTheTest" className="add-question-form-group mx-1 pt-3">חלק </label>
+              <select name="partOfTheTest" id="partOfTheTest"
+                onChange={(e) => setPartOfTheTest(e.target.value)} >
+                <option value=""></option>
+                <option value="א">א</option>
+                <option value="ב">ב</option>
+                <option value="ג">ג</option>
+              </select>
+
+              <label htmlFor="numberOfQuestion" className= "add-question-form-group mx-2">מספר שאלה </label>
+              <select name="numberOfQuestion" id="numberOfQuestion"
+                onChange={(e) => setNumberOfQuestion(e.target.value)} >
+                <option value=""></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
               </select>
 
 
             </div>
-            <div className="add-question-form-group">
+            <div className="add-question-form-group pt-3">
               <label htmlFor="testInput">טסט קלט</label>
               <input
                 type="text"
@@ -172,8 +209,8 @@ function AddQuestion() {
               />
             </div>
 
-            <div>
-              <label htmlFor="add-question-form-group">מקור הפתרון</label>
+            <div className="add-question-form-group"> 
+              <label htmlFor="solutionSource">מקור הפתרון</label>
               <input
                 type="text"
                 id="solutionSource"

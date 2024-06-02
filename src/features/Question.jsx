@@ -3,34 +3,25 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Question = ({ currentQuestion }) => {
-  // const [questionToDisplay, setQuestionToDisplay] = useState("");
-  // const { questionId } = useParams();
-  // useEffect(() => {
-  //   if (courseQuestion) {
-  //     setQuestionToDisplay(courseQuestion);
-  //   } else {
-  //     fetchData(questionId);
-  //   }
-  // }, [currentQuestion]);
+  const { testYear, testSeason, testSeasonNum, partOfTheTest, numberOfQuestion } = currentQuestion.questionSource || {};
 
-  // const fetchData = async (questionId) => {
-  //   try {
-  //     const response = await fetch(
-  //       `${import.meta.env.VITE_SERVER}/problem/${questionId}`
-  //     );
-  //     const data = await response.json();
-  //     const questionToShow = data.questionToShow;
-  //     setQuestionToDisplay(questionToShow);
-  //   } catch (error) {
-  //     console.error("Error fetching question data:", error);
-  //   }
-  //   console.log(questionToDisplay);
-  // };
   return (
     <div className="col-md-5" style={{ whiteSpace: "pre-wrap" }}>
-      <h5> {currentQuestion.title}</h5>
+      <h3>{currentQuestion.title}</h3>
+      {testYear && testSeason && testSeasonNum && (
+        <h6>
+          מבחן : שנת {testYear} - {testSeason} מועד {testSeasonNum}'
+        </h6>
+      )}
+      {partOfTheTest && numberOfQuestion &&(
+        <h6>
+          חלק {partOfTheTest}'    שאלה {numberOfQuestion}
+        </h6>
+      )}
+
       {currentQuestion.description}
     </div>
   );
 };
+
 export default Question;
