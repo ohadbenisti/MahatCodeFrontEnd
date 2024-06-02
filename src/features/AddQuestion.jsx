@@ -65,7 +65,7 @@ function AddQuestion() {
 
   return (
     <>
-      <button
+      <button 
       id="but"
       type="button"
       className="btn btn-primary m-3 w-5"
