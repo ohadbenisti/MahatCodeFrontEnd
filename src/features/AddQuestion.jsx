@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import './AddQuestion.css';
+import "./AddQuestion.css";
 
-function AddQuestion({ showForm }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [testInput, setTestInput] = useState('');
-  const [testOutput, setTestOutput] = useState('');
-  const [solution, setSolution] = useState('');
-  const [difficulty, setDifficulty] = useState('easy');
+function AddQuestion({ setActiveComponent }) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [testInput, setTestInput] = useState("");
+  const [testOutput, setTestOutput] = useState("");
+  const [solution, setSolution] = useState("");
+  const [difficulty, setDifficulty] = useState("easy");
   const [tags, setTags] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleTagChange = (e) => {
     const value = e.target.value;
-    setTags(prevTags =>
-      prevTags.includes(value)
-        ? prevTags.filter(tag => tag !== value) // Remove tag if already selected
-        : [...prevTags, value] // Add tag if not selected
+    setTags(
+      (prevTags) =>
+        prevTags.includes(value)
+          ? prevTags.filter((tag) => tag !== value) // Remove tag if already selected
+          : [...prevTags, value] // Add tag if not selected
     );
   };
 
@@ -29,17 +30,21 @@ function AddQuestion({ showForm }) {
       const url = `${import.meta.env.VITE_SERVER}/admin/problem`; // Server URL
       console.log("Sending request to:", url);
 
-      const response = await axios.post(url, {
-        title,
-        description,
-        test: { input: testInput, output: testOutput }, // Send test input and output as an object
-        difficulty,
-        tags,
-        solution
-      });
-      console.log("added successfully", response.data);
-
-      navigate("/AdminPage"); // Redirect to admin page after successful submission
+      const response = await axios.post(
+        url,
+        {
+          title,
+          description,
+          test: { input: testInput, output: testOutput }, // Send test input and output as an object
+          difficulty,
+          tags,
+          solution,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.data.status === "success") setActiveComponent(null);
     } catch (err) {
       console.error("Error adding data", err);
       setError("An error occurred during adding the question"); // Set error message
@@ -54,10 +59,6 @@ function AddQuestion({ showForm }) {
     { id: "recursion", label: "רקורסיה" },
     { id: "table-tracking", label: "טבלת מעקב" },
   ];
-
-  if (!showForm) {
-    return null;
-  }
 
   return (
     <div className="add-question-container">
@@ -120,7 +121,7 @@ function AddQuestion({ showForm }) {
                 id="easy"
                 name="difficulty"
                 value="easy"
-                checked={difficulty === 'easy'}
+                checked={difficulty === "easy"}
                 onChange={(e) => setDifficulty(e.target.value)}
               />
               <label htmlFor="easy">קל</label>
@@ -131,7 +132,7 @@ function AddQuestion({ showForm }) {
                 id="medium"
                 name="difficulty"
                 value="medium"
-                checked={difficulty === 'medium'}
+                checked={difficulty === "medium"}
                 onChange={(e) => setDifficulty(e.target.value)}
               />
               <label htmlFor="medium">בינוני</label>
@@ -142,7 +143,7 @@ function AddQuestion({ showForm }) {
                 id="hard"
                 name="difficulty"
                 value="hard"
-                checked={difficulty === 'hard'}
+                checked={difficulty === "hard"}
                 onChange={(e) => setDifficulty(e.target.value)}
               />
               <label htmlFor="hard">קשה</label>
@@ -152,7 +153,7 @@ function AddQuestion({ showForm }) {
         <div className="add-question-form-group">
           <label>תגיות:</label>
           <div className="checkbox-container">
-            {tagOptions.map(tag => (
+            {tagOptions.map((tag) => (
               <div key={tag.id} className="inline">
                 <input
                   type="checkbox"
@@ -166,7 +167,9 @@ function AddQuestion({ showForm }) {
             ))}
           </div>
         </div>
-        <button className="add-question-submit-btn" type="submit">הוספת שאלה</button>
+        <button className="add-question-submit-btn" type="submit">
+          הוספת שאלה
+        </button>
         {error && <p className="add-question-error">{error}</p>}
       </form>
     </div>
