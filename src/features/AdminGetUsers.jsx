@@ -31,6 +31,7 @@ const AdminGetUsers = ({ showUsers }) => {
     if (!showUsers) return null;
   }, [showUsers]);
 
+
   return (
     <div>
       {loading && <LoadingAnimation />}
@@ -58,6 +59,7 @@ const AdminGetUsers = ({ showUsers }) => {
       )}
     </div>
   );
+
 };
 
 export default AdminGetUsers;
