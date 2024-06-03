@@ -9,7 +9,7 @@ const AnswerSection = ({ currentQuestion }) => {
   const componentsObj = {
     Codebox: <Codebox />,
     Answer: <Answer currentQuestion={currentQuestion} />,
-    Forum: <Forum />,
+    Forum: <Forum currentQuestion={currentQuestion}/>,
   };
 
   return (
