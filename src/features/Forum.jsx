@@ -12,7 +12,7 @@ const questionId = currentQuestion._id;
     const fetchComments = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_SERVER}/problem/${questionId}/forum`);
-        setComments(response.data.forum.comments);
+        setComments(response.data.forum.comments.reverse());
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
@@ -28,10 +28,10 @@ const questionId = currentQuestion._id;
   return (
     <Container>
       <Box sx={{ my: 4 }}>
-        <MessageForm onMessageSubmit={handleNewComment} />
+        <MessageForm questionId={questionId} onMessageSubmit={handleNewComment} />
         <br/>
         {comments.map((comment) => (
-          <Comment key={comment._id} comment={comment} />
+          <Comment key={comment._id} comment={comment} setComments={setComments} questionId={questionId}/>
         ))}
       </Box>
     </Container>
