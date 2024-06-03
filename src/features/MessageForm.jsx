@@ -1,25 +1,28 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { UserContext } from "../App";
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 
 
-const MessageForm = ({ onMessageSubmit }) => {
+const MessageForm = ({ onMessageSubmit, questionId }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { userInfo } = useContext(UserContext);
-const authorName = userInfo.name
+  console.log(questionId);
+const authorName = userInfo.data.user.name
+const authorId = userInfo.data.user._id;
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (authorName && content) {
-      const newComment = { authorName, title, content };
-
+      const newComment = { authorName, authorId, title, content };
       try {
-        const response = await axios.post(`${import.meta.env.VITE_SERVER}/forum`, newComment);
-        onMessageSubmit(response.data.comment);
+        const response = await axios.post(`${import.meta.env.VITE_SERVER}/problem/${questionId}/forum`, {newComment});
+        console.log(response)
+        onMessageSubmit(response.data.commentForId);
         setTitle("");
         setContent("");
       } catch (error) {
@@ -96,7 +99,7 @@ const authorName = userInfo.name
           }
         }}
       />
-      <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+       <Button type="submit" variant="contained" endIcon={<SendIcon />}>
         שלח תגובה
       </Button>
     </Box>
@@ -104,3 +107,6 @@ const authorName = userInfo.name
 };
 
 export default MessageForm;
+
+
+
