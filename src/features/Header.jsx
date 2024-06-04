@@ -1,96 +1,67 @@
-// import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
 import { useLocation } from "react-router-dom";
-// import Login from "../pages/Login";
 import logo from "../assets/logo.jpg";
 
 export const Header = ({ onLogout }) => {
   const userInfo = useLogin();
-  console.log(userInfo);
   const location = useLocation();
 
-
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        backgroundColor: "#577B8D",
-        gap: "20px",
-        fontSize: "30px",
-        borderBottom: "1px solid black",
-        width: "100vw",
-        padding: "8px",
-      }}
-    >
-      {userInfo ? (
-        <>
-          <Link to="/">
-            <img src={logo} style={{ width: "20vw" }} alt="logo" />
+    <div className="bg-[#577B8D] text-2xl border-b border-black w-full py-4">
+      <div className="container mx-auto flex justify-between items-center px-6">
+        <div className="flex items-center">
+          <Link to="/" className="shrink-0">
+            <img src={logo} className="w-2/3 sm:w-1/2 max-w-[300px]" alt="logo" />
           </Link>
-          <div
-            className="d-flex justify-content-between"
-            style={{ width: "100%", gap: "35px" }}
-          >
-            <div className="d-flex">
-              <p style={{ color: "#f8f8f8" }}>שלום {userInfo.data.user.name} 😊</p>
-              <Link to="/" style={{ color: "#f8f8f8", marginRight: "1rem" }}>
-                דף הבית
-              </Link>
-            </div>
-            <div>
-              {userInfo.data.user.role === "admin" && (
-                <Link to="/admin" >
-                  <button
-                    style={{
-                      backgroundColor: "lightblue",
-                      color: "#f8f8f8",
-                      border: "none",
-                      borderRadius: "4px",
-                      cursor: "pointer",
-                      marginLeft: "20px",
-                      marginTop:"6px"
-                    }}
-                  >
-                    דף ניהול
-                  </button>
+          <div className="ml-auto flex items-center text-white">
+            {userInfo && (
+              <>
+                <p className="text-white mr-2 md:mr-4">שלום {userInfo.data.user.name} 😊</p>
+                <Link to="/" className="mr-2 md:mr-4">
+                  דף הבית
                 </Link>
-              )}
-              <button
-                style={{
-                  backgroundColor: "lightblue",
-                  color: "#f8f8f8",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  marginLeft: "20px",
-                  marginTop:"6px"
-                }}
-                onClick={onLogout}
-              >
-                התנתקות
-              </button>
-            </div>
+              </>
+            )}
           </div>
-        </>
-      ) : (
-        <>
-          <img src={logo} style={{ width: "20vw" }} alt="logo" />
-          {location.pathname === "/login" && (
-            <Link to="/signup" style={{ color: "#f8f8f8" }}>
-              הרשמה
+        </div>
+        <div className="flex items-center sm:items-stretch gap-2 sm:gap-4">
+          {userInfo && userInfo.data.user.role === "admin" && (
+            <Link to="/admin">
+              <button className="bg-blue-500 text-white border-none rounded-md cursor-pointer py-1 px-2 md:px-3 hover:bg-blue-600 transition-all duration-300">
+                דף ניהול
+              </button>
             </Link>
           )}
-          {location.pathname === "/signup" && (
-            <Link to="/login" style={{ color: "#f8f8f8" }}>
-              כניסה
-            </Link>
-          )}
-        </>
-      )}
+          <Link to="/PersonalArea">
+            <button className="bg-blue-500 text-white border-none rounded-md cursor-pointer py-1 px-2 md:px-3 hover:bg-blue-600 transition-all duration-300">
+              אזור אישי
+            </button>
+          </Link>
+          <button
+            className="bg-red-600 text-white border-none rounded-md cursor-pointer py-1 px-2 md:px-3 hover:bg-red-700 transition-all duration-300"
+            onClick={onLogout}
+          >
+            התנתקות
+          </button>
+        </div>
+        {!userInfo && (
+          <div className="flex flex-col sm:flex-row items-center gap-2">
+            {location.pathname === "/login" && (
+              <Link to="/signup" className="text-white">
+                הרשמה
+              </Link>
+            )}
+            {location.pathname === "/signup" && (
+              <Link to="/login" className="text-white">
+                כניסה
+              </Link>
+            )}
+          </div>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

@@ -26,7 +26,7 @@ const EnrollmentComponent = ({ isEnrolled, setIsEnrolled, courseId }) => {
           .catch((error) => {
             console.error(error)
           })
-
+          
 
   }
 

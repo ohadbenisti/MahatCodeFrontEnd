@@ -27,9 +27,8 @@ const AdminGetUsers = ({ showUsers }) => {
   };
 
   useEffect(() => {
-    if (showUsers) fetchUsers();
-    if (!showUsers) return null;
-  }, [showUsers]);
+    fetchUsers();
+  }, []);
 
 
   return (
