@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import './AddQuestion.css';
 
@@ -18,8 +17,7 @@ function AddQuestion({ setActiveComponent }) {
   const [difficulty, setDifficulty] = useState('easy');
   const [tags, setTags] = useState([]);
   const [error, setError] = useState('');
-  const [showForm, setShowForm] = useState(false); // State to manage form visibility
-  const navigate = useNavigate();
+ 
 
   // Handle changes in tag selection
   const handleTagChange = (e) => {

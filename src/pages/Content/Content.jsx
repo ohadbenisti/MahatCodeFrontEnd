@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import CoursesComponent from "../../features/Courses";
 import QuestionTable from "../../features/QuestionTable";
-import Filter from "../../features/Filter";
+import FilteredQuestions from "../../features/FilteredQuestions";
 import useLogin from "../../hooks/useLogin";
 import TypeEffect from "./TypeEffect";
 
@@ -16,8 +16,8 @@ const Content = () => {
       <CoursesComponent />
       <h2>שאלות</h2>
       <div className="my-4">
-        <Filter setFilter={setFilter} />
-        <QuestionTable filter={filter} />
+        <FilteredQuestions setFilter={setFilter} />
+        {/* <QuestionTable filter={filter} /> */}
       </div>
     </div>
   );
