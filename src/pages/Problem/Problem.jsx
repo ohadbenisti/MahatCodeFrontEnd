@@ -9,14 +9,13 @@ const Problem = ({ courseQuestion }) => {
   const [currentQuestion, setCurrentQuestion] = useState("");
   const [showEditPopup, setShowEditPopup] = useState(false);
   const { questionId } = useParams();
-  console.log(questionId);
   useEffect(() => {
     if (courseQuestion) {
       setCurrentQuestion(courseQuestion);
     } else {
       fetchData(questionId);
     }
-  }, [courseQuestion, questionId]); //  }, [courseQuestion, questionId]);  //??
+  }, [courseQuestion, questionId]);
 
   const fetchData = async (questionId) => {
     try {
@@ -29,7 +28,6 @@ const Problem = ({ courseQuestion }) => {
     } catch (error) {
       console.error("Error fetching question data:", error);
     }
-    // console.log(currentQuestion);
   };
 
   const handleEditClick = () => {
@@ -48,20 +46,21 @@ const Problem = ({ courseQuestion }) => {
 
   return (
     <>
+      <button className="mt-3 mx-4" onClick={handleEditClick}>עריכת שאלה</button>
+      {showEditPopup && (
+        <EditQuestion
+          question={currentQuestion}
+          questionId={questionId}
+          onClose={handleClose}
+          onSave={handleSave}
+        />
+      )}
       <div className="d-flex justify-content-around my-4">
         <Question currentQuestion={currentQuestion} />
         <AnswerSection currentQuestion={currentQuestion} />
-        <button onClick={handleEditClick}>Edit Question</button>
-        {showEditPopup && (
-          <EditQuestion
-            question={currentQuestion}
-            questionId ={questionId}
-            onClose={handleClose}
-            onSave={handleSave}
-          />
-        )}
       </div>
     </>
-  );}
+  );
+}
 
 export default Problem;

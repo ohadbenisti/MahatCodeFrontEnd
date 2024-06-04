@@ -61,23 +61,27 @@ function EditQuestion({ question, questionId, onClose, onSave }) {
         try {
             const url = `${import.meta.env.VITE_SERVER}/admin/problem/${questionId}`; // Server URL
             console.log("Sending request to:", url);
-            // const questionSource = {"testYear": testYear,
-            // "testSeason": testSeason,
-            // "testSeasonNum": testSeasonNum,
-            // "partOfTheTest": partOfTheTest,
-            // "numberOfQuestion": numberOfQuestion} 
+
+            const questionSource =
+            {
+                "testYear": testYear,
+                "testSeason": testSeason,
+                "testSeasonNum": testSeasonNum,
+                "partOfTheTest": partOfTheTest,
+                "numberOfQuestion": numberOfQuestion
+            }
 
             const response = await axios.put(url, {
                 questionId,
                 title,
                 description,
-                "questionSource": {
-                    "testYear": testYear,
-                    "testSeason": testSeason,
-                    "testSeasonNum": testSeasonNum,
-                    "partOfTheTest":partOfTheTest,
-                    "numberOfQuestion":numberOfQuestion
-                  },
+                questionSource,
+                // {"testYear": testYear,
+                // "testSeason": testSeason,
+                // "testSeasonNum": testSeasonNum,
+                // "partOfTheTest": partOfTheTest,
+                // "numberOfQuestion": numberOfQuestion},
+
                 test: { input: testInput, output: testOutput },
                 difficulty,
                 tags,
@@ -90,9 +94,21 @@ function EditQuestion({ question, questionId, onClose, onSave }) {
             );
             console.log(questionSource);
             console.log(response);
-            if (response.data.status === "success") {
-                onSave();
+            if (response.data.message === "success") {
+                console.log("Question updated successfully");
+                onSave({
+                    title,
+                    description,
+                    questionSource,
+                    test: { input: testInput, output: testOutput },
+                    difficulty,
+                    tags,
+                    solution,
+                    solutionSource
+                });
                 onClose();
+            } else {
+                console.log("Response message is not as expected");
             }
         } catch (err) {
             console.error("Error updating data", err);
@@ -117,14 +133,14 @@ function EditQuestion({ question, questionId, onClose, onSave }) {
                 <button className="close-button" onClick={onClose}>X</button>
             </div>
             <div className="edit-question-inner">
-                <h2>Edit Question</h2>
+                <h2>עריכת שאלה</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="edit-question-form-group">
                         <label htmlFor="title">כותרת</label>
                         <input
                             type="text"
                             id="title"
-                            value={title}
+                            value={title ? title : ""}
                             onChange={(e) => setTitle(e.target.value)}
                             required
                         />
@@ -133,7 +149,7 @@ function EditQuestion({ question, questionId, onClose, onSave }) {
                         <label htmlFor="description">תיאור</label>
                         <textarea
                             id="description"
-                            value={description}
+                            value={description ? description : ""}
                             onChange={(e) => setDescription(e.target.value)}
                             required
                         />
@@ -154,7 +170,7 @@ function EditQuestion({ question, questionId, onClose, onSave }) {
 
                         <label htmlFor="season" className="edit-question-form-group mx-1">עונה </label>
                         <select name="Season" id="seasonSelect"
-                            onChange={(e) => setTestSeason(e.target.value)} value={testSeason}>
+                            onChange={(e) => setTestSeason(e.target.value)} value={testSeason ? testSeason : ""}>
                             <option value=""></option>
                             <option value="אביב">אביב</option>
                             <option value="קיץ">קיץ</option>
@@ -162,7 +178,7 @@ function EditQuestion({ question, questionId, onClose, onSave }) {
 
                         <label htmlFor="seasonNum" className="edit-question-form-group mx-1">מועד </label>
                         <select name="SeasonNum" id="seasonNumSelect"
-                            onChange={(e) => setTestSeasonNum(e.target.value)} value={testSeasonNum}>
+                            onChange={(e) => setTestSeasonNum(e.target.value)} value={testSeasonNum ? testSeasonNum : ""}>
                             <option value=""></option>
                             <option value="א">א</option>
                             <option value="ב">ב</option>
@@ -213,7 +229,7 @@ function EditQuestion({ question, questionId, onClose, onSave }) {
                         <input
                             type="text"
                             id="testOutput"
-                            value={testOutput}
+                            value={testOutput ? testOutput : ""}
                             onChange={(e) => setTestOutput(e.target.value)}
                             required
                         />
@@ -222,7 +238,7 @@ function EditQuestion({ question, questionId, onClose, onSave }) {
                         <label htmlFor="solution">פתרון</label>
                         <textarea
                             id="solution"
-                            value={solution}
+                            value={solution ? solution : ""}
                             onChange={(e) => setSolution(e.target.value)}
                             required
                         />

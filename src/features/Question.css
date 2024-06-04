@@ -1,0 +1,14 @@
+.tags {
+    margin-top: 10px;
+  }
+  
+  .tag {
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: blue;
+    font-weight: bold;    
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 14px;
+  }
