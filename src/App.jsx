@@ -1,16 +1,16 @@
 import React, { createContext } from "react";
 import { useState } from "react";
-import { Route, Routes, Link, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import { Header } from "./features/Header";
 import CoursePage from "./features/CoursePage";
-// import Problem from "./pages/Problem/Problem";
 import Course from "./pages/Courses/Course";
 import Content from "./pages/Content/Content";
 import "./App.css";
 import Problem from "./pages/Problem/Problem";
 import AdminPage from "./pages/Admin/AdminPage";
+import PersonalArea from "./pages/PersonalArea/PersonalArea";
 
 export const UserContext = createContext();
 
@@ -18,8 +18,8 @@ function App() {
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem("userInfo"))
   );
-  // const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('userInfo'))?.token ? true : false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = () => {
     setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
@@ -31,19 +31,19 @@ function App() {
     navigate("/login");
   };
 
-  const counter=()=>{
+//   const counter=()=>{
 
-   const script = document.createElement("script");
-   script.type = "text/javascript";
-   script.src = "https://bringthemhomenow.net/1.1.0/hostages-ticker.js";
-   script.setAttribute(
-     "integrity",
-     "sha384-DHuakkmS4DXvIW79Ttuqjvl95NepBRwfVGx6bmqBJVVwqsosq8hROrydHItKdsne"
-   );
-   script.setAttribute("crossorigin", "anonymous");
-   document.getElementsByTagName("head")[0].appendChild(script);
- }
- counter()
+//    const script = document.createElement("script");
+//    script.type = "text/javascript";
+//    script.src = "https://bringthemhomenow.net/1.1.0/hostages-ticker.js";
+//    script.setAttribute(
+//      "integrity",
+//      "sha384-DHuakkmS4DXvIW79Ttuqjvl95NepBRwfVGx6bmqBJVVwqsosq8hROrydHItKdsne"
+//    );
+//    script.setAttribute("crossorigin", "anonymous");
+//    document.getElementsByTagName("head")[0].appendChild(script);
+//  }
+//  counter()
 
   // React.useEffect(() => {
   //   // Check for token in local storage
@@ -53,9 +53,8 @@ function App() {
   //   }
   // }, []);
   return (
-    // isLoggedIn ? (
     <UserContext.Provider value={{ userInfo }}>
-      <div id="bthn" lang="he"></div>
+      {/* <div id="bthn" lang="he"></div> */}
       <Header onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Content />} />
@@ -67,16 +66,6 @@ function App() {
         <Route path="/admin" element={<AdminPage/>} />
       </Routes>
     </UserContext.Provider>
-    // ) : (
-    //   <>
-    //     <Routes>
-    //     </Routes>
-    //     <nav>
-    //       <Link to="/signup">
-    //         <button style={{ backgroundColor: 'lightblue', color: 'white', border: 'none', padding: '10px 100px', borderRadius: '5px', cursor: 'pointer' }}>Sign Up</button>
-    //       </Link>
-    //     </nav>
-    // </>
   );
 }
 
