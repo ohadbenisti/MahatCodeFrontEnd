@@ -8,10 +8,12 @@ import Box from "@mui/material/Box";
 const Forum = ({currentQuestion}) => {
   const [comments, setComments] = useState([]);
 const questionId = currentQuestion._id;
+let forumId;
   useEffect(() => {
     const fetchComments = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_SERVER}/problem/${questionId}/forum`);
+        forumId = response.data.forum._id;
         setComments(response.data.forum.comments.reverse());
       } catch (error) {
         console.error("Error fetching comments:", error);

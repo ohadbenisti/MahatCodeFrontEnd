@@ -3,11 +3,11 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
-const EraseComment = ({comment, questionId, setComments}) => {
+const EraseComment = ({comment, questionId, setComments, forumId}) => {
     const handleDelete =  async ()=> {
         const commentId = comment._id;
         try{
-            const deletedComment = await axios.delete(`${import.meta.env.VITE_SERVER}/problem/${questionId}/forum/${commentId}`)
+            const deletedComment = await axios.delete(`${import.meta.env.VITE_SERVER}/problem/${questionId}/forum/${forumId}/${commentId}`)
             setComments((prevComments) => prevComments.filter(comment => comment._id !== commentId));
         }
         catch{
