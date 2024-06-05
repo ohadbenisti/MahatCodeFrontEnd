@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CoursesComponent from "../../features/Courses";
 import QuestionTable from "../../features/QuestionTable";
-import Filter from "../../features/Filter";
+import FilteredQuestions from "../../features/FilteredQuestions";
 import useLogin from "../../hooks/useLogin";
 import TypeEffect from "./TypeEffect";
 import "./Content.css"; // ייבוא של קובץ ה-CSS
