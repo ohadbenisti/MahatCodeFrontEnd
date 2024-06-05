@@ -1,6 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 const Question = ({ currentQuestion }) => {
   const { testYear, testSeason, testSeasonNum, partOfTheTest, numberOfQuestion } = currentQuestion.questionSource || {};
