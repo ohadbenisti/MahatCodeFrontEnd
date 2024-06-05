@@ -7,16 +7,16 @@ const MultiSelect = ({ questions, onFilterChange }) => {
 
   // Define the options for the dropdown
   const difficultyOptions = [
-    { value: "easy", label: "Easy" },
-    { value: "medium", label: "Medium" },
-    { value: "hard", label: "Hard" },
+    { value: "easy", label: "קל" },
+    { value: "medium", label: "בינוני" },
+    { value: "hard", label: "קשה" },
   ];
 
   const tagsOptions = [
-    { value: "oop", label: "oop" },
-    { value: "string", label: "string" },
-    { value: "array", label: "array" },
-    { value: "numbers", label: "numbers" },
+    { value: "oop", label: "מונחה עצמים" },
+    { value: "string", label: "מחרוזות" },
+    { value: "array", label: "מערך" },
+    { value: "numbers", label: "מספרים" },
   ];
 
   const handleFilterChange = (selectedDifOptions, selectedTagOptions) => {

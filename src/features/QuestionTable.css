@@ -1,0 +1,44 @@
+/* QuestionTable.css */
+.tag {
+    display: inline-block;
+    padding: 0.2em 0.5em;
+    margin: 0.2em;
+    border-radius: 0.3em;
+    color: white;
+    font-size: 0.9em;
+    color: black;
+    border-radius: 15px;
+  }
+  
+  .tag-string {
+    background-color: #c4ecff;
+  }
+  
+  .tag-class {
+    background-color: #ffeab6;
+  }
+  
+  .tag-array {
+    background-color: #cff5d1;
+  }
+  
+  .tag-complexity {
+    background-color: #d62728;
+  }
+  
+  .tag-recursion {
+    background-color: #e0dafd;
+  }
+  
+  .tag-table-tracking {
+    background-color: #ffd4e0;
+  }
+  
+  .tag-decoding {
+    background-color: #ffe0cc;
+  }
+  
+  .tag-numbers {
+    background-color: #d1e2ff;
+  }
+  
