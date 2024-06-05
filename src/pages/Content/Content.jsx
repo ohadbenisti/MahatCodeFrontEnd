@@ -18,9 +18,8 @@ const Content = () => {
         <CoursesComponent />
         <h2>שאלות</h2>
         <div className="my-4">
-          <Filter setFilter={setFilter} />
+          <FilteredQuestions setFilter={setFilter} />
         </div>
-        <QuestionTable filter={filter} />
       </div>
     </div>
   );

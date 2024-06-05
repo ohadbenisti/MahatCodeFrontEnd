@@ -35,16 +35,18 @@ export const Header = ({ onLogout, isContentPage }) => {
           </div>
           <div className="flex items-center sm:items-stretch gap-4 sm:gap-4">
             {userInfo?.data?.user && (
-              <Link to="/PersonalArea">
-                <Avatar>{userInfo.data.user.name[0]}</Avatar>
-              </Link>
+              <>
+                {userInfo?.data?.user?.role === "admin" && (
+                <Link to="/PersonalArea">
+                  <Avatar>{userInfo.data.user.name[0]}</Avatar>
+                </Link>
+                )}
+                  <Link to="/admin">
+                    <ManageAccountsIcon style={{ color: '#FFD700' }} fontSize="large" />
+                  </Link>
+                <LogoutIcon onClick={onLogout} fontSize="large" style={{ marginTop: '3px', color: "white" }} />
+              </>
             )}
-            {userInfo?.data?.user?.role === "admin" && (
-              <Link to="/admin">
-                <ManageAccountsIcon style={{ color: '#FFD700' }} fontSize="large" />
-              </Link>
-            )}
-            <LogoutIcon onClick={onLogout} fontSize="large" style={{ marginTop: '3px', color: "white" }} />
           </div>
           {!userInfo && (
             <div className="flex flex-col sm:flex-row items-center gap-2">
