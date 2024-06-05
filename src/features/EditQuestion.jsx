@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import './EditQuestion.css';
+import { useParams } from "react-router-dom";
 
-function EditQuestion({ question, questionId, onClose, onSave }) {
+
+const EditQuestion = ({ question, onClose, onSave }) => {
+    const { questionId } = useParams()
     const [title, setTitle] = useState(question.title);
     const [description, setDescription] = useState(question.description);
     const [testInput, setTestInput] = useState(question.test.input);
