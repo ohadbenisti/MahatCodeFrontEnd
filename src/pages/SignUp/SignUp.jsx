@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./SignUp.css";
 import { Link, useNavigate } from "react-router-dom";
+import logo from '../../assets/logo.jpg'
 
 const SignUp = ({ onSubmit }) => {
   const [name, setName] = useState("");
@@ -49,7 +50,9 @@ const SignUp = ({ onSubmit }) => {
     <div className="d-flex flex-column min-vh-100">
       <div className="d-flex justify-content-center align-items-start flex-grow-1 w-100">
         <div id="signup-container">
-          <h2 id="h">הרשמה</h2>
+          <div style={{maxWidth: '50%', marginRight: '80px'}}>
+          <img src={logo}/>
+          </div>
           {error && <div className="error">{error}</div>}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
