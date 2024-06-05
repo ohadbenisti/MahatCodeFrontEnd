@@ -4,6 +4,8 @@ import AnswerSection from "../../features/AnswerSection";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import EditQuestion from "../../features/EditQuestion"
+import useLogin from "../../hooks/useLogin";
+
 
 const Problem = ({ courseQuestion }) => {
   const [currentQuestion, setCurrentQuestion] = useState("");
@@ -30,6 +32,7 @@ const Problem = ({ courseQuestion }) => {
     }
   };
 
+
   const handleEditClick = () => {
     setShowEditPopup(true);
   };
@@ -44,8 +47,14 @@ const Problem = ({ courseQuestion }) => {
     setShowEditPopup(false);
   };
 
+  const isAdmin = (useLogin().data.user.role === "admin")
+
+
+
   return (
     <>
+      {isAdmin &&
+        <>
       <button className="mt-3 mx-4" onClick={handleEditClick}>עריכת שאלה</button>
       {showEditPopup && (
         <EditQuestion
@@ -55,6 +64,8 @@ const Problem = ({ courseQuestion }) => {
           onSave={handleSave}
         />
       )}
+      </>
+      }
       <div className="d-flex justify-content-around my-4">
         <Question currentQuestion={currentQuestion} />
         <AnswerSection currentQuestion={currentQuestion} />

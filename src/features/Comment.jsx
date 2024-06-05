@@ -8,7 +8,7 @@ import ListItem from '@mui/material/ListItem';
 import { UserContext } from '../App';
 import EraseComment from './EraseComment'
 
-const Comment = ({ comment, questionId, setComments }) => {
+const Comment = ({ comment, questionId, setComments, forumId }) => {
   const { userInfo } = useContext(UserContext);
 
     return (
@@ -17,7 +17,7 @@ const Comment = ({ comment, questionId, setComments }) => {
             <CardContent>
                 <Typography variant="h6">{comment.title}</Typography>
                 <Typography variant="body1">{comment.content}</Typography>
-                {userInfo.data.user.role === "admin" && <EraseComment comment={comment} questionId={questionId} setComments={setComments}/>}
+                {userInfo.data.user.role === "admin" && <EraseComment forumId={forumId} comment={comment} questionId={questionId} setComments={setComments}/>}
                 {comment.replies && comment.replies.length > 0 && (
                     <List>
                         {comment.replies.map((reply) => (
