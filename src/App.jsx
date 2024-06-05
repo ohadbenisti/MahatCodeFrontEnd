@@ -47,6 +47,25 @@ function App() {
 
   const isContentPage = location.pathname === "/";
 
+//    const script = document.createElement("script");
+//    script.type = "text/javascript";
+//    script.src = "https://bringthemhomenow.net/1.1.0/hostages-ticker.js";
+//    script.setAttribute(
+//      "integrity",
+//      "sha384-DHuakkmS4DXvIW79Ttuqjvl95NepBRwfVGx6bmqBJVVwqsosq8hROrydHItKdsne"
+//    );
+//    script.setAttribute("crossorigin", "anonymous");
+//    document.getElementsByTagName("head")[0].appendChild(script);
+//  }
+//  counter()
+
+  // React.useEffect(() => {
+  //   // Check for token in local storage
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, []);
   return (
     <UserContext.Provider value={{ userInfo }}>
       {/* <div id="bthn" lang="he"></div> */}
