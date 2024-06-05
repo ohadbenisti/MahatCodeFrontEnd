@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const EraseComment = ({comment, questionId, setComments, forumId}) => {
     const handleDelete =  async ()=> {
+        console.log(forumId);
         const commentId = comment._id;
         try{
             const deletedComment = await axios.delete(`${import.meta.env.VITE_SERVER}/problem/${questionId}/forum/${forumId}/${commentId}`)
