@@ -28,7 +28,8 @@ const AlertDialog = ({ userId, renderUsers }) => {
           renderUsers();
         }
       } else {
-        alert("לא הקשת את מילת הסוד הנכונה");
+        alert("לא הקשת את מילת הסוד הנכונה")
+        return;
       }
     } catch (error) {
       console.error(
