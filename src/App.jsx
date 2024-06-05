@@ -31,10 +31,25 @@ function App() {
     navigate("/login");
   };
 
+  //   const counter=()=>{
+
+//    const script = document.createElement("script");
+//    script.type = "text/javascript";
+//    script.src = "https://bringthemhomenow.net/1.1.0/hostages-ticker.js";
+//    script.setAttribute(
+//      "integrity",
+//      "sha384-DHuakkmS4DXvIW79Ttuqjvl95NepBRwfVGx6bmqBJVVwqsosq8hROrydHItKdsne"
+//    );
+//    script.setAttribute("crossorigin", "anonymous");
+//    document.getElementsByTagName("head")[0].appendChild(script);
+//  }
+//  counter()
+
   const isContentPage = location.pathname === "/";
 
   return (
     <UserContext.Provider value={{ userInfo }}>
+      {/* <div id="bthn" lang="he"></div> */}
       <div className={isContentPage ? "content-background" : ""}>
         <Header onLogout={handleLogout} isContentPage={isContentPage} />
         <Routes>
