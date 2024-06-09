@@ -5,40 +5,28 @@ import AddQuestion from "../../features/AddQuestion";
 
 const AdminPage = () => {
   useLogin();
-  const [activeComponent, setActiveComponent] = useState(null);
-
-  const handleToggleComponent = (component) => {
-    if (activeComponent === component) {
-      setActiveComponent(null);
-    } else {
-      setActiveComponent(component);
-    }
-  };
+  const [activeTab, setActiveTab] = useState('users');
 
   return (
     <div>
-      <h1 className="m-3">דף ניהול</h1>
-      <nav className="nav">
-        <button
-          id="but"
-          className="btn btn-primary m-3"
-          onClick={() => handleToggleComponent("AdminGetUsers")}
+      <h1 className="m-3 text-4xl font-bold">דף ניהול</h1>
+      <div className="tabs flex space-x-4 border-b-2 border-gray-300 mb-4">
+        <div
+          className={`tab py-2 px-4 border-b-4 ${activeTab === 'users' ? 'border-blue-500' : 'border-transparent'} text-gray-700 cursor-pointer`}
+          onClick={() => setActiveTab('users')}
         >
-          {activeComponent === "AdminGetUsers" ? "הסתר משתמשים" : "הצג משתמשים"}
-        </button>
-        <button
-          id="but"
-          className="btn btn-primary m-3"
-          onClick={() => handleToggleComponent("AddQuestion")}
+          הצג משתמשים
+        </div>
+        <div
+          className={`tab py-2 px-4 border-b-4 ${activeTab === 'addQuestion' ? 'border-blue-500' : 'border-transparent'} text-gray-700 cursor-pointer`}
+          onClick={() => setActiveTab('addQuestion')}
         >
-          {activeComponent === "AddQuestion" ? "הסתר טופס" : "הוסף שאלה"}
-        </button>
-      </nav>
+          הוסף שאלה
+        </div>
+      </div>
       <div className="component-container">
-        {activeComponent === "AdminGetUsers" && <AdminGetUsers />}
-        {activeComponent === "AddQuestion" && (
-          <AddQuestion setActiveComponent={setActiveComponent} />
-        )}
+        {activeTab === 'users' && <AdminGetUsers />}
+        {activeTab === 'addQuestion' && <AddQuestion />}
       </div>
     </div>
   );

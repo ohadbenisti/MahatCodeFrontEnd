@@ -25,15 +25,14 @@ const QuestionTable = ({ questions }) => {
   const getDifficultyLabel = (difficulty) => difficultyOptions[difficulty] || difficulty;
 
   return (
-    <table className="table table-striped table-hover">
+    <table className="custom-table">
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col" className="col-md-6">
-            תיאור השאלה
-          </th>
+          <th scope="col">תיאור השאלה</th>
           <th scope="col">רמת קושי</th>
           <th scope="col">תגיות</th>
+          <th scope="col">עריכה</th>
         </tr>
       </thead>
       <tbody>
@@ -45,7 +44,9 @@ const QuestionTable = ({ questions }) => {
                 {question.title}
               </Link>
             </td>
-            <td>{getDifficultyLabel(question.difficulty)}</td>
+            <td className={`difficulty-${question.difficulty}`}>
+              {getDifficultyLabel(question.difficulty)}
+            </td>
             <td>
               {question.tags?.map((tag) => (
                 <span key={tag} className={`tag tag-${tag}`}>
