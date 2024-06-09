@@ -84,7 +84,7 @@ const Codebox = ({ code, setCode, currentQuestion }) => {
         />
       </div> */}
       <CodeEditor code={code} setCode={setCode} />
-      <button onClick={runCode} style={{ alignSelf: "flex-start" }}>
+      <button className="btn btn-outline-success mt-2"  onClick={runCode} style={{ alignSelf: "flex-start" }}>
         הרץ קוד
       </button>
       <pre>{output}</pre>

@@ -7,7 +7,7 @@ import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-function AddQuestion({}) {
+function AddQuestion() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [testInput, setTestInput] = useState('');
@@ -22,7 +22,7 @@ function AddQuestion({}) {
   const [difficulty, setDifficulty] = useState('easy');
   const [tags, setTags] = useState([]);
   const [error, setError] = useState('');
-  const [showAlert , setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const resetForm = () => {
     setTitle('');
@@ -63,7 +63,7 @@ function AddQuestion({}) {
           "testSeason": testSeason,
           "testSeasonNum": testSeasonNum,
           "partOfTheTest": partOfTheTest,
-          "numberOfQuestion": numberOfQuestion
+          "numberOfQuestion": parseInt(numberOfQuestion) // המרת השדה למספר
         },
         test: { input: testInput, output: testOutput },
         difficulty,
@@ -141,26 +141,27 @@ function AddQuestion({}) {
                   <option value="2022 (תשפ''ב)">2022</option>
                   <option value="2023 (תשפ''ג)">2023</option>
                   <option value="2024 (תשפ''ד)">2024</option>
-                  <option value="2025 (תשפ''ה)">2025</option>
                 </select>
-
-                <label htmlFor="season" className="block text-sm font-medium text-gray-700">עונה</label>
+              </div>
+              <div className="flex items-center space-x-4">
+                <label htmlFor="season" className="block text-sm font-medium text-gray-700">מועד</label>
                 <select
                   name="Season"
-                  id="seasonSelect"
+                  id="testSeasonSelect"
                   onChange={(e) => setTestSeason(e.target.value)}
                   value={testSeason}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 >
                   <option value=""></option>
-                  <option value="אביב">אביב</option>
                   <option value="קיץ">קיץ</option>
+                  <option value="אביב">אביב</option>
                 </select>
-
-                <label htmlFor="seasonNum" className="block text-sm font-medium text-gray-700">מועד</label>
+              </div>
+              <div className="flex items-center space-x-4">
+                <label htmlFor="seasonNum" className="block text-sm font-medium text-gray-700">מספר מועד</label>
                 <select
                   name="SeasonNum"
-                  id="seasonNumSelect"
+                  id="testSeasonNumSelect"
                   onChange={(e) => setTestSeasonNum(e.target.value)}
                   value={testSeasonNum}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -170,55 +171,37 @@ function AddQuestion({}) {
                   <option value="ב">ב</option>
                 </select>
               </div>
-
-              <div className="flex items-center space-x-4 mt-2">
+              <div className="flex items-center space-x-4">
                 <label htmlFor="partOfTheTest" className="block text-sm font-medium text-gray-700">חלק</label>
                 <select
-                  name="partOfTheTest"
-                  id="partOfTheTest"
+                  name="PartOfTheTest"
+                  id="partOfTheTestSelect"
                   onChange={(e) => setPartOfTheTest(e.target.value)}
                   value={partOfTheTest}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 >
                   <option value=""></option>
                   <option value="א">א</option>
-                  <option                  value="ב">ב</option>
+                  <option value="ב">ב</option>
                   <option value="ג">ג</option>
-                </select>
-
-                <label htmlFor="numberOfQuestion" className="block text-sm font-medium text-gray-700">מספר שאלה</label>
-                <select
-                  name="numberOfQuestion"
-                  id="numberOfQuestion"
-                  onChange={(e) => setNumberOfQuestion(e.target.value)}
-                  value={numberOfQuestion}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value=""></option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                  <option value="13">13</option>
-                  <option value="14">14</option>
-                  <option value="15">15</option>
                 </select>
               </div>
             </div>
           </div>
-
           <div className="mb-4">
-            <label htmlFor="testInput" className="block text-sm font-medium text-gray-700">טסט קלט</label>
+            <label htmlFor="numberOfQuestion" className="block text-sm font-medium text-gray-700">מספר שאלה</label>
             <input
-              type="text"
+              type="number"
+              id="numberOfQuestion"
+              value={numberOfQuestion}
+              onChange={(e) => setNumberOfQuestion(e.target.value)}
+              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="testInput" className="block text-sm font-medium text-gray-700">קלט לבדיקה</label>
+            <textarea
               id="testInput"
               value={testInput}
               onChange={(e) => setTestInput(e.target.value)}
@@ -226,11 +209,9 @@ function AddQuestion({}) {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-
           <div className="mb-4">
-            <label htmlFor="testOutput" className="block text-sm font-medium text-gray-700">טסט פלט</label>
-            <input
-              type="text"
+            <label htmlFor="testOutput" className="block text-sm font-medium text-gray-700">פלט לבדיקה</label>
+            <textarea
               id="testOutput"
               value={testOutput}
               onChange={(e) => setTestOutput(e.target.value)}
@@ -238,7 +219,6 @@ function AddQuestion({}) {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-
           <div className="mb-4">
             <label htmlFor="solution" className="block text-sm font-medium text-gray-700">פתרון</label>
             <textarea
@@ -249,106 +229,67 @@ function AddQuestion({}) {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-
           <div className="mb-4">
             <label htmlFor="solutionSource" className="block text-sm font-medium text-gray-700">מקור הפתרון</label>
-            <input
-              type="text"
+            <textarea
               id="solutionSource"
               value={solutionSource}
               onChange={(e) => setSolutionSource(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">רמת קושי</label>
-            <div className="radio-container mt-2 space-y-2">
-              <div className="inline-flex items-center">
-                <input
-                  type="radio"
-                  id="easy"
-                  name="difficulty"
-                  value="easy"
-                  checked={difficulty === 'easy'}
-                  onChange={(e) => setDifficulty(e.target.value)}
-                  className="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
-                />
-                <label htmlFor="easy" className="ml-3 block text-sm font-medium text-gray-700">קל</label>
-              </div>
-              <div className="inline-flex items-center">
-                <input
-                  type="radio"
-                  id="medium"
-                  name="difficulty"
-                  value="medium"
-                  checked={difficulty === 'medium'}
-                  onChange={(e) => setDifficulty(e.target.value)}
-                  className="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
-                />
-                <label htmlFor="medium" className="ml-3 block text-sm font-medium text-gray-700">בינוני</label>
-              </div>
-              <div className="inline-flex items-center">
-                <input
-                  type="radio"
-                  id="hard"
-                  name="difficulty"
-                  value="hard"
-                  checked={difficulty === 'hard'}
-                  onChange={(e) => setDifficulty(e.target.value)}
-                  className="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
-                />
-                <label htmlFor="hard" className="ml-3 block text-sm font-medium text-gray-700">קשה</label>
-              </div>
-            </div>
+            <label htmlFor="difficulty" className="block text-sm font-medium text-gray-700">רמת קושי</label>
+            <select
+              name="difficulty"
+              id="difficultySelect"
+              onChange={(e) => setDifficulty(e.target.value)}
+              value={difficulty}
+              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value="easy">קל</option>
+              <option value="medium">בינוני</option>
+              <option value="hard">קשה</option>
+            </select>
           </div>
-
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">תגיות:</label>
-            <div className="checkbox-container mt-2 space-y-2">
+            <label htmlFor="tags" className="block text-sm font-medium text-gray-700">תגים</label>
+            <div className="mt-2 space-y-2">
               {tagOptions.map(tag => (
-                <div key={tag.id} className="inline-flex items-center">
+                <div key={tag.id} className="flex items-center">
                   <input
                     type="checkbox"
                     id={tag.id}
                     value={tag.id}
                     checked={tags.includes(tag.id)}
                     onChange={handleTagChange}
-                    className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                   />
-                  <label htmlFor={tag.id} className="ml-3 block text-sm font-medium text-gray-700">{tag.label}</label>
+                  <label htmlFor={tag.id} className="ml-2 block text-sm text-gray-900">{tag.label}</label>
                 </div>
               ))}
             </div>
           </div>
-
-          <Stack direction="column" spacing={2}>
+          {error && <Alert severity="error">{error}</Alert>}
+          <Stack direction="row" spacing={2}>
             <Button
               type="submit"
               variant="contained"
               endIcon={<SendIcon />}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
             >
-              הוספת שאלה
+              שלח
             </Button>
           </Stack>
-          {showAlert && <Alert severity="success">השאלה הוספה בהצלחה!</Alert>}
-          {error && <p className="text-red-500 text-sm">{error}</p>}
         </form>
+        <Snackbar open={showAlert} autoHideDuration={3000} onClose={() => setShowAlert(false)}>
+          <Alert onClose={() => setShowAlert(false)} severity="success">
+            השאלה נוספה בהצלחה!
+          </Alert>
+        </Snackbar>
       </div>
-      <Snackbar
-        open={showAlert}
-        autoHideDuration={3000}
-        onClose={() => setShowAlert(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert severity="success" onClose={() => setShowAlert(false)}>
-          השאלה הוספה בהצלחה!
-        </Alert>
-      </Snackbar>
     </>
   );
 }
 
 export default AddQuestion;
-

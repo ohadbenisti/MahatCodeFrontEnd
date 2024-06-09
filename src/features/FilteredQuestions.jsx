@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import MultiSelect from "./MultiSelect";
 import QuestionTable from "./QuestionTable";
+import SearchBar from "./SearchQuestion";
 import axios from "axios";
 
 const FilteredQuestions = () => {
   const [questions, setQuestions] = useState([]);
-  const [filteredQuestions, setFilteredQuestions] = useState([]);
+  const [filteredByMultiSelect, setFilteredByMultiSelect] = useState([]);
+  const [finalFilteredQuestions, setFinalFilteredQuestions] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_SERVER}/problem`);
         setQuestions(response.data.questions);
-        console.log(response);
-        setFilteredQuestions(response.data.questions); // הגדרה ראשונית של כל השאלות
+        setFilteredByMultiSelect(response.data.questions); // Initialize with all questions
+        setFinalFilteredQuestions(response.data.questions); // Initialize final filtered questions
       } catch (error) {
         console.error("שגיאה בהבאת השאלות:", error);
       }
@@ -22,12 +25,23 @@ const FilteredQuestions = () => {
     fetchQuestions();
   }, []);
 
- 
+  useEffect(() => {
+    const filterQuestions = () => {
+      const filtered = filteredByMultiSelect.filter((question) =>
+        question.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        question.description.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFinalFilteredQuestions(filtered);
+    };
+
+    filterQuestions();
+  }, [searchQuery, filteredByMultiSelect]);
 
   return (
     <div>
-      <MultiSelect questions={questions} onFilterChange={setFilteredQuestions} />
-      <QuestionTable questions={filteredQuestions} />
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <MultiSelect questions={questions} onFilterChange={setFilteredByMultiSelect} />
+      <QuestionTable questions={finalFilteredQuestions} />
     </div>
   );
 };

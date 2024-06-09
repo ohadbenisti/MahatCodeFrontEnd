@@ -24,7 +24,6 @@ const Login = ({ onLogin }) => {
 
       if (data.status === "success") {
         localStorage.setItem("userInfo", JSON.stringify(data));
-        // localStorage.setItem("token", JSON.stringify(data.token));
         onLogin();
         navigate("/");
       } else {
@@ -44,41 +43,50 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <>
-      <div className="d-flex justify-content-center flex-grow-1 mt-4">
-        <form className="col-4" onSubmit={handleLogin}>
-          <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">
+    <div className="flex items-start justify-center min-h-screen bg-gray-100 pt-20">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-center text-gray-700">
+          התחברות
+        </h2>
+        <form className="space-y-6" onSubmit={handleLogin}>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               כתובת מייל
             </label>
             <input
               type="email"
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
+              id="email"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
-            <div id="emailHelp" className="form-text"></div>
           </div>
-          <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               סיסמה
             </label>
             <input
               type="password"
-              className="form-control"
-              id="exampleInputPassword1"
+              id="password"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
           </div>
-          <button id="but" type="submit" className="btn btn-primary">
-            התחברות
-          </button>
+          <div>
+            <button
+              type="submit"
+              className="w-full px-4 py-2 font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:bg-blue-600 focus:outline-none"
+            >
+              התחברות
+            </button>
+          </div>
         </form>
+        <p className="text-sm text-center text-gray-600">
+          אין לך חשבון? <Link to="/signup" className="text-blue-500 hover:underline">הרשמה</Link>
+        </p>
       </div>
-    </>
+    </div>
   );
 };
 
