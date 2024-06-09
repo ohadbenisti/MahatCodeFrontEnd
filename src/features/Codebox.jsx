@@ -15,9 +15,7 @@ const Codebox = () => {
     //   },
     // };
     try {
-        const myInput = Question.test.input??null
-      
-        const response = await axios.post(
+      const response = await axios.post(
         "https://emkc.org/api/v2/piston/execute",
 
         {
@@ -26,15 +24,15 @@ const Codebox = () => {
           files: [
             {
               name: "my_cool_code.py",
-              content: code,
-            },
+              content: code
+            }
           ],
           stdin: "",
           args: [],
           compile_timeout: 10000,
           run_timeout: 3000,
           compile_memory_limit: -1,
-          run_memory_limit: -1,
+          run_memory_limit: -1
         }
       );
       console.log(response);

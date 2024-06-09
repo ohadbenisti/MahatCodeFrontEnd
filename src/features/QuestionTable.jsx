@@ -24,6 +24,7 @@ const QuestionTable = ({ questions }) => {
 
   const getDifficultyLabel = (difficulty) => difficultyOptions[difficulty] || difficulty;
 
+  
   return (
     <table className="custom-table">
       <thead>
@@ -32,7 +33,6 @@ const QuestionTable = ({ questions }) => {
           <th scope="col">תיאור השאלה</th>
           <th scope="col">רמת קושי</th>
           <th scope="col">תגיות</th>
-          <th scope="col">עריכה</th>
         </tr>
       </thead>
       <tbody>
