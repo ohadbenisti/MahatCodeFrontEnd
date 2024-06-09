@@ -11,7 +11,7 @@ import "./App.css";
 import Problem from "./pages/Problem/Problem";
 import AdminPage from "./pages/Admin/AdminPage";
 import PersonalArea from "./pages/PersonalArea/PersonalArea";
-
+import Footer from "./features/Footer";
 export const UserContext = createContext();
 
 function App() {
@@ -69,6 +69,7 @@ function App() {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/PersonalArea" element={<PersonalArea />} />
         </Routes>
+        <Footer />
       </div>
     </UserContext.Provider>
   );

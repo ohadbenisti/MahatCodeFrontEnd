@@ -1,44 +1,124 @@
-/* QuestionTable.css */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.custom-table thead tr {
+  background-color: #444; /* צבע כהה יותר בהשראת LeetCode */
+  color: #ffffff;
+  text-align: right; /* מיקום התגיות בצד ימין */
+  font-weight: bold;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 8px 10px;
+  height: 40px; /* גובה אחיד לשורות */
+  border: none; /* הסרת ה-border בין שורות */
+}
+
+.custom-table tbody tr:nth-of-type(even) {
+  background-color: #f7f8fa; /* צבע מאוד בהיר לשורות */
+}
+
+.custom-table tbody tr:nth-of-type(odd) {
+  background-color: #ffffff; /* צבע לבן */
+}
+
+.custom-table tbody tr:last-of-type {
+  border-bottom: none;
+}
+
+.custom-table tbody tr.active-row {
+  font-weight: bold;
+  color: #444; /* צבע כהה יותר בהשראת LeetCode */
+}
+
+/* תגיות */
 .tag {
-    display: inline-block;
-    padding: 0.2em 0.5em;
-    margin: 0.2em;
-    border-radius: 0.3em;
-    color: white;
-    font-size: 0.9em;
-    color: black;
-    border-radius: 15px;
-  }
-  
-  .tag-string {
-    background-color: #c4ecff;
-  }
-  
-  .tag-class {
-    background-color: #ffeab6;
-  }
-  
-  .tag-array {
-    background-color: #cff5d1;
-  }
-  
-  .tag-complexity {
-    background-color: #d62728;
-  }
-  
-  .tag-recursion {
-    background-color: #e0dafd;
-  }
-  
-  .tag-table-tracking {
-    background-color: #ffd4e0;
-  }
-  
-  .tag-decoding {
-    background-color: #ffe0cc;
-  }
-  
-  .tag-numbers {
-    background-color: #d1e2ff;
-  }
-  
+  display: inline-block;
+  padding: 0.3em 0.6em;
+  margin: 0.2em;
+  border-radius: 9999px;
+  font-size: 0.9em;
+  color: black;
+}
+
+.tag-string {
+  background-color: #c4ecff;
+}
+
+.tag-class {
+  background-color: #ffeab6;
+}
+
+.tag-array {
+  background-color: #cff5d1;
+}
+
+.tag-complexity {
+  background-color: #d62728;
+}
+
+.tag-recursion {
+  background-color: #e0dafd;
+}
+
+.tag-table-tracking {
+  background-color: #ffd4e0;
+}
+
+.tag-decoding {
+  background-color: #ffe0cc;
+}
+
+.tag-numbers {
+  background-color: #d1e2ff;
+}
+
+/* רמות קושי */
+.difficulty-easy {
+  color: green;
+}
+
+.difficulty-medium {
+  color: orange;
+}
+
+.difficulty-hard {
+  color: red;
+}
+
+/* אפקט לינק */
+.custom-table td a {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.custom-table td a::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-table td a:hover::before {
+  visibility: visible;
+  width: 100%;
+}
+
+.custom-table td a:hover {
+  color: #007BFF; /* צבע כחול דינמי */
+}
