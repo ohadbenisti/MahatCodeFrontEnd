@@ -5,22 +5,24 @@
 }
 
 .typewriter h1 {
-  color: rgb(240, 14, 14);
+  color: black; /* צבע לבן */
   font-family: "Courier New", Courier, monospace;
+  font-size: 2em; /* הגדלת גודל הטקסט */
   overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-left: 0.1em solid rgb(240, 189, 189); /* The typwriter cursor */
+  border-left: 0.1em solid black; /* The typewriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   letter-spacing: 0.15em; /* Adjust as needed */
   animation: typing2 3.5s steps(29, end), blink-caret 0.75s step-end infinite;
 }
-/* כדי שהאנימציה תמשיך גם למחיקה, צריך להכפיל את זמן האנימציה, להוסיף infinite וגם להגדיר בתוך האנימציה את ההפסקות בין 50 ל 90 אחוז*/
 
+/* כדי שהאנימציה תמשיך גם למחיקה, צריך להכפיל את זמן האנימציה, להוסיף infinite וגם להגדיר בתוך האנימציה את ההפסקות בין 50 ל 90 אחוז */
 .typewriter2 {
-  color: rgb(240, 14, 14);
+  color: black; /* צבע לבן */
   font-family: "Courier New", Courier, monospace;
+  font-size: 2em; /* הגדלת גודל הטקסט */
   overflow: hidden;
-  border-left: 0.1em solid rgb(240, 189, 189);
+  border-left: 0.1em solid black;
   white-space: nowrap;
   margin: 0 auto;
   letter-spacing: 0.15em;
@@ -46,7 +48,7 @@
     border-color: transparent;
   }
   50% {
-    border-color: rgb(240, 14, 14);
+    border-color: black; /* צבע לבן */
   }
 }
 

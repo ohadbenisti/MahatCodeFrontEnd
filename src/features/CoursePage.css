@@ -1,0 +1,29 @@
+/* קובץ CSS עבור CoursePage בלבד */
+
+.course-page-wrapper {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    /* margin: 20px 0; */
+  }
+  
+  .course-page-questions-wrapper {
+    margin-bottom: 20px;
+  }
+  
+  .course-page-problem-wrapper {
+    margin-bottom: 20px;
+  }
+  
+  .course-page-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .course-page-col-md-2,
+  .course-page-col-md-10 {
+    padding: 0 10px;
+  }
+  

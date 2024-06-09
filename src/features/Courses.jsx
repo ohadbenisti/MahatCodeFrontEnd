@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
+import "./Courses.css"; // קובץ CSS חדש עבור עיצוב הכרטיסים
+
+// ייבוא התמונות המקומיות
+import ai1 from "../assets/ai1.jpg";
+import ai2 from "../assets/ai2.jpg";
 
 const CoursesComponent = () => {
   const [availableCourses, setAvailableCourses] = useState([]);
-  const [enrolledCourses, setEnrolledCourses] = useState([]);
   const userInfo = useLogin();
   const userId = userInfo?.data.user._id;
 
@@ -17,23 +21,31 @@ const CoursesComponent = () => {
       );
   }, []);
 
+  const colors = ["#f28b82", "#fbbc04", "#ccff90", "#a7ffeb"];
+  const images = [ai1, ai2]; // מערך של תמונות מקומיות
+
   return (
-    <div className="d-flex">
-      {availableCourses ? (
-        availableCourses.map((course) => (
-          <div key={course._id} className="card mx-1 shadow p-3 mb-5 bg-body-tertiary rounded" style={{ width: "18rem"}}>
-            <Link to={`/course/${course._id}?userId=${userId}`}>
-              <img
-                className="card-img-top"
-                src={course.image}
-                alt="Card image cap"
-              />
-            </Link>
-            <div className="card-body">
-              <p className="card-text text-center" style={{ fontFamily: 'Roboto, sans-serif', fontSize: '24px', fontWeight: '700', color: '#333' }}>{course.name}</p>
+    <div className="courses-container">
+      {availableCourses.length > 0 ? (
+        availableCourses.map((course, index) => {
+          const imageSrc = images[index % images.length];
+          return (
+            <div key={course._id} className="course-card" style={{ backgroundColor: colors[index % colors.length] }}>
+              <Link to={`/course/${course._id}?userId=${userId}`} className="course-link">
+                <img src={imageSrc} alt={course.name} className="course-image" />
+                <h5 className="course-title">{course.name}</h5>
+                <div className="course-overlay">
+                  <p className="course-description">
+                    {course.description || "No description available."}
+                  </p>
+                  <Link to={`/course/${course._id}?userId=${userId}`} className="course-button">
+                    Learn More
+                  </Link>
+                </div>
+              </Link>
             </div>
-          </div>
-        ))
+          );
+        })
       ) : (
         <h3>Nothing to display</h3>
       )}

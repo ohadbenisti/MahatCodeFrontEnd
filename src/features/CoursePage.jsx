@@ -4,6 +4,7 @@ import CourseSideBar from "./CourseSideBar";
 import useLogin from "../hooks/useLogin";
 import Problem from "../pages/Problem/Problem";
 import EnrollmentComponent from "./Enrolment";
+import "./CoursePage.css";
 // import Question from "./Question";
 // import AnswerSection from "./AnswerSection";
 
@@ -82,16 +83,20 @@ const CoursePage = () => {
         <div>
           {course ? (
             <div className="d-flex">
-              <div className="col-md-2 min-vh-100 bg-light">
+              <div className="course-page-col-md-2 min-vh-100 bg-light mt-7">
                 <CourseSideBar
                   courseDetails={course}
                   setCurrentQuestion={setCurrentQuestion}
                 />
               </div>
-              <div className="col-md-10">
-                <Problem courseQuestion={currentQuestion} />
-                {/* <Question courseQuestion={currentQuestion} />
-                <AnswerSection courseQuestion={currentQuestion} /> */}
+              <div className="course-page-col-md-10">
+                <div className="course-page-wrapper course-page-questions-wrapper mt-7">
+                  <Problem courseQuestion={currentQuestion} />
+                </div>
+                {/* <div className="course-page-wrapper course-page-problem-wrapper">
+                  <Question courseQuestion={currentQuestion} />
+                  <AnswerSection courseQuestion={currentQuestion} />
+                </div> */}
               </div>
             </div>
           ) : (
