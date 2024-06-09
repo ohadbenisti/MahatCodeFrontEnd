@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./css/Codebox.css";
 import CodeEditor from "./Codebox2";
+import LoadingAnimation from "./LoadingAnimation";
+import OutputBox from "./OutputBox";
 
-const Codebox = () => {
-  const [code, setCode] = useState("");
+const Codebox = ({ code, setCode, currentQuestion }) => {
   const [output, setOutput] = useState("");
+  const [test, setTest] = useState("");
+  // console.log(inputForPiston);
+  useEffect(() => {
+    if (currentQuestion) {
+      setTest(currentQuestion.test);
+    } else {
+      console.log("Question object is undefined or null");
+    }
+    // console.log("Question info:", currentQuestion?.test);
+  }, [currentQuestion]);
 
+  if (!currentQuestion) return <LoadingAnimation />;
   const runCode = async () => {
+    // const stringForInput = `${test.input}`;
+
     // const config = {
     //   headers: {
     //     "Content-Type": "application/json", // Specify the content type of the request body
@@ -27,7 +41,7 @@ const Codebox = () => {
               content: code
             }
           ],
-          stdin: "",
+          stdin: test.input,
           args: [],
           compile_timeout: 10000,
           run_timeout: 3000,
@@ -36,7 +50,21 @@ const Codebox = () => {
         }
       );
       console.log(response);
-      setOutput(response.data.run.output);
+      console.log("test", response.data.run.output == test.output);
+      // response.data.run.output
+      setOutput([
+        test.output == response.data.run.output ? (
+          <div style={{ background: "green" }}>תשובה נכונה!</div>
+        ) : (
+          <div style={{ background: "red" }}>נסה שנית</div>
+        ),
+        "Test Case:",
+        <OutputBox code={test.input} style={{ maxHeight: "20vh" }} />,
+        "Expected Output: ",
+        <OutputBox code={test.output} />,
+        "Your Output:",
+        <OutputBox code={response.data.run.output} />
+      ]);
     } catch (error) {
       setOutput("An error occurred while running the code.");
     }
