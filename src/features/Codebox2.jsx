@@ -4,10 +4,6 @@ import "./css/CodeEditor.css";
 const CodeEditor = ({ code, setCode, style1 }) => {
   const lineNumberRef = useRef(null);
   const codeEditorRef = useRef(null);
-  console.log(style1);
-  //   const handleInputChange = (e) => {
-  //     setCode(e.target.value);
-  //   };
   const handleKeyDown = (e) => {
     if (e.key === "Tab") {
       e.preventDefault();

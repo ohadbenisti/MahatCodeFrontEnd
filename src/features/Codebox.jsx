@@ -12,8 +12,6 @@ const Codebox = ({ code, setCode, currentQuestion }) => {
   useEffect(() => {
     if (currentQuestion) {
       setTest(currentQuestion.test);
-    } else {
-      console.log("Question object is undefined or null");
     }
     // console.log("Question info:", currentQuestion?.test);
   }, [currentQuestion]);
@@ -84,7 +82,11 @@ const Codebox = ({ code, setCode, currentQuestion }) => {
         />
       </div> */}
       <CodeEditor code={code} setCode={setCode} />
-      <button className="btn btn-outline-success mt-2"  onClick={runCode} style={{ alignSelf: "flex-start" }}>
+      <button
+        className="btn btn-outline-success mt-2"
+        onClick={runCode}
+        style={{ alignSelf: "flex-start" }}
+      >
         הרץ קוד
       </button>
       <pre>{output}</pre>
