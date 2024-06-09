@@ -6,7 +6,8 @@ import axios from "axios";
 
 const FilteredQuestions = () => {
   const [questions, setQuestions] = useState([]);
-  const [filteredQuestions, setFilteredQuestions] = useState([]);
+  const [filteredByMultiSelect, setFilteredByMultiSelect] = useState([]);
+  const [finalFilteredQuestions, setFinalFilteredQuestions] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -14,8 +15,8 @@ const FilteredQuestions = () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_SERVER}/problem`);
         setQuestions(response.data.questions);
-        console.log(response);
-        setFilteredQuestions(response.data.questions); // הגדרה ראשונית של כל השאלות
+        setFilteredByMultiSelect(response.data.questions); // Initialize with all questions
+        setFinalFilteredQuestions(response.data.questions); // Initialize final filtered questions
       } catch (error) {
         console.error("שגיאה בהבאת השאלות:", error);
       }
@@ -26,22 +27,21 @@ const FilteredQuestions = () => {
 
   useEffect(() => {
     const filterQuestions = () => {
-      const filtered = questions.filter((question) =>
-        question.title.toLowerCase().includes(searchQuery.toLowerCase())
+      const filtered = filteredByMultiSelect.filter((question) =>
+        question.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        question.description.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      setFilteredQuestions(filtered);
+      setFinalFilteredQuestions(filtered);
     };
 
     filterQuestions();
-  }, [searchQuery, questions]);
-
-
+  }, [searchQuery, filteredByMultiSelect]);
 
   return (
     <div>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <MultiSelect questions={questions} onFilterChange={setFilteredQuestions} />
-      <QuestionTable questions={filteredQuestions} />
+      <MultiSelect questions={questions} onFilterChange={setFilteredByMultiSelect} />
+      <QuestionTable questions={finalFilteredQuestions} />
     </div>
   );
 };
