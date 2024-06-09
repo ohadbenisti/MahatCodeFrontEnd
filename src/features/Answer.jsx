@@ -1,4 +1,5 @@
 import React from "react";
+import CodeBoxStyling from "./CodeboxStyling";
 
 const Answer = ({ currentQuestion }) => {
   return (
@@ -6,7 +7,7 @@ const Answer = ({ currentQuestion }) => {
       className="col-md-12"
       style={{ direction: "ltr", whiteSpace: "pre-wrap" }}
     >
-      {currentQuestion.solution}
+      <CodeBoxStyling code={currentQuestion.solution} />
     </div>
   );
 };

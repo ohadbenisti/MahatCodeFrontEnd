@@ -14,17 +14,18 @@ const AnswerSection = ({ currentQuestion }) => {
 
   return (
     <div className="col-md-5">
+      <div className="mb-1">
       <button
         className={
-          activeComponent == "Codebox" ? "button-active" : "button-colored"
+          activeComponent == "Codebox" ? "btn btn-primary btn-lg active" : "btn btn-secondary btn-lg active"
         }
         onClick={() => setActiveComponent("Codebox")}
       >
-        קוד
+         &lt;קוד&gt;
       </button>
       <button
         className={
-          activeComponent == "Answer" ? "button-active" : "button-colored"
+          activeComponent == "Answer" ? "btn btn-primary btn-lg active" : "btn btn-secondary btn-lg active"
         }
         style={{ marginRight: "4px" }}
         onClick={() => setActiveComponent("Answer")}
@@ -33,13 +34,14 @@ const AnswerSection = ({ currentQuestion }) => {
       </button>
       <button
         className={
-          activeComponent == "Forum" ? "button-active" : "button-colored"
+          activeComponent == "Forum" ? "btn btn-primary btn-lg active" : "btn btn-secondary btn-lg active"
         }
         style={{ marginRight: "4px" }}
         onClick={() => setActiveComponent("Forum")}
       >
         פורום
       </button>
+      </div>
 
       {/* Render the active component */}
       <div>{componentsObj[activeComponent]}</div>
