@@ -30,16 +30,16 @@ const CoursesComponent = () => {
         availableCourses.map((course, index) => {
           const imageSrc = images[index % images.length];
           return (
-            <div key={course._id} className="course-card" style={{ backgroundColor: colors[index % colors.length] }}>
+            <div key={course._id} className="course-card" style={{ backgroundColor: colors[index % colors.length]}}>
               <Link to={`/course/${course._id}?userId=${userId}`} className="course-link">
                 <img src={imageSrc} alt={course.name} className="course-image" />
                 <h5 className="course-title">{course.name}</h5>
                 <div className="course-overlay">
                   <p className="course-description">
-                    {course.description || "No description available."}
+                    {course.description}
                   </p>
                   <Link to={`/course/${course._id}?userId=${userId}`} className="course-button">
-                    Learn More
+                    למד עוד
                   </Link>
                 </div>
               </Link>
@@ -47,7 +47,7 @@ const CoursesComponent = () => {
           );
         })
       ) : (
-        <h3>Nothing to display</h3>
+        <h3>אין כלום להראות</h3>
       )}
     </div>
   );

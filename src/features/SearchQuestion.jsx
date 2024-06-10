@@ -9,7 +9,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
       placeholder="חפש שאלה..."
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}
-      className="form-control mb-3 w-25"
+      className="form-control mb-3 w-60"
     />
   );
 };
