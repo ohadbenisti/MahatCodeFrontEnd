@@ -6,10 +6,17 @@ import { useState } from "react";
 
 const AnswerSection = ({ currentQuestion }) => {
   const [activeComponent, setActiveComponent] = useState("Codebox");
+  const [code, setCode] = useState("");
   const componentsObj = {
-    Codebox: <Codebox />,
+    Codebox: (
+      <Codebox
+        code={code}
+        setCode={setCode}
+        currentQuestion={currentQuestion}
+      />
+    ),
     Answer: <Answer currentQuestion={currentQuestion} />,
-    Forum: <Forum currentQuestion={currentQuestion}/>,
+    Forum: <Forum currentQuestion={currentQuestion} />
   };
 
   return (
@@ -49,5 +56,4 @@ const AnswerSection = ({ currentQuestion }) => {
     </div>
   );
 };
-
 export default AnswerSection;
