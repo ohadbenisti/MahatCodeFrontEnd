@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
-import "./Courses.css"; // קובץ CSS חדש עבור עיצוב הכרטיסים
+import "./Courses.css"; 
 
 // ייבוא התמונות המקומיות
 import ai1 from "../assets/ai1.jpg";
@@ -31,23 +31,19 @@ const CoursesComponent = () => {
           const imageSrc = images[index % images.length];
           return (
             <div key={course._id} className="course-card" style={{ backgroundColor: colors[index % colors.length] }}>
-              <Link to={`/course/${course._id}?userId=${userId}`} className="course-link">
-                <img src={imageSrc} alt={course.name} className="course-image" />
-                <h5 className="course-title">{course.name}</h5>
-                <div className="course-overlay">
-                  <p className="course-description">
-                    {course.description || "No description available."}
-                  </p>
-                  <Link to={`/course/${course._id}?userId=${userId}`} className="course-button">
-                    Learn More
-                  </Link>
-                </div>
-              </Link>
+              <img src={imageSrc} alt={course.name} className="course-image" />
+              <h5 className="course-title">{course.name}</h5>
+              <div className="course-overlay">
+                <p className="course-description">{course.description}</p>
+                <Link to={`/course/${course._id}?userId=${userId}`} className="course-button">
+                  למד עוד
+                </Link>
+              </div>
             </div>
           );
         })
       ) : (
-        <h3>Nothing to display</h3>
+        <h3>אין כלום להראות</h3>
       )}
     </div>
   );
