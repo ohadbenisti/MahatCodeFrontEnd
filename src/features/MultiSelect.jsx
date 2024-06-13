@@ -46,6 +46,7 @@ const MultiSelect = ({ questions, onFilterChange }) => {
   return (
     <div className="d-flex">
       <div style={{ marginLeft: "28px" }}>
+
         <Select
           isMulti
           name="difficulties"

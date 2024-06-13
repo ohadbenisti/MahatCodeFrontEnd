@@ -6,20 +6,21 @@ import useLogin from "../../hooks/useLogin";
 import TypeEffect from "./TypeEffect";
 import "./Content.css"; // ייבוא של קובץ ה-CSS
 
-
 const Content = () => {
   const [filter, setFilter] = useState("");
   const userInfo = useLogin();
 
   return (
-    <div className="content-body">
-      <div className="container">
-        <TypeEffect />
-        <h2 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '30px', fontWeight: '700', color: '#333' }}>קורסים</h2>
-        <CoursesComponent />
-        <h2 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '30px', fontWeight: '700', color: '#333' }}>שאלות</h2>
-        <div className="my-4">
-          <FilteredQuestions setFilter={setFilter} />
+    <div className="content-background">
+      <div className="content-body">
+        <div className="container">
+          <TypeEffect />
+          <h2 className="title">תכניות לימוד</h2>
+          <CoursesComponent />
+          <h2 className="title"></h2>
+          <div className="my-4">
+            <FilteredQuestions setFilter={setFilter} />
+          </div>
         </div>
       </div>
     </div>

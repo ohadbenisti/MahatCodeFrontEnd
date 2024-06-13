@@ -22,7 +22,7 @@ const CoursesComponent = () => {
   }, []);
 
   const colors = ["#f28b82", "#fbbc04", "#ccff90", "#a7ffeb"];
-  const images = [ai1, ai2]; // מערך של תמונות מקומיות
+  const images = [ai1, ai2, ai1]; // מערך של תמונות מקומיות
 
   return (
     <div className="courses-container">
@@ -30,22 +30,22 @@ const CoursesComponent = () => {
         availableCourses.map((course, index) => {
           const imageSrc = images[index % images.length];
           return (
-            <div
-              key={course._id}
-              className="course-card"
-              style={{ backgroundColor: colors[index % colors.length] }}
-            >
-              <img src={imageSrc} alt={course.name} className="course-image" />
-              <h5 className="course-title">{course.name}</h5>
-              <div className="course-overlay">
-                <p className="course-description">{course.description}</p>
-                <Link
-                  to={`/course/${course._id}?userId=${userId}`}
-                  className="course-button"
-                >
-                  למד עוד
-                </Link>
-              </div>
+            <div key={course._id} className="course-card" style={{ backgroundColor: colors[index % colors.length] }}>
+              <Link to={`/course/${course._id}?userId=${userId}`} className="course-link">
+                <img src={imageSrc} alt={course.name} className="course-image" />
+                <h5 className="course-title">{course.name}</h5>
+                <div className="course-overlay">
+                  <p className="course-description">
+                    {course.description || "No description available."}
+                  </p>
+                  <div>
+                    <Link to={`/course/${course._id}?userId=${userId}`} className="course-button-link">
+                      Learn More
+                    </Link>
+                  </div>
+                </div>
+              </Link>
+
             </div>
           );
         })

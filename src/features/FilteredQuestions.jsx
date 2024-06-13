@@ -38,11 +38,15 @@ const FilteredQuestions = () => {
   }, [searchQuery, filteredByMultiSelect]);
 
   return (
-    <div>
+      <>
+      <div style={{display: 'flex', gap: '30px'}}>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <MultiSelect questions={questions} onFilterChange={setFilteredByMultiSelect} />
+      </div>
+      <div>
       <QuestionTable questions={finalFilteredQuestions} />
-    </div>
+      </div>
+      </>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-
+import logo from '../assets/logo.jpg'
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,9 +45,9 @@ const Login = ({ onLogin }) => {
   return (
     <div className="flex items-start justify-center min-h-screen bg-gray-100 pt-20">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-700">
-          התחברות
-        </h2>
+        <div className="flex justify-center">
+          <img src={logo} alt="Logo" className="max-w-xs mb-2" />
+        </div>
         <form className="space-y-6" onSubmit={handleLogin}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp/SignUp";
-import { Header } from "./features/Header";
+import Header from "./features/Header";
 import CoursePage from "./features/CoursePage";
 import Course from "./pages/Courses/Course";
 import Content from "./pages/Content/Content";
@@ -12,6 +12,7 @@ import Problem from "./pages/Problem/Problem";
 import AdminPage from "./pages/Admin/AdminPage";
 import PersonalArea from "./pages/PersonalArea/PersonalArea";
 import Footer from "./features/Footer";
+import About from "./pages/About/About";
 export const UserContext = createContext();
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
           <Route path="/problem/:questionId" element={<Problem />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/PersonalArea" element={<PersonalArea />} />
+          <Route path="/about" element={<About/>}/>
         </Routes>
         <Footer />
       </div>
