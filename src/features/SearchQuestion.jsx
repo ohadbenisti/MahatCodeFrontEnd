@@ -15,7 +15,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
       <input
         className="input"
         type="search"
-        placeholder="Search"
+        placeholder="חיפוש"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />

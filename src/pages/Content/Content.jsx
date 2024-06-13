@@ -15,7 +15,7 @@ const Content = () => {
       <div className="content-body">
         <div className="container">
           <TypeEffect />
-          <h2 className="title">תכנית לימוד</h2>
+          <h2 className="title">תכניות לימוד</h2>
           <CoursesComponent />
           <h2 className="title"></h2>
           <div className="my-4">

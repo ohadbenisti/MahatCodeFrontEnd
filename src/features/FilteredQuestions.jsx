@@ -40,8 +40,8 @@ const FilteredQuestions = () => {
   return (
       <>
       <div style={{display: 'flex', gap: '30px'}}>
-      <MultiSelect questions={questions} onFilterChange={setFilteredByMultiSelect} />
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <MultiSelect questions={questions} onFilterChange={setFilteredByMultiSelect} />
       </div>
       <div>
       <QuestionTable questions={finalFilteredQuestions} />
