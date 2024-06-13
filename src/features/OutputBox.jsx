@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./css/CodeEditor.css";
+import "./css/OutputBox.css";
 
-const CodeEditor = ({ code, setCode }) => {
+const OutputBox = ({ code, setCode }) => {
   const lineNumberRef = useRef(null);
   const codeEditorRef = useRef(null);
+  //   const handleInputChange = (e) => {
+  //     setCode(e.target.value);
+  //   };
 
   const handleKeyDown = (e) => {
     if (e.key === "Tab") {
@@ -60,27 +63,27 @@ const CodeEditor = ({ code, setCode }) => {
   }, [code]);
 
   return (
-    <div className="editor-container">
-      <div className="editor">
+    <div className="editor-container1">
+      <div className="editor1">
         <textarea
           ref={lineNumberRef}
-          className="line-numbers"
+          className="line-numbers1"
           readOnly
           value=""
         />
         <textarea
           ref={codeEditorRef}
-          className="code-editor"
+          className="code-editor1"
           value={code}
           onChange={(e) => setCode(e.target.value)}
           onKeyDown={handleKeyDown}
           onScroll={syncScroll}
-          placeholder="Write your code here..."
           spellCheck="false"
+          readOnly
         />
       </div>
     </div>
   );
 };
 
-export default CodeEditor;
+export default OutputBox;

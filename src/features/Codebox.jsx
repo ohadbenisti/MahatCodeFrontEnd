@@ -1,20 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./css/Codebox.css";
 import CodeEditor from "./Codebox2";
+import LoadingAnimation from "./LoadingAnimation";
+import OutputBox from "./OutputBox";
+import MatrixAnimation from "./MatrixAnimation";
 
-const Codebox = () => {
-  const [code, setCode] = useState("");
+const Codebox = ({
+  code,
+  setCode,
+  currentQuestion,
+  courseDetails,
+  onRightAnswer
+}) => {
   const [output, setOutput] = useState("");
+  const [test, setTest] = useState("");
+  const [isPending, setIsPending] = useState(false);
+  const { courseId } = useParams();
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get("userId");
+  const location = useLocation();
+  const isCourse = location.pathname.split("/")[1] == "course";
+
+  useEffect(() => {
+    if (currentQuestion) {
+      setTest(currentQuestion.test);
+    }
+  }, [currentQuestion]);
+
+  if (!currentQuestion) return <LoadingAnimation />;
+
+  const onRightAnswered = async () => {
+    const payload = { questionId: currentQuestion._id };
+    const url = `${
+      import.meta.env.VITE_SERVER
+    }/course/${courseId}?userId=${userId}`;
+    try {
+      const response = await axios.patch(url, payload);
+      onRightAnswer(currentQuestion._id);
+    } catch {
+      console.log("error");
+    }
+  };
 
   const runCode = async () => {
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json", // Specify the content type of the request body
-    //     "Access-Control-Allow-Origin": "*", // Specify the allowed origin for the request
-    //   },
-    // };
+    setIsPending(true);
+    setOutput("");
+    // Add code to end of users code, if needed
+    const newCode = `${code}\n${test.injectCode ? test.injectCode : ""}`;
+
     try {
+      console.log(code);
       const response = await axios.post(
         "https://emkc.org/api/v2/piston/execute",
 
@@ -24,10 +61,10 @@ const Codebox = () => {
           files: [
             {
               name: "my_cool_code.py",
-              content: code
+              content: newCode
             }
           ],
-          stdin: "",
+          stdin: test.input,
           args: [],
           compile_timeout: 10000,
           run_timeout: 3000,
@@ -36,7 +73,72 @@ const Codebox = () => {
         }
       );
       console.log(response);
-      setOutput(response.data.run.output);
+      setIsPending(false);
+      const rightAnswer = response.data.run.output == test.output;
+      const SyntaxError = response.data.run.stderr != "";
+
+      // Update the answered question in the usersCourses progress
+      rightAnswer && isCourse && onRightAnswered();
+
+      // Div to display in right answer
+      const RightAnswer = () => (
+        <div
+          style={{
+            background: "green",
+            direction: "rtl",
+            fontSize: "24px",
+            color: "white"
+          }}
+        >
+          תשובה נכונה!
+        </div>
+      );
+
+      // Div to display in error
+      const ErrorBlock = ({ error }) => (
+        <div>
+          <div style={{ background: "red", direction: "rtl" }}>
+            שגיאה בהרצת התוכנית. תוכן השגיאה:
+          </div>
+          <div wrap="soft" style={{ whiteSpace: "pre-wrap" }}>
+            {error}
+          </div>
+        </div>
+      );
+
+      // Div to display in wrong answer
+
+      const TryAgain = () => (
+        <div style={{ background: "red", direction: "rtl" }}>נסה שנית</div>
+      );
+
+      const TestCaseOutput = ({ test, response }) => (
+        <>
+          <div>Test Case:</div>
+          <OutputBox code={test.input} style={{ maxHeight: "20vh" }} />
+          <div>Expected Output:</div>
+          <OutputBox code={test.output} />
+          <div>Your Output:</div>
+          <OutputBox code={response.data.run.output} />
+        </>
+      );
+
+      setOutput([
+        rightAnswer ? (
+          <RightAnswer key="right-answer" />
+        ) : SyntaxError ? (
+          <ErrorBlock key="error-block" error={response.data.run.stderr} />
+        ) : (
+          <TryAgain key="try-again" />
+        ),
+        !SyntaxError && (
+          <TestCaseOutput
+            key="test-case-output"
+            test={test}
+            response={response}
+          />
+        )
+      ]);
     } catch (error) {
       setOutput("An error occurred while running the code.");
     }
@@ -44,22 +146,16 @@ const Codebox = () => {
 
   return (
     <div className="d-flex flex-column ">
-      {/* <code-runner language="python">print('hello world')</code-runner> */}
-      {/* <div className="editor-container">
-        <textarea
-          className="code-editor"
-          style={{ direction: "ltr" }}
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          rows={10}
-          cols={50}
-        />
-      </div> */}
       <CodeEditor code={code} setCode={setCode} />
-      <button className="btn btn-outline-success mt-2"  onClick={runCode} style={{ alignSelf: "flex-start" }}>
+      <button
+        className="btn btn-outline-success mt-2"
+        onClick={runCode}
+        style={{ alignSelf: "flex-start" }}
+      >
         הרץ קוד
       </button>
-      <pre>{output}</pre>
+      {isPending && <MatrixAnimation />}
+      <pre style={{ direction: "ltr" }}>{output}</pre>
     </div>
   );
 };

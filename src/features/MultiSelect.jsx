@@ -17,6 +17,7 @@ const MultiSelect = ({ questions, onFilterChange }) => {
     { value: "string", label: "מחרוזות" },
     { value: "array", label: "מערך" },
     { value: "numbers", label: "מספרים" },
+    { value: "recursion", label: "רקורסיה" },
   ];
 
   const handleFilterChange = (selectedDifOptions, selectedTagOptions) => {
@@ -44,7 +45,8 @@ const MultiSelect = ({ questions, onFilterChange }) => {
 
   return (
     <div className="d-flex">
-      <div style={{ marginLeft: "10px" }}>
+      <div style={{ marginLeft: "28px" }}>
+
         <Select
           isMulti
           name="difficulties"

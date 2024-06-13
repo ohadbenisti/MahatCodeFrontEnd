@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
-import "./Courses.css"; // קובץ CSS חדש עבור עיצוב הכרטיסים
+import "./Courses.css";
 
 // ייבוא התמונות המקומיות
 import ai1 from "../assets/ai1.jpg";
@@ -45,11 +45,12 @@ const CoursesComponent = () => {
                   </div>
                 </div>
               </Link>
+
             </div>
           );
         })
       ) : (
-        <h3>Nothing to display</h3>
+        <h3>אין כלום להראות</h3>
       )}
     </div>
   );
