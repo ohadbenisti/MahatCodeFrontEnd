@@ -35,12 +35,18 @@ const EditQuestion = ({ question, onClose, onSave }) => {
       : ""
   );
   const [testOutput, setTestOutput] = useState(question.test.output);
+  const [testInjectCode, setTestInjectCode] = useState(
+    question.test.injectCode
+  );
+
   const [solution, setSolution] = useState(question.solution);
   const [solutionSource, setSolutionSource] = useState(
     question.solutionSource ? question.solutionSource : ""
   );
   const [difficulty, setDifficulty] = useState(question.difficulty);
   const [tags, setTags] = useState(question.tags);
+  const [initialCode, setInitialCode] = useState(question.initialCode);
+
   const [error, setError] = useState("");
 
   // Handle changes in tag selection
@@ -75,9 +81,14 @@ const EditQuestion = ({ question, onClose, onSave }) => {
           title,
           description,
           questionSource,
-          test: { input: testInput, output: testOutput },
+          test: {
+            input: testInput,
+            output: testOutput,
+            injectCode: testInjectCode
+          },
           difficulty,
           tags,
+          initialCode,
           solution,
           solutionSource
         },
@@ -91,9 +102,14 @@ const EditQuestion = ({ question, onClose, onSave }) => {
           title,
           description,
           questionSource,
-          test: { input: testInput, output: testOutput },
+          test: {
+            input: testInput,
+            output: testOutput,
+            injectCode: testInjectCode
+          },
           difficulty,
           tags,
+          initialCode,
           solution,
           solutionSource
         });
@@ -251,20 +267,22 @@ const EditQuestion = ({ question, onClose, onSave }) => {
           </div>
           <div className="edit-question-form-group pt-3">
             <label htmlFor="testInput">טסט קלט</label>
-            <input
+            <textarea
               type="text"
               id="testInput"
               value={testInput}
               onChange={(e) => setTestInput(e.target.value)}
+              style={{ direction: "ltr" }}
             />
           </div>
           <div className="edit-question-form-group">
             <label htmlFor="testOutput">טסט פלט</label>
-            <input
+            <textarea
               type="text"
               id="testOutput"
               value={testOutput ? testOutput : ""}
               onChange={(e) => setTestOutput(e.target.value)}
+              style={{ direction: "ltr" }}
             />
           </div>
           <div className="edit-question-form-group">
@@ -274,6 +292,27 @@ const EditQuestion = ({ question, onClose, onSave }) => {
               value={solution ? solution : ""}
               onChange={(e) => setSolution(e.target.value)}
               required
+              style={{ direction: "ltr" }}
+            />
+          </div>
+          <div className="edit-question-form-group">
+            <label htmlFor="initialCode">קוד התחלתי</label>
+            <textarea
+              type="text"
+              id="initialCode"
+              value={initialCode ? initialCode : ""}
+              onChange={(e) => setInitialCode(e.target.value)}
+              style={{ direction: "ltr" }}
+            />
+          </div>
+          <div className="edit-question-form-group">
+            <label htmlFor="testInjectCode">קוד לשתילה בסוף</label>
+            <textarea
+              type="text"
+              id="testInjectCode"
+              value={testInjectCode ? testInjectCode : ""}
+              onChange={(e) => setTestInjectCode(e.target.value)}
+              style={{ direction: "ltr" }}
             />
           </div>
 

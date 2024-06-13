@@ -15,6 +15,17 @@ const CoursePage = () => {
   const userId = searchParams.get("userId");
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [showCourse, setShowCourse] = useState(false);
+  const [questions, setQuestions] = useState();
+
+  const setQuestionToAnswered = (answeredId) => {
+    const updatedQuestions = questions.map((question) => {
+      if (question._id == answeredId) {
+        return { ...question, isAnswered: true };
+      }
+      return question;
+    });
+    setQuestions(updatedQuestions);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -34,6 +45,7 @@ const CoursePage = () => {
                   question._id === data.course.progress.currentQuestion
               );
             setCurrentQuestion(usersCurrentQuestion);
+            setQuestions(data.course.courseQuestions.questions);
           }
           if (data.course.Enrolled) {
             setIsEnrolled(true);
@@ -78,18 +90,22 @@ const CoursePage = () => {
           isEnrolled={isEnrolled}
           setIsEnrolled={setIsEnrolled}
           courseId={courseId}
-          // setShowCourse={setShowCourse}
         />
         {course ? (
           <div className="d-flex">
             <div className="col-md-2 min-vh-100 bg-light">
               <CourseSideBar
+                questions={questions}
                 courseDetails={course}
                 setCurrentQuestion={setCurrentQuestion}
               />
             </div>
             <div className="col-md-10">
-              <Problem courseQuestion={currentQuestion} />
+              <Problem
+                onRightAnswer={setQuestionToAnswered}
+                courseQuestion={currentQuestion}
+                courseDetails={course}
+              />
             </div>
           </div>
         ) : (

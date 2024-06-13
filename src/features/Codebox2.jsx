@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./css/CodeEditor.css";
 
-const CodeEditor = ({ code, setCode, style1 }) => {
+const CodeEditor = ({ code, setCode }) => {
   const lineNumberRef = useRef(null);
   const codeEditorRef = useRef(null);
+
   const handleKeyDown = (e) => {
     if (e.key === "Tab") {
       e.preventDefault();
