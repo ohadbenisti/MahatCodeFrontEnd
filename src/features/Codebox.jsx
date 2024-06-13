@@ -5,6 +5,7 @@ import "./css/Codebox.css";
 import CodeEditor from "./Codebox2";
 import LoadingAnimation from "./LoadingAnimation";
 import OutputBox from "./OutputBox";
+import MatrixAnimation from "./MatrixAnimation";
 
 const Codebox = ({
   code,
@@ -15,6 +16,7 @@ const Codebox = ({
 }) => {
   const [output, setOutput] = useState("");
   const [test, setTest] = useState("");
+  const [isPending, setIsPending] = useState(false);
   const { courseId } = useParams();
   const [searchParams] = useSearchParams();
   const userId = searchParams.get("userId");
@@ -43,7 +45,13 @@ const Codebox = ({
   };
 
   const runCode = async () => {
+    setIsPending(true);
+    setOutput("");
+    // Add code to end of users code, if needed
+    const newCode = `${code}\n${test.injectCode ? test.injectCode : ""}`;
+
     try {
+      console.log(code);
       const response = await axios.post(
         "https://emkc.org/api/v2/piston/execute",
 
@@ -53,7 +61,7 @@ const Codebox = ({
           files: [
             {
               name: "my_cool_code.py",
-              content: code
+              content: newCode
             }
           ],
           stdin: test.input,
@@ -65,37 +73,71 @@ const Codebox = ({
         }
       );
       console.log(response);
-
+      setIsPending(false);
       const rightAnswer = response.data.run.output == test.output;
-      const SyntaxError = response.data.run.stderr;
+      const SyntaxError = response.data.run.stderr != "";
 
+      // Update the answered question in the usersCourses progress
       rightAnswer && isCourse && onRightAnswered();
+
+      // Div to display in right answer
+      const RightAnswer = () => (
+        <div
+          style={{
+            background: "green",
+            direction: "rtl",
+            fontSize: "24px",
+            color: "white"
+          }}
+        >
+          תשובה נכונה!
+        </div>
+      );
+
+      // Div to display in error
+      const ErrorBlock = ({ error }) => (
+        <div>
+          <div style={{ background: "red", direction: "rtl" }}>
+            שגיאה בהרצת התוכנית. תוכן השגיאה:
+          </div>
+          <div wrap="soft" style={{ whiteSpace: "pre-wrap" }}>
+            {error}
+          </div>
+        </div>
+      );
+
+      // Div to display in wrong answer
+
+      const TryAgain = () => (
+        <div style={{ background: "red", direction: "rtl" }}>נסה שנית</div>
+      );
+
+      const TestCaseOutput = ({ test, response }) => (
+        <>
+          <div>Test Case:</div>
+          <OutputBox code={test.input} style={{ maxHeight: "20vh" }} />
+          <div>Expected Output:</div>
+          <OutputBox code={test.output} />
+          <div>Your Output:</div>
+          <OutputBox code={response.data.run.output} />
+        </>
+      );
 
       setOutput([
         rightAnswer ? (
-          <div style={{ background: "green", direction: "rtl" }}>
-            תשובה נכונה!
-          </div>
+          <RightAnswer key="right-answer" />
         ) : SyntaxError ? (
-          <div>
-            <div style={{ background: "red", direction: "rtl" }}>
-              שגיאה בהרצת התוכנית. תוכן השגיאה:
-            </div>
-
-            <div wrap="soft" style={{ whiteSpace: "pre-wrap" }}>
-              {SyntaxError}
-            </div>
-          </div>
+          <ErrorBlock key="error-block" error={response.data.run.stderr} />
         ) : (
-          <div style={{ background: "red", direction: "rtl" }}>נסה שנית</div>
+          <TryAgain key="try-again" />
         ),
-        !SyntaxError &&
-          ("Test Case:",
-          (<OutputBox code={test.input} style={{ maxHeight: "20vh" }} />),
-          "Expected Output: ",
-          (<OutputBox code={test.output} />),
-          "Your Output:",
-          (<OutputBox code={response.data.run.output} />))
+        !SyntaxError && (
+          <TestCaseOutput
+            key="test-case-output"
+            test={test}
+            response={response}
+          />
+        )
       ]);
     } catch (error) {
       setOutput("An error occurred while running the code.");
@@ -112,6 +154,7 @@ const Codebox = ({
       >
         הרץ קוד
       </button>
+      {isPending && <MatrixAnimation />}
       <pre style={{ direction: "ltr" }}>{output}</pre>
     </div>
   );
