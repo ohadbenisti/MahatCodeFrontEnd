@@ -1,31 +1,48 @@
 import React, { useState, useEffect } from "react";
+import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./css/Codebox.css";
 import CodeEditor from "./Codebox2";
 import LoadingAnimation from "./LoadingAnimation";
 import OutputBox from "./OutputBox";
 
-const Codebox = ({ code, setCode, currentQuestion }) => {
+const Codebox = ({
+  code,
+  setCode,
+  currentQuestion,
+  courseDetails,
+  onRightAnswer
+}) => {
   const [output, setOutput] = useState("");
   const [test, setTest] = useState("");
-  // console.log(inputForPiston);
+  const { courseId } = useParams();
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get("userId");
+  const location = useLocation();
+  const isCourse = location.pathname.split("/")[1] == "course";
+
   useEffect(() => {
     if (currentQuestion) {
       setTest(currentQuestion.test);
     }
-    // console.log("Question info:", currentQuestion?.test);
   }, [currentQuestion]);
 
   if (!currentQuestion) return <LoadingAnimation />;
-  const runCode = async () => {
-    // const stringForInput = `${test.input}`;
 
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json", // Specify the content type of the request body
-    //     "Access-Control-Allow-Origin": "*", // Specify the allowed origin for the request
-    //   },
-    // };
+  const onRightAnswered = async () => {
+    const payload = { questionId: currentQuestion._id };
+    const url = `${
+      import.meta.env.VITE_SERVER
+    }/course/${courseId}?userId=${userId}`;
+    try {
+      const response = await axios.patch(url, payload);
+      onRightAnswer(currentQuestion._id);
+    } catch {
+      console.log("error");
+    }
+  };
+
+  const runCode = async () => {
     try {
       const response = await axios.post(
         "https://emkc.org/api/v2/piston/execute",
@@ -48,20 +65,37 @@ const Codebox = ({ code, setCode, currentQuestion }) => {
         }
       );
       console.log(response);
-      console.log("test", response.data.run.output == test.output);
-      // response.data.run.output
+
+      const rightAnswer = response.data.run.output == test.output;
+      const SyntaxError = response.data.run.stderr;
+
+      rightAnswer && isCourse && onRightAnswered();
+
       setOutput([
-        test.output == response.data.run.output ? (
-          <div style={{ background: "green" }}>תשובה נכונה!</div>
+        rightAnswer ? (
+          <div style={{ background: "green", direction: "rtl" }}>
+            תשובה נכונה!
+          </div>
+        ) : SyntaxError ? (
+          <div>
+            <div style={{ background: "red", direction: "rtl" }}>
+              שגיאה בהרצת התוכנית. תוכן השגיאה:
+            </div>
+
+            <div wrap="soft" style={{ whiteSpace: "pre-wrap" }}>
+              {SyntaxError}
+            </div>
+          </div>
         ) : (
-          <div style={{ background: "red" }}>נסה שנית</div>
+          <div style={{ background: "red", direction: "rtl" }}>נסה שנית</div>
         ),
-        "Test Case:",
-        <OutputBox code={test.input} style={{ maxHeight: "20vh" }} />,
-        "Expected Output: ",
-        <OutputBox code={test.output} />,
-        "Your Output:",
-        <OutputBox code={response.data.run.output} />
+        !SyntaxError &&
+          ("Test Case:",
+          (<OutputBox code={test.input} style={{ maxHeight: "20vh" }} />),
+          "Expected Output: ",
+          (<OutputBox code={test.output} />),
+          "Your Output:",
+          (<OutputBox code={response.data.run.output} />))
       ]);
     } catch (error) {
       setOutput("An error occurred while running the code.");
@@ -70,17 +104,6 @@ const Codebox = ({ code, setCode, currentQuestion }) => {
 
   return (
     <div className="d-flex flex-column ">
-      {/* <code-runner language="python">print('hello world')</code-runner> */}
-      {/* <div className="editor-container">
-        <textarea
-          className="code-editor"
-          style={{ direction: "ltr" }}
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          rows={10}
-          cols={50}
-        />
-      </div> */}
       <CodeEditor code={code} setCode={setCode} />
       <button
         className="btn btn-outline-success mt-2"
@@ -89,7 +112,7 @@ const Codebox = ({ code, setCode, currentQuestion }) => {
       >
         הרץ קוד
       </button>
-      <pre>{output}</pre>
+      <pre style={{ direction: "ltr" }}>{output}</pre>
     </div>
   );
 };
