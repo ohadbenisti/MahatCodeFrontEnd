@@ -43,11 +43,25 @@ const Header = ({ onLogout, isContentPage }) => {
                 ) : (
                   <>
                     <p className="text-white" style={{ marginLeft: '0px' }}>שלום {userInfo.data.user.name} </p>
+                    <label style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      fontSize: '0.8em',
+                      color: 'white'}}>
                     <Link to="/PersonalArea">
                       <Tooltip title="איזור אישי">
                         <Avatar>{userInfo.data.user.name[0]}</Avatar>
                       </Tooltip>
                     </Link>
+                    איזור אישי
+                    </label>
+                    <label style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      fontSize: '0.8em',
+                      color: 'white'}}>
                     <Tooltip title="יציאה">
                       <LogoutIcon
                         onClick={onLogout}
@@ -55,6 +69,8 @@ const Header = ({ onLogout, isContentPage }) => {
                         style={{ marginTop: '3px', color: "white", cursor: "pointer" }}
                       />
                     </Tooltip>
+                    יציאה
+                    </label>
                   </>
                 )}
               </>

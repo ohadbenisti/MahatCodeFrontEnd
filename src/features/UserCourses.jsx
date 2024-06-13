@@ -4,8 +4,9 @@ import axios from "axios";
 import useLogin from "../hooks/useLogin";
 
 // ייבוא התמונות המקומיות
-import ai1 from "../assets/ai1.jpg";
+import ai1 from "../assets/ai1.png";
 import ai2 from "../assets/ai2.jpg";
+import ai3 from "../assets/ai3.png";
 
 const UserCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -60,7 +61,7 @@ const UserCourses = () => {
   }, [userId]);
 
   const colors = ["#FFCDD2", "#C8E6C9", "#BBDEFB", "#FFF9C4", "#D1C4E9"];
-  const images = [ai1, ai2, ai1]; // מערך של תמונות מקומיות
+  const images = [ai1, ai2, ai3]; // מערך של תמונות מקומיות
 
   return (
     <div className="container mx-auto p-4">
