@@ -1,9 +1,4 @@
-/* body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-} */
-
+/* Content.css */
 .content-background {
   background-image: url('../../assets/library.jpg');
   background-size: cover;
@@ -15,6 +10,10 @@
 .content-body {
   flex-grow: 1;
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .container {
@@ -23,9 +22,11 @@
   background-color: rgba(255, 255, 255, 0.5);
   padding: 20px;
   border-radius: 10px;
+  width: 100%;
+  max-width: 1200px;
+  text-align: center;
 }
 
-/* ה-Header */
 .header-container {
   position: relative;
   z-index: 2;
@@ -40,4 +41,37 @@
 
 .header-container.header-transparent .header {
   background-color: rgba(87, 123, 141, 0.8); /* צבע רקע שקוף */
+}
+
+/* Content.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+.title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px; 
+  font-weight: 700;
+  color: #333333;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px; /* הגדלת הגופן */
+  font-weight: 500;
+  color: #333333; /* צבע כהה יותר */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgba(255, 255, 255, 0.8); /* רקע מוצלל עם שקיפות */
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.my-4 {
+  margin: 16px 0;
 }

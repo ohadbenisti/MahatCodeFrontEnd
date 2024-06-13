@@ -22,7 +22,7 @@ const CoursesComponent = () => {
   }, []);
 
   const colors = ["#f28b82", "#fbbc04", "#ccff90", "#a7ffeb"];
-  const images = [ai1, ai2]; // מערך של תמונות מקומיות
+  const images = [ai1, ai2, ai1]; // מערך של תמונות מקומיות
 
   return (
     <div className="courses-container">
@@ -38,9 +38,11 @@ const CoursesComponent = () => {
                   <p className="course-description">
                     {course.description || "No description available."}
                   </p>
-                  <Link to={`/course/${course._id}?userId=${userId}`} className="course-button">
-                    Learn More
-                  </Link>
+                  <div>
+                    <Link to={`/course/${course._id}?userId=${userId}`} className="course-button-link">
+                      Learn More
+                    </Link>
+                  </div>
                 </div>
               </Link>
             </div>

@@ -4,48 +4,60 @@ import CourseSideBar from "./CourseSideBar";
 import useLogin from "../hooks/useLogin";
 import Problem from "../pages/Problem/Problem";
 import EnrollmentComponent from "./Enrolment";
+import "./CoursePage.css";
+// import Question from "./Question";
+// import AnswerSection from "./AnswerSection";
 
 const CoursePage = () => {
   const { courseId } = useParams();
   const [course, setCourse] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [loading, setLoading] = useState(true);
-  const userInfo = useLogin();
   const [searchParams] = useSearchParams();
-  const userId = searchParams.get("userId")
+  const userId = searchParams.get("userId");
+  const userInfo = useLogin();
   const [isEnrolled, setIsEnrolled] = useState(false);
-  const [showCourse, setShowCourse] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`${import.meta.env.VITE_SERVER}/course/${courseId}?userId=${userInfo.data.user._id}`)
+    // Fetch course data
+    fetch(
+      `${import.meta.env.VITE_SERVER}/course/${courseId}?userId=${
+        userInfo.data.user._id
+      }`
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data && data.course) {
           setCourse(data.course);
-          const [usersCurrentQuestion] = data.course.courseQuestions.questions.filter(
-            (question) => question._id === data.course.progress.currentQuestion
-          );
+          const [usersCurrentQuestion] =
+            data.course.courseQuestions.questions.filter(
+              (question) =>
+                question._id === data.course.progress.currentQuestion
+            );
           setCurrentQuestion(usersCurrentQuestion);
+
+          // Set course data to state
           if (data.course.Enrolled) {
             setIsEnrolled(true);
-            setShowCourse(true);
           }
         } else {
           setCourse(null);
         }
-        setLoading(false);
+        setLoading(false); // Update loading state to false once data is fetched
       })
       .catch((error) => {
         console.error("Error fetching course:", error);
         setCourse(null);
-        setLoading(false);
+        setLoading(false); // Update loading state to false in case of error
       });
   }, [courseId, userId, isEnrolled]);
 
   if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center" style={{ marginTop: "100px" }}>
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ marginTop: "100px" }}
+      >
         <div style={{ minHeight: "200px" }}>
           <l-infinity
             size="150"
@@ -60,43 +72,39 @@ const CoursePage = () => {
     );
   }
 
-  if (isEnrolled) {
-    return (
-      <div>
-        <EnrollmentComponent
-      isEnrolled={isEnrolled}
-      setIsEnrolled={setIsEnrolled}
-      courseId={courseId}
-      // setShowCourse={setShowCourse}
-    />
-        {course ? (
-          <div className="d-flex">
-            <div className="col-md-2 min-vh-100 bg-light">
-              <CourseSideBar
-                courseDetails={course}
-                setCurrentQuestion={setCurrentQuestion}
-              />
-            </div>
-            <div className="col-md-10">
-              <Problem courseQuestion={currentQuestion} />
-            </div>
-          </div>
-        ) : (
-          <div>Course not found</div>
-        )}
-      </div>
-    );
-  }
-
   return (
-    <div style={{ minHeight: "70vh"}}>
-    <EnrollmentComponent
-      isEnrolled={isEnrolled}
-      setIsEnrolled={setIsEnrolled}
-      courseId={courseId}
-      // setShowCourse={setShowCourse}
-    />
-    </div>
+    <>
+      <EnrollmentComponent
+        isEnrolled={isEnrolled}
+        setIsEnrolled={setIsEnrolled}
+        courseId={courseId}
+      />
+      {isEnrolled && (
+        <div>
+          {course ? (
+            <div className="d-flex">
+              <div className="course-page-col-md-2 min-vh-100 bg-light mt-7">
+                <CourseSideBar
+                  courseDetails={course}
+                  setCurrentQuestion={setCurrentQuestion}
+                />
+              </div>
+              <div className="course-page-col-md-10">
+                <div className="course-page-wrapper course-page-questions-wrapper mt-7">
+                  <Problem courseQuestion={currentQuestion} />
+                </div>
+                {/* <div className="course-page-wrapper course-page-problem-wrapper">
+                  <Question courseQuestion={currentQuestion} />
+                  <AnswerSection courseQuestion={currentQuestion} />
+                </div> */}
+              </div>
+            </div>
+          ) : (
+            <div>Course not found</div>
+          )}
+        </div>
+      )}
+    </>
   );
 };
 
