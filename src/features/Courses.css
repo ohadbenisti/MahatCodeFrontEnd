@@ -62,15 +62,4 @@
   text-align: center;
 }
 
-.course-button {
-  background-color: #007bff;
-  color: white;
-  padding: 7px 12px;
-  border-radius: 4px;
-  text-decoration: none;
-  margin-top: 25px;
-}
 
-.course-button:hover {
-  background-color: #0056b3;
-}

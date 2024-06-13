@@ -9,6 +9,10 @@ import useLogin from "../hooks/useLogin";
 const QuestionTable = ({ questions }) => {
 
   const userInfo = useLogin();
+
+  if (!userInfo?.data?.user) {
+    return <div>Loading...</div>;
+  }
   const isAdmin = (userInfo.data.user.role === "admin")
 
 
@@ -35,6 +39,10 @@ const QuestionTable = ({ questions }) => {
 
   const getDifficultyLabel = (difficulty) => difficultyOptions[difficulty] || difficulty;
 
+  // בדיקה אם questions קיימות
+  if (!questions) {
+    return <div>Loading questions...</div>;
+  }
   
   return (
 
