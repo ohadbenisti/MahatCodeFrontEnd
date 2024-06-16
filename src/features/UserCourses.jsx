@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import useLogin from "../hooks/useLogin";
+import ProgressBar from "./ProgressBar";
 
 // ייבוא התמונות המקומיות
 import ai1 from "../assets/ai1.jpg";
@@ -20,28 +21,37 @@ const UserCourses = () => {
     setLoading(true);
     setError(null);
     try {
-      const coursesUrl = `${import.meta.env.VITE_SERVER}/course`;
-      const coursesResponse = await axios.get(coursesUrl, { withCredentials: true });
-      const allCourses = coursesResponse.data.courses;
+      // const coursesUrl = `${import.meta.env.VITE_SERVER}/course`;
+      // const coursesResponse = await axios.get(coursesUrl, {
+      //   withCredentials: true
+      // });
+      // const allCourses = coursesResponse.data.courses;
 
-      console.log("All Courses:", allCourses);
+      // console.log("All Courses:", allCourses);
 
-      const userCourses = [];
-      for (const course of allCourses) {
-        const courseUrl = `${import.meta.env.VITE_SERVER}/course/${course._id}?userId=${userId}`;
-        const response = await axios.get(courseUrl, { withCredentials: true });
+      // const userCourses = [];
+      // for (const course of allCourses) {
+      //   const courseUrl = `${import.meta.env.VITE_SERVER}/course/${
+      //     course._id
+      //   }?userId=${userId}`;
+      //   const response = await axios.get(courseUrl, { withCredentials: true });
 
-        console.log(`Course ID: ${course._id}`, response.data.course);
+      //   console.log(`Course ID: ${course._id}`, response.data.course);
 
-        if (response.data.course.Enrolled) {
-          userCourses.push({
-            ...course,
-            enrolledAt: response.data.course.progress ? response.data.course.progress.enrolledAt : null,
-            progress: response.data.course.progress,
-          });
-        }
-      }
-      setEnrolledCourses(userCourses);
+      //   if (response.data.course.Enrolled) {
+      //     userCourses.push({
+      //       ...course,
+      //       enrolledAt: response.data.course.progress
+      //         ? response.data.course.progress.enrolledAt
+      //         : null,
+      //       progress: response.data.course.progress
+      //     });
+      //   }
+      // }
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER}/course/user/${userId}`
+      );
+      setEnrolledCourses(response.data.userCourses);
     } catch (error) {
       console.error(
         "Error fetching courses:",
@@ -64,9 +74,7 @@ const UserCourses = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="text-4xl font-bold mb-8">
-        פרטי הקורסים
-      </div>
+      <div className="text-4xl font-bold mb-8">פרטי הקורסים</div>
       <div className="mt-8">
         <div className="w-full">
           {loading && (
@@ -89,7 +97,10 @@ const UserCourses = () => {
           {error && <div>{error}</div>}
           {!loading && !error && enrolledCourses.length > 0 && (
             <div>
-              <table className="min-w-full bg-white border border-gray-200 rounded-md shadow-md" dir="rtl">
+              <table
+                className="min-w-full bg-white border border-gray-200 rounded-md shadow-md"
+                dir="rtl"
+              >
                 <thead className="bg-gray-200">
                   <tr>
                     <th className="text-right p-4">קורס</th>
@@ -103,16 +114,32 @@ const UserCourses = () => {
                     return (
                       <tr key={course._id} className="border-t border-gray-200">
                         <td className="p-4">
-                          <div className="course-card" style={{ backgroundColor: colors[index % colors.length] }}>
-                            <Link to={`/course/${course._id}?userId=${userId}`} className="course-link">
-                              <img src={imageSrc} alt={course.name} className="course-image" />
+                          <div
+                            className="course-card"
+                            style={{
+                              backgroundColor: colors[index % colors.length]
+                            }}
+                          >
+                            <Link
+                              to={`/course/${course._id}?userId=${userId}`}
+                              className="course-link"
+                            >
+                              <img
+                                src={imageSrc}
+                                alt={course.name}
+                                className="course-image"
+                              />
                               <h5 className="course-title">{course.name}</h5>
                               <div className="course-overlay">
                                 <p className="course-description">
-                                  {course.description || "No description available."}
+                                  {course.description ||
+                                    "No description available."}
                                 </p>
                                 <div>
-                                  <Link to={`/course/${course._id}?userId=${userId}`} className="course-button-link">
+                                  <Link
+                                    to={`/course/${course._id}?userId=${userId}`}
+                                    className="course-button-link"
+                                  >
                                     Learn More
                                   </Link>
                                 </div>
@@ -120,9 +147,15 @@ const UserCourses = () => {
                             </Link>
                           </div>
                         </td>
-                        <td className="p-4">{course.enrolledAt ? new Date(course.enrolledAt).toLocaleDateString() : "לא זמין"}</td>
                         <td className="p-4">
-                          {course.progress ? `שאלה: ${course.progress.currentQuestion}` : "לא התחיל"}
+                          {course.enrolledAt
+                            ? new Date(course.enrolledAt).toLocaleDateString()
+                            : "לא זמין"}
+                        </td>
+                        <td className="p-4">
+                          {course.progress
+                            ? `שאלה: ${course.progress.currentQuestion}`
+                            : "לא התחיל"}
                         </td>
                       </tr>
                     );
