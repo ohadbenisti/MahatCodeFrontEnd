@@ -26,7 +26,7 @@ const Header = ({ onLogout, isContentPage }) => {
               <>
                 {userInfo?.data?.user?.role === "admin" ? (
                   <>
-                    <p className="text-white" style={{ marginLeft: '0px' }}>שלום {userInfo.data.user.name} </p>
+                    <p className="text-white" style={{ marginLeft: '0px'}}>שלום {userInfo.data.user.name} </p>
                     <Link to="/admin">
                       <Tooltip title="ניהול">
                         <ManageAccountsIcon style={{ color: '#FFD700' }} fontSize="large" />
@@ -42,26 +42,12 @@ const Header = ({ onLogout, isContentPage }) => {
                   </>
                 ) : (
                   <>
-                    <p className="text-white" style={{ marginLeft: '0px' }}>שלום {userInfo.data.user.name} </p>
-                    <label style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '5px',
-                      fontSize: '0.8em',
-                      color: 'white'}}>
+                    <p className="text-blue-950 font-medium" style={{ marginLeft: '0px'}}>שלום, <span className="font-semibold text-white">{userInfo.data.user.name} </span> </p>
                     <Link to="/PersonalArea">
                       <Tooltip title="איזור אישי">
                         <Avatar>{userInfo.data.user.name[0]}</Avatar>
                       </Tooltip>
                     </Link>
-                    איזור אישי
-                    </label>
-                    <label style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '5px',
-                      fontSize: '0.8em',
-                      color: 'white'}}>
                     <Tooltip title="יציאה">
                       <LogoutIcon
                         onClick={onLogout}
@@ -69,8 +55,6 @@ const Header = ({ onLogout, isContentPage }) => {
                         style={{ marginTop: '3px', color: "white", cursor: "pointer" }}
                       />
                     </Tooltip>
-                    יציאה
-                    </label>
                   </>
                 )}
               </>

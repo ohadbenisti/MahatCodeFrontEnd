@@ -1,6 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+// PersonalArea.js
+import React, { useState, useEffect } from 'react';
 import UserCourses from '../../features/UserCourses';
 import useLogin from '../../hooks/useLogin';
+import UserProfileEdit from '../../features/UserProfileEdit';
 
 function PersonalArea() {
   const { data } = useLogin();
@@ -24,20 +26,6 @@ function PersonalArea() {
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: value
-    });
-  };
-
-  const handleSave = () => {
-    // Update user data here
-    console.log('Saving user data:', userData);
-    setIsEditing(false);
   };
 
   return (
@@ -86,50 +74,11 @@ function PersonalArea() {
                   </button>
                 </div>
               ) : (
-                <div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      שם:
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={userData.name}
-                      onChange={handleInputChange}
-                      className="border border-gray-300 rounded py-2 px-4 w-full"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      אימייל:
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={userData.email}
-                      onChange={handleInputChange}
-                      className="border border-gray-300 rounded py-2 px-4 w-full"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      סיסמה:
-                    </label>
-                    <input
-                      type="password"
-                      name="password"
-                      value={userData.password}
-                      onChange={handleInputChange}
-                      className="border border-gray-300 rounded py-2 px-4 w-full"
-                    />
-                  </div>
-                  <button
-                    onClick={handleSave}
-                    className="bg-blue-500 text-white py-2 px-4 rounded"
-                  >
-                    שמור
-                  </button>
-                </div>
+                <UserProfileEdit
+                  userData={userData}
+                  setUserData={setUserData}
+                  setIsEditing={setIsEditing}
+                />
               )}
             </div>
           )}

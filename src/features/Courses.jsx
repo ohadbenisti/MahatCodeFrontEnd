@@ -4,9 +4,8 @@ import useLogin from "../hooks/useLogin";
 import "./Courses.css";
 
 // ייבוא התמונות המקומיות
-import ai1 from "../assets/ai1.png";
-import ai2 from "../assets/ai2.jpg";
-import ai3 from "../assets/ai3.png";
+import ai from "../assets/ai.jpg";
+import ai4 from "../assets/ai4.jpg";
 
 const CoursesComponent = () => {
   const [availableCourses, setAvailableCourses] = useState([]);
@@ -23,7 +22,7 @@ const CoursesComponent = () => {
   }, []);
 
   const colors = ["#f28b82", "#fbbc04", "#ccff90", "#a7ffeb"];
-  const images = [ai1, ai2, ai3]; // מערך של תמונות מקומיות
+  const images = [ai, ai4, ai]; // מערך של תמונות מקומיות
 
   return (
     <div className="courses-container">
