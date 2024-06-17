@@ -4,9 +4,8 @@ import axios from "axios";
 import useLogin from "../hooks/useLogin";
 
 // ייבוא התמונות המקומיות
-import ai1 from "../assets/ai1.png";
+import ai1 from "../assets/ai1.jpg";
 import ai2 from "../assets/ai2.jpg";
-import ai3 from "../assets/ai3.jpg";
 
 const UserCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -16,22 +15,6 @@ const UserCourses = () => {
 
   const userInfo = useLogin();
   const userId = userInfo?.data.user._id;
-
-  const fetchCourseProgress = async (course, userId) => {
-    const progress = course.progress;
-    if (progress && progress.currentQuestion) {
-      try {
-        const questionUrl = `${import.meta.env.VITE_SERVER}/question/${progress.currentQuestion}`;
-        const response = await axios.get(questionUrl, { withCredentials: true });
-        const questionTitle = response.data.title;
-        return { ...course, currentQuestionTitle: questionTitle };
-      } catch (error) {
-        console.error("Error fetching question:", error);
-        return { ...course, currentQuestionTitle: "Error fetching question" };
-      }
-    }
-    return { ...course, currentQuestionTitle: "לא התחיל" };
-  };
 
   const fetchCourses = async () => {
     setLoading(true);
@@ -43,25 +26,22 @@ const UserCourses = () => {
 
       console.log("All Courses:", allCourses);
 
-      const userCoursesPromises = allCourses.map(async (course) => {
+      const userCourses = [];
+      for (const course of allCourses) {
         const courseUrl = `${import.meta.env.VITE_SERVER}/course/${course._id}?userId=${userId}`;
         const response = await axios.get(courseUrl, { withCredentials: true });
 
         console.log(`Course ID: ${course._id}`, response.data.course);
 
         if (response.data.course.Enrolled) {
-          const enrolledCourse = {
+          userCourses.push({
             ...course,
             enrolledAt: response.data.course.progress ? response.data.course.progress.enrolledAt : null,
             progress: response.data.course.progress,
-          };
-          return fetchCourseProgress(enrolledCourse, userId);
+          });
         }
-        return null;
-      });
-
-      const userCourses = await Promise.all(userCoursesPromises);
-      setEnrolledCourses(userCourses.filter(course => course !== null));
+      }
+      setEnrolledCourses(userCourses);
     } catch (error) {
       console.error(
         "Error fetching courses:",
@@ -80,7 +60,7 @@ const UserCourses = () => {
   }, [userId]);
 
   const colors = ["#FFCDD2", "#C8E6C9", "#BBDEFB", "#FFF9C4", "#D1C4E9"];
-  const images = [ai1, ai2, ai3]; // מערך של תמונות מקומיות
+  const images = [ai1, ai2, ai1]; // מערך של תמונות מקומיות
 
   return (
     <div className="container mx-auto p-4">
@@ -142,7 +122,7 @@ const UserCourses = () => {
                         </td>
                         <td className="p-4">{course.enrolledAt ? new Date(course.enrolledAt).toLocaleDateString() : "לא זמין"}</td>
                         <td className="p-4">
-                          {course.currentQuestionTitle}
+                          {course.progress ? `שאלה: ${course.progress.currentQuestion}` : "לא התחיל"}
                         </td>
                       </tr>
                     );
@@ -155,6 +135,6 @@ const UserCourses = () => {
       </div>
     </div>
   );
-};
+}
 
 export default UserCourses;
