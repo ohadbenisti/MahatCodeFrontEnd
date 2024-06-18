@@ -1,4 +1,4 @@
-/* הסרת המסגרת התחתונה */
+הסרת המסגרת התחתונה
 .header-container {
   background: linear-gradient(to bottom, #577B8D, #f5f5f5);
   border-bottom: none;

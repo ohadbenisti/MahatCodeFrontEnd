@@ -40,7 +40,7 @@ const CoursesComponent = () => {
                   </p>
                   <div>
                     <Link to={`/course/${course._id}?userId=${userId}`} className="course-button-link">
-                      Learn More
+                      ראה עוד
                     </Link>
                   </div>
                 </div>

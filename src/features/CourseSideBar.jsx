@@ -5,13 +5,13 @@ const CourseSideBar = ({ courseDetails, setCurrentQuestion, questions }) => {
   const { answeredQuestions } = progress;
   const AnsweredQuestions = new Set(answeredQuestions);
   return (
-    <div className="sidebar">
+    <div className="sidebar" style={{padding: "8px"}}>
       <h2
         style={{
           fontFamily: "Roboto, sans-serif",
           fontSize: "30px",
           fontWeight: "700",
-          color: "gray"
+          color: "gray",
         }}
       >
         תפריט שאלות
