@@ -42,7 +42,7 @@ const Header = ({ onLogout, isContentPage }) => {
                   </>
                 ) : (
                   <>
-                    <p className="text-blue-950 font-medium" style={{ marginLeft: '0px'}}>שלום, <span className="font-semibold text-white">{userInfo.data.user.name} </span> </p>
+                    <p className="text-white" style={{ marginLeft: '0px'}}>שלום {userInfo.data.user.name} </p>
                     <Link to="/PersonalArea">
                       <Tooltip title="איזור אישי">
                         <Avatar>{userInfo.data.user.name[0]}</Avatar>
