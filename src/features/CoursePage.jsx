@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import CourseSideBar from "./CourseSideBar";
 import useLogin from "../hooks/useLogin";
@@ -16,7 +16,15 @@ const CoursePage = () => {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [showCourse, setShowCourse] = useState(false);
   const [questions, setQuestions] = useState();
+  const [progressStart, setProgressStart] = useState(0);
+  const [percentageOfCompletion, setPercentageOfCompletion] = useState();
+  const progressBarRef = useRef(null);
 
+  const handleReset = () => {
+    if (progressBarRef.current) {
+      progressBarRef.current.updateProgress();
+    }
+  };
   const setQuestionToAnswered = (answeredId) => {
     const updatedQuestions = questions.map((question) => {
       if (question._id == answeredId) {
@@ -25,6 +33,13 @@ const CoursePage = () => {
       return question;
     });
     setQuestions(updatedQuestions);
+    const questionPercentage = Math.floor(100 / questions.length);
+    setProgressStart(percentageOfCompletion);
+    setPercentageOfCompletion(percentageOfCompletion + questionPercentage);
+    percentageOfCompletion > 95 && setPercentageOfCompletion(100);
+    if (progressBarRef.current) {
+      progressBarRef.current.updateProgress(percentageOfCompletion);
+    }
   };
 
   useEffect(() => {
@@ -46,6 +61,13 @@ const CoursePage = () => {
               );
             setCurrentQuestion(usersCurrentQuestion);
             setQuestions(data.course.courseQuestions.questions);
+            const calculate = Math.floor(
+              (data.course.progress.answeredQuestions.length /
+                data.course.progress.totalQuestions) *
+                100
+            );
+
+            setPercentageOfCompletion(calculate);
           }
           if (data.course.Enrolled) {
             setIsEnrolled(true);
@@ -95,6 +117,8 @@ const CoursePage = () => {
           <div className="d-flex">
             <div className="col-md-2 min-vh-100 bg-light">
               <CourseSideBar
+                progressStart={progressStart}
+                percentageOfCompletion={percentageOfCompletion}
                 questions={questions}
                 courseDetails={course}
                 setCurrentQuestion={setCurrentQuestion}

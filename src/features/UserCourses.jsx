@@ -110,6 +110,11 @@ const UserCourses = () => {
                 </thead>
                 <tbody>
                   {enrolledCourses.map((course, index) => {
+                    const percentage = Math.floor(
+                      (course.progress.answeredQuestions.length /
+                        course.progress.totalQuestions) *
+                        100
+                    );
                     const imageSrc = images[index % images.length];
                     return (
                       <tr key={course._id} className="border-t border-gray-200">
@@ -121,7 +126,7 @@ const UserCourses = () => {
                             }}
                           >
                             <Link
-                              to={`/course/${course._id}?userId=${userId}`}
+                              to={`/course/${course.courseId}?userId=${userId}`}
                               className="course-link"
                             >
                               <img
@@ -136,12 +141,12 @@ const UserCourses = () => {
                                     "No description available."}
                                 </p>
                                 <div>
-                                  <Link
+                                  {/* <Link
                                     to={`/course/${course._id}?userId=${userId}`}
                                     className="course-button-link"
                                   >
                                     Learn More
-                                  </Link>
+                                  </Link> */}
                                 </div>
                               </div>
                             </Link>
@@ -153,9 +158,7 @@ const UserCourses = () => {
                             : "לא זמין"}
                         </td>
                         <td className="p-4">
-                          {course.progress
-                            ? `שאלה: ${course.progress.currentQuestion}`
-                            : "לא התחיל"}
+                          <ProgressBar percentage={percentage} />
                         </td>
                       </tr>
                     );

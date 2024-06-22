@@ -23,6 +23,7 @@ const AnswerSection = ({ currentQuestion, courseDetails, onRightAnswer }) => {
 
   useEffect(() => {
     setCode(currentQuestion.initialCode ? currentQuestion.initialCode : "");
+    setActiveComponent("Codebox");
   }, [currentQuestion]);
   return (
     <div className="col-md-5">

@@ -1,21 +1,34 @@
 import React from "react";
+import ProgressBar from "./ProgressBar";
 
-const CourseSideBar = ({ courseDetails, setCurrentQuestion, questions }) => {
+const CourseSideBar = ({
+  courseDetails,
+  setCurrentQuestion,
+  questions,
+  progressStart,
+  percentageOfCompletion
+}) => {
   const { progress } = courseDetails;
   const { answeredQuestions } = progress;
   const AnsweredQuestions = new Set(answeredQuestions);
   return (
     <div className="sidebar">
-      <h2
-        style={{
-          fontFamily: "Roboto, sans-serif",
-          fontSize: "30px",
-          fontWeight: "700",
-          color: "gray"
-        }}
-      >
-        תפריט שאלות
-      </h2>
+      <div className="flex flex-col items-center justify-center">
+        <h2
+          style={{
+            fontFamily: "Roboto, sans-serif",
+            fontSize: "30px",
+            fontWeight: "700",
+            color: "gray"
+          }}
+        >
+          {courseDetails.courseQuestions.name}
+        </h2>
+        <ProgressBar
+          progressStart={progressStart}
+          percentage={percentageOfCompletion}
+        />
+      </div>
       <ul className="list-group">
         {questions.map((question) => (
           <li
