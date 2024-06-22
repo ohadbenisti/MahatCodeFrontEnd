@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import useLogin from "../hooks/useLogin";
 import ProgressBar from "./ProgressBar";
-
 // ייבוא התמונות המקומיות
 import ai1 from "../assets/ai1.jpg";
 import ai2 from "../assets/ai2.jpg";
@@ -21,33 +20,6 @@ const UserCourses = () => {
     setLoading(true);
     setError(null);
     try {
-      // const coursesUrl = `${import.meta.env.VITE_SERVER}/course`;
-      // const coursesResponse = await axios.get(coursesUrl, {
-      //   withCredentials: true
-      // });
-      // const allCourses = coursesResponse.data.courses;
-
-      // console.log("All Courses:", allCourses);
-
-      // const userCourses = [];
-      // for (const course of allCourses) {
-      //   const courseUrl = `${import.meta.env.VITE_SERVER}/course/${
-      //     course._id
-      //   }?userId=${userId}`;
-      //   const response = await axios.get(courseUrl, { withCredentials: true });
-
-      //   console.log(`Course ID: ${course._id}`, response.data.course);
-
-      //   if (response.data.course.Enrolled) {
-      //     userCourses.push({
-      //       ...course,
-      //       enrolledAt: response.data.course.progress
-      //         ? response.data.course.progress.enrolledAt
-      //         : null,
-      //       progress: response.data.course.progress
-      //     });
-      //   }
-      // }
       const response = await axios.get(
         `${import.meta.env.VITE_SERVER}/course/user/${userId}`
       );
@@ -134,6 +106,7 @@ const UserCourses = () => {
                                 alt={course.name}
                                 className="course-image"
                               />
+
                               <h5 className="course-title">{course.name}</h5>
                               <div className="course-overlay">
                                 <p className="course-description">
@@ -145,6 +118,7 @@ const UserCourses = () => {
                                     to={`/course/${course._id}?userId=${userId}`}
                                     className="course-button-link"
                                   >
+
                                     Learn More
                                   </Link> */}
                                 </div>

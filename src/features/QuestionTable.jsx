@@ -3,18 +3,13 @@ import { Link } from "react-router-dom";
 import "./QuestionTable.css"; // ייבוא קובץ ה-CSS
 import useLogin from "../hooks/useLogin";
 
-
-
-
 const QuestionTable = ({ questions }) => {
-
   const userInfo = useLogin();
 
   if (!userInfo?.data?.user) {
     return <div>Loading...</div>;
   }
-  const isAdmin = (userInfo.data.user.role === "admin")
-
+  const isAdmin = userInfo.data.user.role === "admin";
 
   const tagOptions = {
     string: "מחרוזת",
@@ -26,8 +21,6 @@ const QuestionTable = ({ questions }) => {
     decoding: "פיענוח קוד",
     numbers: "מספרים",
   };
-
-
 
   const getTagLabel = (tag) => tagOptions[tag] || tag;
 
@@ -43,9 +36,8 @@ const QuestionTable = ({ questions }) => {
   if (!questions) {
     return <div>Loading questions...</div>;
   }
-  
-  return (
 
+  return (
     <table className="custom-table">
       <thead>
         <tr>
@@ -53,8 +45,7 @@ const QuestionTable = ({ questions }) => {
           <th scope="col">תיאור השאלה</th>
           <th scope="col">רמת קושי</th>
           <th scope="col">תגיות</th>
-          {isAdmin ?
-            (<th scope="col">ניהול</th>) : ""}
+          {isAdmin && <th scope="col">ניהול</th>}
         </tr>
       </thead>
       <tbody>
@@ -76,16 +67,16 @@ const QuestionTable = ({ questions }) => {
                 </span>
               ))}
             </td>
-            {isAdmin ?
-              (<td>
+            {isAdmin && (
+              <td>
                 <button>
-                  <i className='fas fa-edit ml-4' style={{ fontSize: 24 }} />
+                  <i className="fas fa-edit ml-4" style={{ fontSize: 24 }} />
                 </button>
                 <button>
                   <i className="fa-solid fa-trash" style={{ fontSize: 24 }} />
                 </button>
-                {/* <i className="fa-solid fa-pepper-hot fa-xl" style={{color: "#ff0000"}}/> */}
-              </td>) : ""}
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

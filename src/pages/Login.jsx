@@ -43,6 +43,8 @@ const Login = ({ onLogin }) => {
   };
 
   return (
+    <div className="content-background">
+      <div className="content-body">
     <div className="flex items-start justify-center min-h-screen bg-gray-100 pt-20">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
         <div className="flex justify-center">
@@ -86,6 +88,8 @@ const Login = ({ onLogin }) => {
           אין לך חשבון? <Link to="/signup" className="text-blue-500 hover:underline">הרשמה</Link>
         </p>
       </div>
+    </div>
+    </div>
     </div>
   );
 };

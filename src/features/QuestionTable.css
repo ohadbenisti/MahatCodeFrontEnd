@@ -20,6 +20,7 @@
   padding: 8px 10px;
   height: 40px; /* גובה אחיד לשורות */
   border: none; /* הסרת ה-border בין שורות */
+  text-align: right; /* יישור לימין */
 }
 
 .custom-table tbody tr:nth-of-type(even) {

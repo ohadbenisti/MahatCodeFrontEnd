@@ -10,6 +10,7 @@ const CoursePage = () => {
   const [course, setCourse] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userProgress, setUserProgress] = useState(null);
   const userInfo = useLogin();
   const [searchParams] = useSearchParams();
   const userId = searchParams.get("userId");
@@ -51,9 +52,11 @@ const CoursePage = () => {
     )
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         if (data && data.course) {
           setCourse(data.course);
           if (data.course.progress) {
+            setUserProgress(data.course.progress);
             const [usersCurrentQuestion] =
               data.course.courseQuestions.questions.filter(
                 (question) =>
@@ -112,11 +115,13 @@ const CoursePage = () => {
           isEnrolled={isEnrolled}
           setIsEnrolled={setIsEnrolled}
           courseId={courseId}
+          setUserProgress={setUserProgress}
         />
         {course ? (
           <div className="d-flex">
             <div className="col-md-2 min-vh-100 bg-light">
               <CourseSideBar
+                userProgress={userProgress}
                 progressStart={progressStart}
                 percentageOfCompletion={percentageOfCompletion}
                 questions={questions}

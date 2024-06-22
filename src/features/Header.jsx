@@ -26,7 +26,7 @@ const Header = ({ onLogout, isContentPage }) => {
               <>
                 {userInfo?.data?.user?.role === "admin" ? (
                   <>
-                    <p className="text-white" style={{ marginLeft: '0px' }}>שלום {userInfo.data.user.name} </p>
+                    <p className="text-white" style={{ marginLeft: '0px'}}>שלום {userInfo.data.user.name} </p>
                     <Link to="/admin">
                       <Tooltip title="ניהול">
                         <ManageAccountsIcon style={{ color: '#FFD700' }} fontSize="large" />
@@ -42,7 +42,7 @@ const Header = ({ onLogout, isContentPage }) => {
                   </>
                 ) : (
                   <>
-                    <p className="text-white" style={{ marginLeft: '0px' }}>שלום {userInfo.data.user.name} </p>
+                    <p className="text-white" style={{ marginLeft: '0px'}}>שלום {userInfo.data.user.name} </p>
                     <Link to="/PersonalArea">
                       <Tooltip title="איזור אישי">
                         <Avatar>{userInfo.data.user.name[0]}</Avatar>

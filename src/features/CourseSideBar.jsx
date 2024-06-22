@@ -2,14 +2,15 @@ import React from "react";
 import ProgressBar from "./ProgressBar";
 
 const CourseSideBar = ({
+  userProgress,
   courseDetails,
   setCurrentQuestion,
   questions,
   progressStart,
   percentageOfCompletion
 }) => {
-  const { progress } = courseDetails;
-  const { answeredQuestions } = progress;
+  // const { progress } = courseDetails;
+  const { answeredQuestions } = userProgress;
   const AnsweredQuestions = new Set(answeredQuestions);
   return (
     <div className="sidebar">
