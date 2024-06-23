@@ -29,3 +29,17 @@
   padding: 0 10px;
   flex: 1; /* רוחב גמיש לתוכן הראשי */
 }
+
+/* סגנון לכפתור */
+button {
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(1);
+}

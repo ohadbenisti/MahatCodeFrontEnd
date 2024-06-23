@@ -1,8 +1,9 @@
-// PersonalArea.js
+// PersonalArea.jsx
 import React, { useState, useEffect } from 'react';
 import UserCourses from '../../features/UserCourses';
 import useLogin from '../../hooks/useLogin';
 import UserProfileEdit from '../../features/UserProfileEdit';
+import './PersonalArea.css';
 
 function PersonalArea() {
   const { data } = useLogin();
@@ -29,47 +30,36 @@ function PersonalArea() {
   };
 
   return (
-    <div className="container mx-auto p-4 min-h-screen">
-      <div className="text-4xl font-bold italic mb-6">
-        ברוכים הבאים לאיזור האישי
-      </div>
-      <div className="w-full max-w-2xl mx-auto">
-        <div className="tabs flex space-x-4 border-b-2 border-gray-300 mb-4">
+    <section className="personal-area-container">
+      <div className="content-wrapper">
+        <div className="tabs">
           <div
-            className={`tab py-2 px-4 border-b-4 ${activeTab === 'courses' ? 'border-blue-500' : 'border-transparent'} text-gray-700 cursor-pointer`}
+            className={`tab ${activeTab === 'courses' ? 'active' : ''}`}
             onClick={() => setActiveTab('courses')}
           >
             הקורסים שלי
           </div>
           <div
-            className={`tab py-2 px-4 border-b-4 ${activeTab === 'profile' ? 'border-blue-500' : 'border-transparent'} text-gray-700 cursor-pointer`}
+            className={`tab ${activeTab === 'profile' ? 'active' : ''}`}
             onClick={() => setActiveTab('profile')}
           >
             פרופיל
           </div>
         </div>
-        <div className="tab-content flex-grow">
+        <div className="tab-content">
           {activeTab === 'courses' && <UserCourses />}
           {activeTab === 'profile' && (
-            <div>
+            <div className="profile-content">
               {!isEditing ? (
-                <div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      שם:
-                    </label>
-                    <p>{userData.name}</p>
+                <div className="user-profile">
+                  <div className="profile-header">
+                    <div className="avatar"></div>
+                    <div className="profile-info">
+                      <h2>{userData.name}</h2>
+                      <p>{userData.email}</p>
+                    </div>
                   </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      אימייל:
-                    </label>
-                    <p>{userData.email}</p>
-                  </div>
-                  <button
-                    onClick={handleEditToggle}
-                    className="bg-blue-500 text-white py-2 px-4 rounded"
-                  >
+                  <button onClick={handleEditToggle} className="edit-button">
                     עריכה
                   </button>
                 </div>
@@ -84,7 +74,7 @@ function PersonalArea() {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

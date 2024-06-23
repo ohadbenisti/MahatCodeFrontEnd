@@ -6,6 +6,7 @@ import ProgressBar from "./ProgressBar";
 // ייבוא התמונות המקומיות
 import ai1 from "../assets/ai1.jpg";
 import ai2 from "../assets/ai2.jpg";
+import "./Courses.css"; // ייבוא קובץ ה-CSS
 
 const UserCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -82,6 +83,7 @@ const UserCourses = () => {
                 </thead>
                 <tbody>
                   {enrolledCourses.map((course, index) => {
+                    console.log("course", course);
                     const percentage = Math.floor(
                       (course.progress.answeredQuestions.length /
                         course.progress.totalQuestions) *
@@ -91,36 +93,22 @@ const UserCourses = () => {
                     return (
                       <tr key={course._id} className="border-t border-gray-200">
                         <td className="p-4">
-                          <div
-                            className="course-card"
-                            style={{
-                              backgroundColor: colors[index % colors.length]
-                            }}
-                          >
-                            <Link
-                              to={`/course/${course.courseId}?userId=${userId}`}
-                              className="course-link"
-                            >
-                              <img
-                                src={imageSrc}
-                                alt={course.name}
-                                className="course-image"
-                              />
+                          <div className="course-card" style={{ backgroundColor: colors[index % colors.length] }}>
+                            <Link to={`/course/${course.courseId}?userId=${userId}`} className="course-link">
+                              <img src={imageSrc} alt={course.name} className="course-image" />
+                              <div className="course-footer">
+                                <h5 className="course-title">{course.name}</h5>
+                              </div>
 
-                              <h5 className="course-title">{course.name}</h5>
-                              <div className="course-overlay">
+                              <div className="">
                                 <p className="course-description">
                                   {course.description ||
                                     "No description available."}
                                 </p>
                                 <div>
-                                  {/* <Link
-                                    to={`/course/${course._id}?userId=${userId}`}
-                                    className="course-button-link"
-                                  >
-
-                                    Learn More
-                                  </Link> */}
+                                  <Link to={`/course/${course._id}?userId=${userId}`} className="course-button-link">
+                                    ראה עוד
+                                  </Link>
                                 </div>
                               </div>
                             </Link>

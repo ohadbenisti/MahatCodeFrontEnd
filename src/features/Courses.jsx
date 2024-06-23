@@ -33,7 +33,9 @@ const CoursesComponent = () => {
             <div key={course._id} className="course-card" style={{ backgroundColor: colors[index % colors.length] }}>
               <Link to={`/course/${course._id}?userId=${userId}`} className="course-link">
                 <img src={imageSrc} alt={course.name} className="course-image" />
-                <h5 className="course-title">{course.name}</h5>
+                <div className="course-footer">
+                  <h5 className="course-title">{course.name}</h5>
+                </div>
                 <div className="course-overlay">
                   <p className="course-description">
                     {course.description || "No description available."}
@@ -45,7 +47,6 @@ const CoursesComponent = () => {
                   </div>
                 </div>
               </Link>
-
             </div>
           );
         })

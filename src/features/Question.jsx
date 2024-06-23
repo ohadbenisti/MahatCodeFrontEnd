@@ -53,7 +53,7 @@ const Question = ({ currentQuestion }) => {
   return (
     <div className="col-md-5" style={{ whiteSpace: "pre-wrap" }}>
       <div className="font-bold">
-        <div className="text-2xl ">{currentQuestion.title}</div>
+        <div className="text-2xl " style={{borderBottom: "solid blue"}}>{currentQuestion.title}</div>
         {testYear && testSeason && testSeasonNum && (
           <div className="text-lg my-1  text-center">
             מבחן : שנת {testYear} - {testSeason} מועד {testSeasonNum}'

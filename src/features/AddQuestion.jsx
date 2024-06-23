@@ -1,11 +1,41 @@
 import React, { useState } from "react";
 import axios from "axios";
 import './AddQuestion.css';
-import Alert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
+import {
+  Alert,
+  Snackbar,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Checkbox,
+  FormControlLabel,
+  Stack,
+  Box,
+  Typography,
+  Divider,
+} from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import { styled } from '@mui/system';
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  backgroundColor: '#1976d2',
+  color: '#fff',
+  '&:hover': {
+    backgroundColor: '#1565c0',
+  },
+}));
+
+const ModernCard = styled(Card)(({ theme }) => ({
+  borderRadius: '12px',
+  boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+}));
 
 function AddQuestion() {
   const [title, setTitle] = useState('');
@@ -63,7 +93,7 @@ function AddQuestion() {
           "testSeason": testSeason,
           "testSeasonNum": testSeasonNum,
           "partOfTheTest": partOfTheTest,
-          "numberOfQuestion": parseInt(numberOfQuestion) // המרת השדה למספר
+          "numberOfQuestion": parseInt(numberOfQuestion)
         },
         test: { input: testInput, output: testOutput },
         difficulty,
@@ -99,195 +129,198 @@ function AddQuestion() {
 
   return (
     <>
-      <div className="add-question-container max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">טופס הוספת שאלה</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700">כותרת</label>
-            <input
-              type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700">תיאור</label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <div className="mb-4">
-            <div className="block text-sm font-medium text-gray-700">מקור השאלה:</div>
-            <div className="mt-2 space-y-2">
-              <div className="flex items-center space-x-4">
-                <label htmlFor="year" className="block text-sm font-medium text-gray-700">שנה</label>
-                <select
-                  name="Year"
-                  id="testYearSelect"
-                  onChange={(e) => setTestYear(e.target.value)}
-                  value={testYear}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value=""></option>
-                  <option value="2020 (תש''פ)">2020</option>
-                  <option value="2021 (תשפ''א)">2021</option>
-                  <option value="2022 (תשפ''ב)">2022</option>
-                  <option value="2023 (תשפ''ג)">2023</option>
-                  <option value="2024 (תשפ''ד)">2024</option>
-                </select>
-              </div>
-              <div className="flex items-center space-x-4">
-                <label htmlFor="season" className="block text-sm font-medium text-gray-700">מועד</label>
-                <select
-                  name="Season"
-                  id="testSeasonSelect"
-                  onChange={(e) => setTestSeason(e.target.value)}
-                  value={testSeason}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value=""></option>
-                  <option value="קיץ">קיץ</option>
-                  <option value="אביב">אביב</option>
-                </select>
-              </div>
-              <div className="flex items-center space-x-4">
-                <label htmlFor="seasonNum" className="block text-sm font-medium text-gray-700">מספר מועד</label>
-                <select
-                  name="SeasonNum"
-                  id="testSeasonNumSelect"
-                  onChange={(e) => setTestSeasonNum(e.target.value)}
-                  value={testSeasonNum}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value=""></option>
-                  <option value="א">א</option>
-                  <option value="ב">ב</option>
-                </select>
-              </div>
-              <div className="flex items-center space-x-4">
-                <label htmlFor="partOfTheTest" className="block text-sm font-medium text-gray-700">חלק</label>
-                <select
-                  name="PartOfTheTest"
-                  id="partOfTheTestSelect"
-                  onChange={(e) => setPartOfTheTest(e.target.value)}
-                  value={partOfTheTest}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value=""></option>
-                  <option value="א">א</option>
-                  <option value="ב">ב</option>
-                  <option value="ג">ג</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div className="mb-4">
-            <label htmlFor="numberOfQuestion" className="block text-sm font-medium text-gray-700">מספר שאלה</label>
-            <input
-              type="number"
-              id="numberOfQuestion"
-              value={numberOfQuestion}
-              onChange={(e) => setNumberOfQuestion(e.target.value)}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="testInput" className="block text-sm font-medium text-gray-700">קלט לבדיקה</label>
-            <textarea
-              id="testInput"
-              value={testInput}
-              onChange={(e) => setTestInput(e.target.value)}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="testOutput" className="block text-sm font-medium text-gray-700">פלט לבדיקה</label>
-            <textarea
-              id="testOutput"
-              value={testOutput}
-              onChange={(e) => setTestOutput(e.target.value)}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="solution" className="block text-sm font-medium text-gray-700">פתרון</label>
-            <textarea
-              id="solution"
-              value={solution}
-              onChange={(e) => setSolution(e.target.value)}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="solutionSource" className="block text-sm font-medium text-gray-700">מקור הפתרון</label>
-            <textarea
-              id="solutionSource"
-              value={solutionSource}
-              onChange={(e) => setSolutionSource(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="difficulty" className="block text-sm font-medium text-gray-700">רמת קושי</label>
-            <select
-              name="difficulty"
-              id="difficultySelect"
-              onChange={(e) => setDifficulty(e.target.value)}
-              value={difficulty}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              <option value="easy">קל</option>
-              <option value="medium">בינוני</option>
-              <option value="hard">קשה</option>
-            </select>
-          </div>
-          <div className="mb-4">
-            <label htmlFor="tags" className="block text-sm font-medium text-gray-700">תגים</label>
-            <div className="mt-2 space-y-2">
-              {tagOptions.map(tag => (
-                <div key={tag.id} className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id={tag.id}
-                    value={tag.id}
-                    checked={tags.includes(tag.id)}
-                    onChange={handleTagChange}
-                    className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+      <Box className="add-question-container">
+        <ModernCard>
+          <CardHeader
+            title="טופס הוספת שאלה"
+            titleTypographyProps={{ variant: 'h4', align: 'center', color: 'primary' }}
+          />
+          <CardContent>
+            <form onSubmit={handleSubmit}>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="כותרת"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                    variant="outlined"
                   />
-                  <label htmlFor={tag.id} className="ml-2 block text-sm text-gray-900">{tag.label}</label>
-                </div>
-              ))}
-            </div>
-          </div>
-          {error && <Alert severity="error">{error}</Alert>}
-          <Stack direction="row" spacing={2}>
-            <Button
-              type="submit"
-              variant="contained"
-              endIcon={<SendIcon />}
-            >
-              שלח
-            </Button>
-          </Stack>
-        </form>
-        <Snackbar open={showAlert} autoHideDuration={3000} onClose={() => setShowAlert(false)}>
-          <Alert onClose={() => setShowAlert(false)} severity="success">
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="תיאור"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    multiline
+                    required
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <FormControl fullWidth variant="outlined">
+                    <InputLabel>שנה</InputLabel>
+                    <Select
+                      value={testYear}
+                      onChange={(e) => setTestYear(e.target.value)}
+                      label="שנה"
+                      required
+                    >
+                      <MenuItem value=""><em>None</em></MenuItem>
+                      <MenuItem value="2020 (תש''פ)">2020</MenuItem>
+                      <MenuItem value="2021 (תשפ''א)">2021</MenuItem>
+                      <MenuItem value="2022 (תשפ''ב)">2022</MenuItem>
+                      <MenuItem value="2023 (תשפ''ג)">2023</MenuItem>
+                      <MenuItem value="2024 (תשפ''ד)">2024</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={6}>
+                  <FormControl fullWidth variant="outlined">
+                    <InputLabel>מועד</InputLabel>
+                    <Select
+                      value={testSeason}
+                      onChange={(e) => setTestSeason(e.target.value)}
+                      label="מועד"
+                      required
+                    >
+                      <MenuItem value=""><em>None</em></MenuItem>
+                      <MenuItem value="קיץ">קיץ</MenuItem>
+                      <MenuItem value="אביב">אביב</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    label="מספר מועד"
+                    value={testSeasonNum}
+                    onChange={(e) => setTestSeasonNum(e.target.value)}
+                    required
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    label="חלק מהמבחן"
+                    value={partOfTheTest}
+                    onChange={(e) => setPartOfTheTest(e.target.value)}
+                    required
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="מספר שאלה"
+                    type="number"
+                    value={numberOfQuestion}
+                    onChange={(e) => setNumberOfQuestion(e.target.value)}
+                    required
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="קלט לדוגמה"
+                    value={testInput}
+                    onChange={(e) => setTestInput(e.target.value)}
+                    multiline
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="פלט לדוגמה"
+                    value={testOutput}
+                    onChange={(e) => setTestOutput(e.target.value)}
+                    multiline
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="פתרון"
+                    value={solution}
+                    onChange={(e) => setSolution(e.target.value)}
+                    multiline
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="מקור הפתרון"
+                    value={solutionSource}
+                    onChange={(e) => setSolutionSource(e.target.value)}
+                    multiline
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl component="fieldset">
+                    <Typography variant="h6">רמת קושי</Typography>
+                    <Box display="flex" flexDirection="row">
+                      <FormControlLabel
+                        control={<Checkbox checked={difficulty === 'easy'} onChange={() => setDifficulty('easy')} />}
+                        label="קל"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox checked={difficulty === 'medium'} onChange={() => setDifficulty('medium')} />}
+                        label="בינוני"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox checked={difficulty === 'hard'} onChange={() => setDifficulty('hard')} />}
+                        label="קשה"
+                      />
+                    </Box>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl component="fieldset">
+                    <Typography variant="h6">תגיות</Typography>
+                    <Box display="flex" flexWrap="wrap">
+                      {tagOptions.map(tag => (
+                        <FormControlLabel
+                          key={tag.id}
+                          control={<Checkbox checked={tags.includes(tag.id)} onChange={handleTagChange} value={tag.id} />}
+                          label={tag.label}
+                        />
+                      ))}
+                    </Box>
+                  </FormControl>
+                </Grid>
+                {error && (
+                  <Grid item xs={12}>
+                    <Alert severity="error">{error}</Alert>
+                  </Grid>
+                )}
+                <Grid item xs={12}>
+                  <CustomButton
+                    fullWidth
+                    type="submit"
+                    variant="contained"
+                    startIcon={<SendIcon />}
+                  >
+                    הוסף שאלה
+                  </CustomButton>
+                </Grid>
+              </Grid>
+            </form>
+          </CardContent>
+        </ModernCard>
+        <Snackbar open={showAlert} autoHideDuration={3000}>
+          <Alert severity="success" sx={{ width: '100%' }}>
             השאלה נוספה בהצלחה!
           </Alert>
         </Snackbar>
-      </div>
+      </Box>
     </>
   );
 }
