@@ -6,6 +6,7 @@ import useLogin from "../hooks/useLogin";
 // ייבוא התמונות המקומיות
 import ai1 from "../assets/ai1.jpg";
 import ai2 from "../assets/ai2.jpg";
+import "./Courses.css"; // ייבוא קובץ ה-CSS
 
 const UserCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -24,14 +25,10 @@ const UserCourses = () => {
       const coursesResponse = await axios.get(coursesUrl, { withCredentials: true });
       const allCourses = coursesResponse.data.courses;
 
-      console.log("All Courses:", allCourses);
-
       const userCourses = [];
       for (const course of allCourses) {
         const courseUrl = `${import.meta.env.VITE_SERVER}/course/${course._id}?userId=${userId}`;
         const response = await axios.get(courseUrl, { withCredentials: true });
-
-        console.log(`Course ID: ${course._id}`, response.data.course);
 
         if (response.data.course.Enrolled) {
           userCourses.push({
@@ -106,14 +103,16 @@ const UserCourses = () => {
                           <div className="course-card" style={{ backgroundColor: colors[index % colors.length] }}>
                             <Link to={`/course/${course._id}?userId=${userId}`} className="course-link">
                               <img src={imageSrc} alt={course.name} className="course-image" />
-                              <h5 className="course-title">{course.name}</h5>
+                              <div className="course-footer">
+                                <h5 className="course-title">{course.name}</h5>
+                              </div>
                               <div className="course-overlay">
                                 <p className="course-description">
                                   {course.description || "No description available."}
                                 </p>
                                 <div>
                                   <Link to={`/course/${course._id}?userId=${userId}`} className="course-button-link">
-                                    Learn More
+                                    ראה עוד
                                   </Link>
                                 </div>
                               </div>

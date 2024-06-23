@@ -10,7 +10,7 @@
 .course-card {
   flex: 0 0 auto; /* מבטיח שהפריטים לא יתכווצו ולא יגדלו מעבר לגודלם */
   width: 243.66px;
-  height: 121.33px;
+  height: 180px; /* הגדלנו את הגובה */
   position: relative;
   margin: 10px 0; /* ריווח אנכי */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -20,20 +20,26 @@
 
 .course-image {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 50px); /* כיווץ הגובה של התמונה כדי לפנות מקום לחלק הלבן */
   object-fit: cover;
   display: block;
 }
 
-.course-title {
+.course-footer {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 2px 5px;
-  border-radius: 4px;
-  font-size: 14px;
+  bottom: 0;
+  width: 100%;
+  height: 50px; /* הגדלנו את הגובה של החלק הלבן */
+  background: rgba(255, 255, 255, 0.9); /* שכבת תחתית לבנה/בהירה */
+  padding: 10px 0;
+  text-align: center;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* הוספנו צל עדין לחלק הלבן */
+}
+
+.course-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
 }
 
 .course-overlay {
@@ -61,5 +67,3 @@
   margin: 5px 0;
   text-align: center;
 }
-
-

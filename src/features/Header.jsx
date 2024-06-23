@@ -26,7 +26,7 @@ const Header = ({ onLogout, isContentPage }) => {
               <>
                 {userInfo?.data?.user?.role === "admin" ? (
                   <>
-                    <p className="text-white" style={{ marginLeft: '0px'}}>שלום {userInfo.data.user.name} </p>
+                    <p className="text-blue-950 font-medium" style={{ marginLeft: '0px'}}>שלום, <span className="font-semibold text-white">{userInfo.data.user.name} </span> </p>
                     <Link to="/admin">
                       <Tooltip title="ניהול">
                         <ManageAccountsIcon style={{ color: '#FFD700' }} fontSize="large" />

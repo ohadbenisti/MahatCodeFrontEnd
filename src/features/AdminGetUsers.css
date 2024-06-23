@@ -1,0 +1,59 @@
+/* AdminGetUsers.css */
+.admin-users-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    direction: rtl; /* מימין לשמאל */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: right;
+}
+
+.table th, .table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.table thead th {
+    background-color: #007bff;
+    color: white;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.actions-column {
+    text-align: left; /* מיושר לשמאל */
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+}
+
+.no-users-message {
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    border-radius: 5px;
+    color: #0c5460;
+}

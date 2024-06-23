@@ -1,83 +1,89 @@
 .add-question-container {
-    /* width: 370px; */
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #e3e7eb;
-    margin-top: 15px;
-  }
-  
-  .add-question-title {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .add-question-form-group {
-    margin-bottom: 15px;
-  }
-  
-  .add-question-form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .add-question-form-group textarea,
-  .add-question-form-group input[type="text"],
-  .add-question-form-group input[type="radio"],
-  .add-question-form-group input[type="checkbox"] {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  
-  .add-question-form-group textarea {
-    min-height: 100px;
-    resize: vertical;
-  }
-  
-  .add-question-form-group.inline {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .add-question-form-group.inline label {
-    margin: 0 10px 0 5px;
-    display: inline-block;
-  }
-  
-  .add-question-error {
-    color: red;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  
-  .add-question-submit-btn {
-    width: 30%;
-    padding: 10px;
-    margin-right: 35%;
-    margin-top: 35px;
-    background-color: #17293e;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .add-question-submit-btn:hover {
-    background-color: #8b96a1;
-  }
-  
-  .radio-container {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .checkbox-container {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .inline {
-    margin-right: 10px;
-  }
-  
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa; /* Match the admin page background */
+  margin-top: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Improved shadow */
+  border-radius: 12px; /* Added border radius */
+}
+
+.add-question-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem; /* Improved font size */
+  color: #333; /* Matching color */
+}
+
+.add-question-form-group {
+  margin-bottom: 20px; /* Increased margin */
+}
+
+.add-question-form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold; /* Bold labels */
+}
+
+.add-question-form-group textarea,
+.add-question-form-group input[type="text"],
+.add-question-form-group input[type="radio"],
+.add-question-form-group input[type="checkbox"] {
+  width: 100%;
+  padding: 12px; /* Increased padding */
+  box-sizing: border-box;
+  border: 1px solid #ddd; /* Border for inputs */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.add-question-form-group textarea {
+  min-height: 100px; /* Adjusted height */
+  resize: vertical;
+}
+
+.add-question-form-group.inline {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.add-question-form-group.inline label {
+  margin: 0 10px 0 5px;
+  display: inline-block;
+}
+
+.add-question-error {
+  color: red;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.add-question-submit-btn {
+  width: 100%; /* Full width button */
+  padding: 12px; /* Increased padding */
+  background-color: #1976d2;
+  border: none;
+  border-radius: 8px; /* Increased border radius */
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.1rem; /* Larger font size */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.add-question-submit-btn:hover {
+  background-color: #1565c0; /* Hover effect */
+}
+
+.radio-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.inline {
+  margin-right: 10px;
+}

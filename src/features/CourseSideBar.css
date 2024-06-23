@@ -1,0 +1,40 @@
+/* שמור את הסגנונות האלה בקובץ ה-CSS שלך */
+
+.sidebar {
+    padding: 8px;
+    width: 300px; /* קביעת רוחב קבוע */
+  }
+  
+  .sidebar h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: gray;
+  }
+  
+  .list-group {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  
+  .list-group-item {
+    cursor: pointer;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    list-style: none;
+    border-left: 4px solid transparent; /* קו שקוף בתחילה */
+    transition: font-weight 0.3s, border-color 0.3s; /* מעבר חלק */
+  }
+  
+  .list-group-item.active {
+    font-weight: bold;
+    border-left: 4px solid orange; /* הבלטה בצד */
+    background-color: transparent; /* אפשרות: שמירת צבע הרקע */
+  }
+  
+  .list-group-item .fa-circle-check {
+    color: green;
+  }
+  

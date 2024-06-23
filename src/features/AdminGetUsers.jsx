@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AlertDialog from "./DeleteUserAlertDialog";
 import LoadingAnimation from "./LoadingAnimation";
+import "./AdminGetUsers.css";
 
 const AdminGetUsers = ({ showUsers }) => {
   const [users, setUsers] = useState([]);
@@ -16,10 +17,7 @@ const AdminGetUsers = ({ showUsers }) => {
       const response = await axios.get(url, { withCredentials: true });
       setUsers(response.data.users);
     } catch (error) {
-      console.error(
-        "Error fetching users:",
-        error.response ? error.response.data : error.message
-      );
+      console.error("Error fetching users:", error.response ? error.response.data : error.message);
       setError("Failed to fetch users");
     } finally {
       setLoading(false);
@@ -30,17 +28,17 @@ const AdminGetUsers = ({ showUsers }) => {
     fetchUsers();
   }, []);
 
-
   return (
-    <div>
+    <section className="admin-users-container">
       {loading && <LoadingAnimation />}
-      {error && <div>{error}</div>}
+      {error && <p className="error-message">{error}</p>}
       {!loading && !error && users.length > 0 && (
         <table className="table table-striped table-hover">
           <thead>
             <tr>
               <th>שם משתמש</th>
               <th>מייל</th>
+              <th className="actions-column">פעולות</th>
             </tr>
           </thead>
           <tbody>
@@ -48,7 +46,7 @@ const AdminGetUsers = ({ showUsers }) => {
               <tr key={user._id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>
+                <td className="actions-column">
                   <AlertDialog userId={user._id} renderUsers={fetchUsers} />
                 </td>
               </tr>
@@ -56,9 +54,11 @@ const AdminGetUsers = ({ showUsers }) => {
           </tbody>
         </table>
       )}
-    </div>
+      {!loading && !error && users.length === 0 && (
+        <p className="no-users-message">אין משתמשים להצגה</p>
+      )}
+    </section>
   );
-
 };
 
 export default AdminGetUsers;
