@@ -1,14 +1,19 @@
 import React from "react";
 import useLogin from "../hooks/useLogin";
-import { useNavigate } from "react-router-dom";
 
-const EnrollmentComponent = ({ isEnrolled, setIsEnrolled, courseId, className }) => {
+const EnrollmentComponent = ({
+  isEnrolled,
+  setIsEnrolled,
+  courseId,
+  className
+}) => {
   const userInfo = useLogin();
   const userId = userInfo?.data.user._id;
-  const navigate = useNavigate();
 
   const handleClick = async () => {
-    const url = `${import.meta.env.VITE_SERVER}/course/${courseId}?userId=${userId}`;
+    const url = `${
+      import.meta.env.VITE_SERVER
+    }/course/${courseId}?userId=${userId}`;
     const method = isEnrolled ? "DELETE" : "POST";
 
     try {

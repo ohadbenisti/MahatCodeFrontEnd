@@ -24,6 +24,7 @@ const AnswerSection = ({ currentQuestion, courseDetails, onRightAnswer }) => {
 
   useEffect(() => {
     setCode(currentQuestion.initialCode ? currentQuestion.initialCode : "");
+    setActiveComponent("Codebox");
   }, [currentQuestion]);
 
   const handleAnswerClick = () => {

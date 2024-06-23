@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+
+import { useEffect, useState, useRef } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import CourseSideBar from "./CourseSideBar";
 import useLogin from "../hooks/useLogin";
 import Problem from "../pages/Problem/Problem";
@@ -10,13 +11,23 @@ const CoursePage = () => {
   const [course, setCourse] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userProgress, setUserProgress] = useState(null);
   const userInfo = useLogin();
   const [searchParams] = useSearchParams();
   const userId = searchParams.get("userId");
   const [isEnrolled, setIsEnrolled] = useState(false);
-  const navigate = useNavigate();
-  const [questions, setQuestions] = useState([]);
+  const [showCourse, setShowCourse] = useState(false);
+  const [questions, setQuestions] = useState();
+  const [progressStart, setProgressStart] = useState(0);
+  const [percentageOfCompletion, setPercentageOfCompletion] = useState();
+  const progressBarRef = useRef(null);
 
+
+  const handleReset = () => {
+    if (progressBarRef.current) {
+      progressBarRef.current.updateProgress();
+    }
+  };
   const setQuestionToAnswered = (answeredId) => {
     const updatedQuestions = questions.map((question) => {
       if (question._id === answeredId) {
@@ -25,18 +36,28 @@ const CoursePage = () => {
       return question;
     });
     setQuestions(updatedQuestions);
+    const questionPercentage = Math.floor(100 / questions.length);
+    setProgressStart(percentageOfCompletion);
+    setPercentageOfCompletion(percentageOfCompletion + questionPercentage);
+    percentageOfCompletion > 95 && setPercentageOfCompletion(100);
+    if (progressBarRef.current) {
+      progressBarRef.current.updateProgress(percentageOfCompletion);
+    }
   };
 
   const fetchCourseData = () => {
     setLoading(true);
+    console.log("fetching course...");
     fetch(
       `${import.meta.env.VITE_SERVER}/course/${courseId}?userId=${userInfo.data.user._id}`
     )
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         if (data && data.course) {
           setCourse(data.course);
           if (data.course.progress) {
+            setUserProgress(data.course.progress);
             const [usersCurrentQuestion] =
               data.course.courseQuestions.questions.filter(
                 (question) =>
@@ -44,8 +65,14 @@ const CoursePage = () => {
               );
             setCurrentQuestion(usersCurrentQuestion);
             setQuestions(data.course.courseQuestions.questions);
-          } else {
-            setQuestions(data.course.courseQuestions.questions);
+
+            const calculate = Math.floor(
+              (data.course.progress.answeredQuestions.length /
+                data.course.progress.totalQuestions) *
+                100
+            );
+
+            setPercentageOfCompletion(calculate);
           }
           if (data.course.Enrolled) {
             setIsEnrolled(true);
@@ -83,13 +110,16 @@ const CoursePage = () => {
     );
   }
 
-  if (isEnrolled) {
+  if (isEnrolled && userProgress) {
     return (
       <div className="flex flex-col min-h-screen">
         {course ? (
           <div className="flex flex-grow">
             <div className="w-1/5 min-h-full bg-gray-200" style={{ width: "300px" }}>
               <CourseSideBar
+                userProgress={userProgress}
+                progressStart={progressStart}
+                percentageOfCompletion={percentageOfCompletion}
                 questions={questions}
                 courseDetails={course}
                 setCurrentQuestion={setCurrentQuestion}
@@ -128,3 +158,4 @@ const CoursePage = () => {
 };
 
 export default CoursePage;
+
