@@ -27,6 +27,7 @@ const Codebox = ({
     if (currentQuestion) {
       setTest(currentQuestion.test);
     }
+    setOutput("");
   }, [currentQuestion]);
 
   if (!currentQuestion) return <LoadingAnimation />;
@@ -51,7 +52,6 @@ const Codebox = ({
     const newCode = `${code}\n${test.injectCode ? test.injectCode : ""}`;
 
     try {
-      console.log(code);
       const response = await axios.post(
         "https://emkc.org/api/v2/piston/execute",
 
@@ -72,7 +72,6 @@ const Codebox = ({
           run_memory_limit: -1
         }
       );
-      console.log(response);
       setIsPending(false);
       const rightAnswer = response.data.run.output == test.output;
       const SyntaxError = response.data.run.stderr != "";
