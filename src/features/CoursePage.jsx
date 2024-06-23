@@ -45,6 +45,7 @@ const CoursePage = () => {
 
   useEffect(() => {
     setLoading(true);
+    console.log("fetching course...");
     fetch(
       `${import.meta.env.VITE_SERVER}/course/${courseId}?userId=${
         userInfo.data.user._id
@@ -108,7 +109,7 @@ const CoursePage = () => {
     );
   }
 
-  if (isEnrolled) {
+  if (isEnrolled && userProgress) {
     return (
       <div>
         <EnrollmentComponent
