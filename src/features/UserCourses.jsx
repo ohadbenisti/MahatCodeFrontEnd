@@ -6,6 +6,7 @@ import ProgressBar from "./ProgressBar";
 // ייבוא התמונות המקומיות
 import ai1 from "../assets/ai1.jpg";
 import ai2 from "../assets/ai2.jpg";
+import brain from "../assets/brain.jpg";
 import "./Courses.css"; // ייבוא קובץ ה-CSS
 
 const UserCourses = () => {
@@ -43,7 +44,7 @@ const UserCourses = () => {
   }, [userId]);
 
   const colors = ["#FFCDD2", "#C8E6C9", "#BBDEFB", "#FFF9C4", "#D1C4E9"];
-  const images = [ai1, ai2, ai1]; // מערך של תמונות מקומיות
+  const images = [ai1, ai2, brain]; // מערך של תמונות מקומיות
 
   return (
     <div className="container mx-auto p-4">

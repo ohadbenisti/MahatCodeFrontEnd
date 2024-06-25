@@ -6,6 +6,7 @@ import "./Courses.css";
 // ייבוא התמונות המקומיות
 import ai1 from "../assets/ai1.jpg";
 import ai2 from "../assets/ai2.jpg";
+import brain from "../assets/brain.jpg";
 
 const CoursesComponent = () => {
   const [availableCourses, setAvailableCourses] = useState([]);
@@ -22,7 +23,7 @@ const CoursesComponent = () => {
   }, []);
 
   const colors = ["#f28b82", "#fbbc04", "#ccff90", "#a7ffeb"];
-  const images = [ai1, ai2, ai1]; // מערך של תמונות מקומיות
+  const images = [ai1, ai2, brain]; // מערך של תמונות מקומיות
 
   return (
     <div className="courses-container">
