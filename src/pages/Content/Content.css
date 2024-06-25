@@ -35,14 +35,14 @@
 }
 
 .header {
-  background-color: rgba(87, 123, 141, 0.8); /* צבע רקע שקוף */
+  background-color: rgba(1 70 105 / 80%); /* צבע רקע שקוף */
   z-index: 1;
   padding: 20px;
   /* border-radius: 0 0 10px 10px; */
 }
 
 .header-container.header-transparent .header {
-  background-color: rgba(87, 123, 141, 0.8); /* צבע רקע שקוף */
+  background-color: rgba(1 70 105 / 80%); /* צבע רקע שקוף */
 }
 
 .title {
