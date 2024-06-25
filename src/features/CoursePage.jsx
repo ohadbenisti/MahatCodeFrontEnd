@@ -1,11 +1,10 @@
-
 import { useEffect, useState, useRef } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import CourseSideBar from "./CourseSideBar";
 import useLogin from "../hooks/useLogin";
 import Problem from "../pages/Problem/Problem";
 import EnrollmentComponent from "./Enrolment";
-import './CoursePage.css'
+import "./CoursePage.css";
 const CoursePage = () => {
   const { courseId } = useParams();
   const [course, setCourse] = useState(null);
@@ -21,7 +20,6 @@ const CoursePage = () => {
   const [progressStart, setProgressStart] = useState(0);
   const [percentageOfCompletion, setPercentageOfCompletion] = useState();
   const progressBarRef = useRef(null);
-
 
   const handleReset = () => {
     if (progressBarRef.current) {
@@ -49,7 +47,9 @@ const CoursePage = () => {
     setLoading(true);
     console.log("fetching course...");
     fetch(
-      `${import.meta.env.VITE_SERVER}/course/${courseId}?userId=${userInfo.data.user._id}`
+      `${import.meta.env.VITE_SERVER}/course/${courseId}?userId=${
+        userInfo.data.user._id
+      }`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -91,12 +91,12 @@ const CoursePage = () => {
 
   useEffect(() => {
     fetchCourseData();
-  }, [courseId, userId]);
+  }, [courseId, userId, isEnrolled]);
 
   if (loading) {
     return (
       <div className="flex justify-center items-center mt-24">
-        <div style={{ minHeight: "200px" }}>
+        <div style={{ minHeight: "400px" }}>
           <l-infinity
             size="150"
             stroke="4"
@@ -115,7 +115,10 @@ const CoursePage = () => {
       <div className="flex flex-col min-h-screen">
         {course ? (
           <div className="flex flex-grow">
-            <div className="w-1/5 min-h-full bg-gray-200" style={{ width: "300px" }}>
+            <div
+              className="w-1/5 min-h-full bg-gray-200"
+              style={{ width: "300px" }}
+            >
               <CourseSideBar
                 userProgress={userProgress}
                 progressStart={progressStart}
@@ -145,6 +148,40 @@ const CoursePage = () => {
       </div>
     );
   }
+  if (!isEnrolled) {
+    return (
+      <>
+        <div
+          className="flex flex-col"
+          style={{
+            minHeight: "350px",
+            marginTop: "100px",
+            fontSize: "1.75rem",
+            textAlign: "center"
+          }}
+        >
+          <div>
+            ברוכים הבאים לקורס <strong>{course.courseQuestions.name}</strong>
+          </div>
+          <div>
+            בקורס זה תלמדו ותתרגלו{" "}
+            <strong>{course.courseQuestions.description}</strong>
+            <br />
+            <br />
+            מוכנים לצלול לאתגר?
+          </div>
+          <div>💻👨‍💻</div>
+        </div>
+        <div className="flex-grow p-4 overflow-y-auto justify-center items-center">
+          <EnrollmentComponent
+            isEnrolled={isEnrolled}
+            setIsEnrolled={setIsEnrolled}
+            courseId={courseId}
+          />
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen justify-center items-center">
@@ -158,4 +195,3 @@ const CoursePage = () => {
 };
 
 export default CoursePage;
-

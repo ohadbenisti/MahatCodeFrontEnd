@@ -1,6 +1,8 @@
 /* Content.css */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+
 .content-background {
-  background-image: url('../../assets/background2.jpg');
+  background-image: url("../../assets/background2.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -43,12 +45,9 @@
   background-color: rgba(87, 123, 141, 0.8); /* צבע רקע שקוף */
 }
 
-/* Content.css */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
-
 .title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 36px; 
+  font-family: "Montserrat", sans-serif;
+  font-size: 36px;
   font-weight: 700;
   color: #333333;
   margin-top: 20px;
@@ -60,7 +59,7 @@
 }
 
 .subtitle {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 28px; /* הגדלת הגופן */
   font-weight: 500;
   color: #333333; /* צבע כהה יותר */
