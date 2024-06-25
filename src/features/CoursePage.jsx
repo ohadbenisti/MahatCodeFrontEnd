@@ -5,6 +5,8 @@ import useLogin from "../hooks/useLogin";
 import Problem from "../pages/Problem/Problem";
 import EnrollmentComponent from "./Enrolment";
 import "./CoursePage.css";
+import LoadingAnimation from "./LoadingAnimation";
+
 const CoursePage = () => {
   const { courseId } = useParams();
   const [course, setCourse] = useState(null);
@@ -95,17 +97,11 @@ const CoursePage = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center mt-24">
-        <div style={{ minHeight: "400px" }}>
-          <l-infinity
-            size="150"
-            stroke="4"
-            stroke-length="0.15"
-            bg-opacity="0.1"
-            speed="1.3"
-            color="black"
-          ></l-infinity>
-        </div>
+      <div
+        className="flex justify-center items-center mt-24"
+        style={{ minHeight: "400px" }}
+      >
+        <LoadingAnimation />
       </div>
     );
   }
